@@ -851,7 +851,7 @@ export default function Home() {
 			<section id="authoring" className="authoring">
 				<div className="section-container">
 					<h2 className="heading-section section-title-light">
-						Writing & <span className="text-accent-blue-persistent">Speaking</span>
+						Books & <span className="text-accent-blue-persistent">Guides</span>
 					</h2>
 
 					{/* Authoring Cards */}
