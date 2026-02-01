@@ -1,0 +1,23 @@
+# Technologies Used in Ricardo Zea's Portfolio (v6.0)
+
+## Technologies
+- HTML5
+- CSS3
+- TailwindCSS
+- JavaScript (ES6+)
+- Node.js
+- Next.js
+- React
+- npm/yarn
+- Git
+- Vercel
+
+## Tools
+- Figma
+- Windsurf
+- Color-Ramp.com
+- UX Pilot
+- Midjourney*
+- ChatGPT
+- Phosphor Icons
+- Google Fonts

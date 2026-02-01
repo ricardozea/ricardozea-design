@@ -1,0 +1,152 @@
+/* Color Primitives - Value */
+:root {
+  /* Dark Mode Colors */
+  /* Dark - Transparent Colors */
+  --dark-transparent-0: #ffffff00;
+  --dark-transparent-1: #ffffff03;
+  --dark-transparent-6: #ffffff0f;
+  --dark-transparent-12: #ffffff1f;
+  --dark-transparent-25: #ffffff40;
+  --dark-transparent-50: #ffffff80;
+  --dark-transparent-75: #ffffffbf;
+
+  /* Dark - Gray Colors */
+  --dark-gray-50: #0d0d0dff;
+  --dark-gray-100: #212121ff;
+  --dark-gray-200: #393939ff;
+  --dark-gray-300: #505050ff;
+  --dark-gray-400: #6a6a6aff;
+  --dark-gray-500: #838383ff;
+  --dark-gray-600: #a2a2a2ff;
+  --dark-gray-700: #c1c1c1ff;
+  --dark-gray-800: #dadadaff;
+  --dark-gray-900: #ecececff;
+  --dark-gray-950: #f9f9f9ff;
+
+  /* Dark - Red Colors */
+  --dark-red-50: #210000ff;
+  --dark-red-100: #3d0101ff;
+  --dark-red-200: #780202ff;
+  --dark-red-300: #a80303ff;
+  --dark-red-400: #d00303ff;
+  --dark-red-500: #fb0606ff;
+  --dark-red-600: #fc3333ff;
+  --dark-red-700: #fd6161ff;
+  --dark-red-800: #fd8989ff;
+  --dark-red-900: #fededeff;
+  --dark-red-950: #ffeeeeff;
+
+  /* Dark - Green Colors */
+  --dark-green-50: #0a1e07ff;
+  --dark-green-100: #13390dff;
+  --dark-green-200: #26711aff;
+  --dark-green-300: #349b24ff;
+  --dark-green-400: #40bd2cff;
+  --dark-green-500: #57d343ff;
+  --dark-green-600: #78dc68ff;
+  --dark-green-700: #99e58dff;
+  --dark-green-800: #b7ecaeff;
+  --dark-green-900: #e7f9e4ff;
+  --dark-green-950: #f9fef9ff;
+
+  /* Dark - Yellow Colors */
+  --dark-yellow-50: #231600ff;
+  --dark-yellow-100: #3b2601ff;
+  --dark-yellow-200: #6e4802ff;
+  --dark-yellow-300: #9f6702ff;
+  --dark-yellow-400: #d58a03ff;
+  --dark-yellow-500: #fcad1eff;
+  --dark-yellow-600: #fdc661ff;
+  --dark-yellow-700: #fedc9fff;
+  --dark-yellow-800: #fef0d5ff;
+  --dark-yellow-900: #fef3deff;
+  --dark-yellow-950: #fff9eeff;
+
+  /* Dark - Blue Colors */
+  --dark-blue-50: #011120ff;
+  --dark-blue-100: #011d38ff;
+  --dark-blue-200: #033666ff;
+  --dark-blue-300: #044d93ff;
+  --dark-blue-400: #0567c5ff;
+  --dark-blue-500: #0e86f9ff;
+  --dark-blue-600: #49a4faff;
+  --dark-blue-700: #85c2fcff;
+  --dark-blue-800: #b7dbfdff;
+  --dark-blue-900: #dfeffeff;
+  --dark-blue-950: #e5f8ffff;
+
+  /* Light Mode Colors */
+  /* Light - Transparent Colors */
+  --light-transparent-0: #00000000;
+  --light-transparent-1: #00000003;
+  --light-transparent-6: #0000000f;
+  --light-transparent-12: #0000001f;
+  --light-transparent-25: #00000040;
+  --light-transparent-50: #00000080;
+  --light-transparent-75: #000000bf;
+
+  /* Light - Gray Colors */
+  --light-gray-50: #f7f7f7ff;
+  --light-gray-100: #ebebebff;
+  --light-gray-200: #d9d9d9ff;
+  --light-gray-300: #bfbfbfff;
+  --light-gray-400: #a6a6a6ff;
+  --light-gray-500: #8c8c8cff;
+  --light-gray-600: #737373ff;
+  --light-gray-700: #656565ff;
+  --light-gray-800: #404040ff;
+  --light-gray-900: #262626ff;
+  --light-gray-950: #0a0a0aff;
+
+  /* Light - Red Colors */
+  --light-red-50: #fff0f0ff;
+  --light-red-100: #ffd6d6ff;
+  --light-red-200: #ffb3b3ff;
+  --light-red-300: #ff8080ff;
+  --light-red-400: #ff4d4dff;
+  --light-red-500: #ff1a1aff;
+  --light-red-600: #e60000ff;
+  --light-red-700: #b30000ff;
+  --light-red-800: #760000ff;
+  --light-red-900: #390000ff;
+  --light-red-950: #1a0100ff;
+
+  /* Light - Green Colors */
+  --light-green-50: #f4fcf2ff;
+  --light-green-100: #e1f8ddff;
+  --light-green-200: #c7f2c0ff;
+  --light-green-300: #a1e996ff;
+  --light-green-400: #7ce06bff;
+  --light-green-500: #56d741ff;
+  --light-green-600: #3dbe28ff;
+  --light-green-700: #34a322ff;
+  --light-green-800: #247017ff;
+  --light-green-900: #143e0dff;
+  --light-green-950: #0b2307ff;
+
+  /* Light - Yellow Colors */
+  --light-yellow-50: #fffaf0ff;
+  --light-yellow-100: #fff1d6ff;
+  --light-yellow-200: #ffe4b3ff;
+  --light-yellow-300: #ffd280ff;
+  --light-yellow-400: #ffc864ff;
+  --light-yellow-500: #ffae1aff;
+  --light-yellow-600: #e69400ff;
+  --light-yellow-700: #b37300ff;
+  --light-yellow-800: #805200ff;
+  --light-yellow-900: #4d3100ff;
+  --light-yellow-950: #291c00ff;
+
+  /* Light - Blue Colors */
+  --light-blue-50: #f0f8ffff;
+  --light-blue-100: #d6ebffff;
+  --light-blue-200: #b3daffff;
+  --light-blue-300: #80c2ffff;
+  --light-blue-400: #4da9ffff;
+  --light-blue-500: #1a90ffff;
+  --light-blue-600: #0077e6ff;
+  --light-blue-700: #005cb3ff;
+  --light-blue-800: #004280ff;
+  --light-blue-900: #001d38ff;
+  --light-blue-950: #000f1fff;
+}

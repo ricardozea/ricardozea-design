@@ -1,0 +1,33 @@
+Case study page structure
+
+- Title: Friendly phrase
+- Description: Short paragraph mentioning what I did.
+- Metadata:
+    - Timeline (Year + Duration)
+    - Team
+    - Role
+    - Tools
+    - Languages
+    - Typefaces
+- Impact
+- Content:
+    - Title: Where it all started
+    - Objective section
+    - Solution section
+    - Visuals section:
+        - Images
+        - Short descriptions
+    - Conclusion section
+
+
+Clients:
+1. Pearlmax
+2. NodeSource
+3. Nestle - Purina
+4. Check n Go
+5. LexisNexis
+6. The Gym of West Milton
+7. Logos
+
+Windsurf key
+sk-ws-01-S-kmcp1yL-hGnRwwBpygjJ6jq093XVTjZRWtlFqNno4xaRPUSD4zUlT9b3wSNl2Qc4TnwIk5l4p0eNikyTVx4oGP5ayYgw
