@@ -203,7 +203,7 @@ export default function Navigation() {
             >
               Contact
             </a>
-            <ThemeToggle />
+            <ThemeToggle onToggle={() => setIsMenuOpen(false)} />
           </div>
         </div>
       </nav>

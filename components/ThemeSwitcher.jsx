@@ -57,12 +57,15 @@ export function ThemeStylesheet() {
 }
 
 // Component for theme toggle button - to be used in body
-export function ThemeToggle() {
+export function ThemeToggle({ onToggle }) {
   const { theme, toggleTheme, mounted } = useContext(ThemeContext);
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={() => {
+        toggleTheme();
+        if (onToggle) onToggle();
+      }}
       className="theme-switcher"
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
