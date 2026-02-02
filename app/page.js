@@ -838,7 +838,7 @@ export default function Home() {
 										<div className="stage-version">Stage 3 // Web</div>
 									</div>
 									<div className="stage-card-body">
-										<p>From the printing company, I went to software development company called "Nestsac" as a "web" designer. On top of taking my first steps with HTML and CSS, I got really good at Flash and even became a teacher.</p>
+										<p>From the printing company, I went to software development company called "Netsac" as a "web" designer. On top of taking my first steps with HTML and CSS, I got really good at Flash and even became a teacher.</p>
 										<p>And that's how my Web Design career got going.</p>
 									</div>
 								</div>
