@@ -8,8 +8,8 @@ export default function HeroLogo() {
   const { theme, mounted } = useContext(ThemeContext);
 
   const logoSrc = (mounted && theme === 'light')
-    ? "/images/logo-ricardo-zea-base2.svg"
-    : "/images/logo-ricardo-zea-base2.svg";
+    ? "/images/logo-ricardo-zea-base.svg"
+    : "/images/logo-ricardo-zea-base.svg";
 
   return (
     <Image

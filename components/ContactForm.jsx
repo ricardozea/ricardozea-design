@@ -161,13 +161,13 @@ export default function ContactForm() {
               className="w-full rounded-md p-4"
               required
             ></textarea>
-            <div className="info-secure-container flex items-center gap-1 mt-2">
+            <div className="info-secure-container flex items-start gap-1 my-2">
               <Info size={24} weight="light" />
-              <small className="block leading-5">Your information is secure. I don't store any personal data other than the message I receive from filling out this form.</small>
+              <p className="!m-0">Your information is secure. I don't store any personal data other than the message I receive from filling out this form.</p>
             </div>
           </div>
 
-          <div className="form-submit mt-4">
+          <div className="form-submit">
             <button
               type="submit"
               className="cta-button button-primary flex items-center justify-center gap-2 w-full"

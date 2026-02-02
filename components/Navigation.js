@@ -74,6 +74,17 @@ export default function Navigation() {
     }
   };
 
+  const handleHomeClick = (e) => {
+    if (!isHomePage) return;
+    e.preventDefault();
+    scrollYRef.current = 0;
+    setIsMenuOpen(false);
+    window.history.pushState(null, '', '/');
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
+  };
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -125,14 +136,7 @@ export default function Navigation() {
           <div className="nav-links-container">
             <a
               href="/"
-              onClick={(e) => {
-                if (isHomePage) {
-                  e.preventDefault();
-                  setIsMenuOpen(false);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  window.history.pushState(null, '', '/');
-                }
-              }}
+              onClick={handleHomeClick}
             >
               Home
             </a>

@@ -15,6 +15,7 @@ import AboutImageTransition from "../components/AboutImageTransition";
 import Modal from "../components/Modal";
 
 import {
+	ArrowLineDown,
 	ArrowRight,
 	Tag,
 	PenNibIcon,
@@ -57,7 +58,7 @@ export default function Home() {
 						{/* Hero Description */}
 						<p className="text-description hero-description">
 							<span className="strikethrough">Crafting digital experiences</span>
-							… Well, I've been doing this for shit-load of time <span className="text-nowrap">¯\(ツ)/¯</span>
+							… Well, I've been doing this for 💩-load of time <span className="text-nowrap">¯\(ツ)/¯</span>
 						</p>
 					</div>
 
@@ -65,7 +66,7 @@ export default function Home() {
 					<div className="hero-cta">
 						<a href="#projects" className="cta-button button-primary">
 							View My Work
-							<ArrowRight size={24} weight="bold" />
+							<ArrowLineDown size={24} />
 						</a>
 					</div>
 				</div>
@@ -75,7 +76,7 @@ export default function Home() {
 			<section id="projects" className="projects">
 				<div className="section-container">
 					<h2 className="heading-section section-title-dark">
-						What <span className="text-brand-secondary">You</span> <span className="text-brand-primary">Came Here</span> For
+						What <span className="text-brand-secondary">You</span> <span className="text-brand-primary text-nowrap">Came Here</span> For
 					</h2>
 					<div className="max-w-[40rem] mx-auto">
 						<p className="text-description">Ok, I'll <abbr title="Keep It Simple, Stupid">K.I.S.S.</abbr> 😁</p>
@@ -233,7 +234,7 @@ export default function Home() {
 			{/* Skills Section */}
 			<section id="skills" className="skills">
 				<div className="section-container">
-					<small className="flex justify-center mb-3">In the words of the almighty Scott Adams:</small>
+					<p className="flex justify-center m-0">In the words of the almighty Scott Adams:</p>
 					<h2 className="heading-section section-title-light">
 						<img src="/images/img-character-dilbert.svg" alt="Dilbert" title="Dilbert by Scott Adams" className="character"/>
 						<span className="text-accent-blue-persistent">Talent</span> <span className="text-accent-red-persistent">Stack</span>
@@ -430,7 +431,7 @@ export default function Home() {
 					<small className="flex justify-center mb-3">"Greetings! Ah-ah-ah!" lol</small>
 					<h2 className="heading-section section-title-dark">
 						<img src="/images/img-character-count.svg" alt="Count von Count" title="Count von Count" className="character"/>
-						The <span className="text-brand-primary">Numbers</span> (some of them)
+						Let's <span className="text-brand-primary">Count!</span>
 					</h2>
 
 					{/* Data Cards */}
@@ -816,7 +817,8 @@ export default function Home() {
 										<div className="stage-version">Stage 1 // Origins</div>
 									</div>
 									<div className="stage-card-body">
-										<p>Started my career in a small ad agency in Colombia called "Firma Publicitaria" doing print design. It was a great technical and business learning experience, but I quickly realized that designing for print friggin' sucked, lol.</p>
+										<p>Started my career in a small ad agency in Colombia called "Firma Publicitaria" doing print design.</p>
+										<p>It was a great technical and business learning experience, but I quickly realized that designing for print friggin' sucked, lol.</p>
 									</div>
 								</div>
 								<div className="stage-container stage-card stage-card-blue">
@@ -824,10 +826,13 @@ export default function Home() {
 										<div className="stage-version">Stage 2 // Print</div>
 									</div>
 									<div className="stage-card-body">
-										<p>From the ad agency, I went to a printing company called "Multigráficas". It was also a great technical learning experience. The printing techs showed me how the machines worked, let me add the inks to the rollers, cut the papers with that giant-💩 guillotine. However, I confirmed that designing from print really, truly sucked, haha.</p>
+										<p>From the ad agency, I went to a printing company called "Multigráficas". It was also a great technical learning experience.</p>
+										<p>The printing techs showed me how the machines worked, let me add the inks to the rollers, cut the papers with that giant-💩 guillotine.</p>
+										<p>However, I quickly confirmed that designing for print really, truly sucked, haha.</p>
 									</div>
 								</div>
-								<p>Regardless of how much desiging for print sucked, I was actually very good at it. I became an expert in file extensions, image resolution, CMYK techniques, drum scanners, print production, special inks, types of paper and finishes, print formats of all sizes (from flyers to billboards), etc.</p>
+								<p>Regardless of how much desiging for print sucked, I was actually very good at it.</p>
+								<p>I became an expert in file extensions, image resolution, CMYK techniques, drum scanners, print production, special inks, types of paper and finishes, print formats of all sizes (from flyers to billboards), etc.</p>
 								<div className="stage-container stage-card stage-card-green">
 									<div className="stage-card-header">
 										<div className="stage-version">Stage 3 // Web</div>
@@ -837,7 +842,8 @@ export default function Home() {
 										<p>And that's how my Web Design career got going.</p>
 									</div>
 								</div>
-								<p>As a technical designer, I became very good at understanding the conditions, limitations, and powers of the web. I got really good at HTML and CSS, including Sass. Some people think I'm a developer, but I'm not.</p>
+								<p>One major difference between myself and other designers, was that I was very technically knowledgeable.</p>
+								<p>So I became very good at understanding the conditions, limitations, and powers of the web. I got really good at HTML and CSS, including Sass. Some people think I'm a developer, but I'm not.</p>
 								<p>But I do know how to work closely with developers to ensure that high-quality products are built efficiently.</p>
 								<p>Also, accessibility is a subject I care about. So I built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS.</p>
 								<p>I also co-created <ExternalLink href="https://aspiremap.ai">AspireMap.ai</ExternalLink>, a B2C platform that helps students and career-changers find career paths aligned with their values, personality, aptitudes, and skills.</p>
@@ -881,7 +887,7 @@ export default function Home() {
 
 								{/* Description */}
 								<p>
-									In 2014 I got contacted by Packt Publishing to write a book for them. I said No, lol. In 2015 they contacted me again, and I was like <span className="personal-comment">"Damn, these guys are persisent! Hmmm, this is something I've never done before. Agh! F-it! Let's do it!".</span> haha😂.
+									In 2014 I got contacted by Packt Publishing to write a book for them. I said No, lol. In 2015 they contacted me again, and I was like <span className="personal-comment">"Damn, these guys are persisent! Hmmm, this is something I've never done before. Alright! F it! Let's do it!".</span> haha😂.
 								</p>
 								<p>Would I do it again? Nope! </p>
 
@@ -925,7 +931,7 @@ export default function Home() {
 									</div>
 								</div>
 								{/* CTA Link */}
-								<ExternalLink href="https://www.packtpub.com/en-us/product/mastering-responsive-web-design-9781783550234" className="text-body-small" title='Link opens in a new tab'>
+								<ExternalLink href="https://www.packtpub.com/en-us/product/mastering-responsive-web-design-9781783550234"  title='Link opens in a new tab'>
 									View Book
 								</ExternalLink>
 							</div>
@@ -979,7 +985,7 @@ export default function Home() {
 									</div>
 								</div>
 								{/* CTA Link */}
-								<ExternalLink href="https://www.packtpub.com/en-us/product/web-developers-reference-guide-9781783552146" className="text-body-small" title='Link opens in a new tab'>
+								<ExternalLink href="https://www.packtpub.com/en-us/product/web-developers-reference-guide-9781783552146" title='Link opens in a new tab'>
 									View Book
 								</ExternalLink>
 							</div>
@@ -1054,7 +1060,7 @@ export default function Home() {
 									</div>
 								</div>
 								{/* CTA Link */}
-								<ExternalLink href="https://www.smashingmagazine.com/2016/05/an-ultimate-guide-to-css-pseudo-classes-and-pseudo-elements/" className="text-body-small" title='Link opens in a new tab'>
+								<ExternalLink href="https://www.smashingmagazine.com/2016/05/an-ultimate-guide-to-css-pseudo-classes-and-pseudo-elements/" title='Link opens in a new tab'>
 									View Article
 								</ExternalLink>
 							</div>

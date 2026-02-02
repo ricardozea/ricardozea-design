@@ -151,7 +151,7 @@ a.new-tab::after {
 
 	&.small {
 		padding: var(--space-xs) var(--space-s);
-		font-size: var(--body-xs) !important;
+		font-size: var(--body-m) !important;
 		width: 100%;
 
 		@media (min-width: 768px) {
@@ -323,13 +323,13 @@ h2 {
 }
 
 h3 {
-	font-size: var(--heading-s);
+	font-size: var(--heading-l);
 	line-height: 1.2;
 	margin: 0;
 }
 
 h4 {
-	font-size: var(--body-l);
+	font-size: var(--heading-s);
 }
 
 p {
@@ -364,6 +364,7 @@ ol {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: .5rem;
 	font-size: var(--title-l);
 	line-height: 1.1;
@@ -385,7 +386,7 @@ ol {
 }
 
 .text-description {
-	font-size: var(--body-xl);
+	font-size: var(--heading-s);
 	line-height: 1.5;
 	font-weight: 100;
 }
@@ -986,7 +987,7 @@ html.light .skills .section-container {
 	padding: var(--space-xxs) var(--space-s);
 	background-color: var(--bg-transparent-12);
 	color: var(--text-bold);
-	font-size: var(--body-xs);
+	font-size: var(--body-s);
 	font-weight: 300;
 	border-radius: var(--corner-round);
 	border: 1px solid var(--border-transparent-12);
@@ -1040,7 +1041,7 @@ html.light .skills .section-container {
 	/* Skill Card Description */
 	p {
 		font-weight: 300;
-		font-size: var(--body-s);
+		font-size: var(--body-m);
 	}
 
 	p + p {
@@ -1081,11 +1082,11 @@ html.light .skills .section-container {
 	margin: auto 0 0 1rem;
 	padding: 0;
 	color: var(--text-accent-yellow);
-	font-size: var(--body-xs);
+	font-size: var(--body-m);
 
 	code {
 		padding: 0 2px;
-		font-size: var(--body-xs);
+		font-size: var(--body-m);
 		font-weight: 100;
 		background: none;
 	}
@@ -1198,13 +1199,12 @@ h2 .character {
 	font-family: var(--font-roboto-flex), sans-serif;
 
 	h3 {
-		font-size: var(--body-m);
 		font-weight: 500;
 	}
 
 	p {
 		margin-top: var(--space-xxs);
-		font: 100 var(--body-s) / 1.3 var(--font-roboto-flex), sans-serif;
+		font: 100 var(--body-m) / 1.3 var(--font-roboto-flex), sans-serif;
 		letter-spacing: .5px;
 	}
 }
@@ -1236,28 +1236,13 @@ h2 .character {
 	margin-top: auto;
 	padding-top: 1.25rem;
 	text-decoration: underline;
-	font-size: var(--body-s);
+	font-size: var(--body-m);
 	font-weight: 400;
 	transition: color 0.3s ease;
 
 	&:hover {
 		color: var(--text-accent-blue-persistent);
 		text-decoration: none;
-	}
-}
-
-.testimonial-cta-button {
-	background-color: var(--bg-persistent-primary-brand);
-	color: var(--text-bold);
-	border: none;
-	border-radius: var(--corner-s);
-	padding: 0.5rem 1rem;
-	font-size: var(--body-s);
-	cursor: pointer;
-	transition: background-color 0.2s ease;
-
-	&:hover {
-		background-color: var(--bg-persistent-primary-brand-hover);
 	}
 }
 
@@ -1334,7 +1319,7 @@ h2 .character {
 
 	p {
 		margin: 0;
-		font-size: var(--body-s);
+		font-size: var(--body-m);
 		line-height: 1.4;
 		color: var(--text-subtle);
 	}
@@ -1534,7 +1519,7 @@ html.light .stage-card-header {
 
 	h3 {
 		color: var(--text-persistent-light);
-		font-size: var(--body-xl);
+		font-size: var(--heading-l);
 		line-height: 1.2;
 		font-weight: 100;
 	}
@@ -1546,7 +1531,7 @@ html.light .stage-card-header {
 	}
 
 	blockquote {
-		font-size: var(--body-s);
+		font-size: var(--body-m);
 		color: var(--text-accent-yellow-persistent);
 	}
 }
@@ -1566,7 +1551,6 @@ html.light .stage-card-header {
 }
 
 .personal-comment {
-	font-style: italic;
 	color: var(--text-accent-blue-subtle);
 }
 
@@ -1609,7 +1593,7 @@ html.light .stage-card-header {
 
 	/* Small headings  */
 	h2 {
-		font-size: var(--body-xs);
+		font-size: var(--body-m);
 		font-weight: 200;
 		text-transform: uppercase;
 		letter-spacing: 1px;
@@ -1637,12 +1621,6 @@ html.light .stage-card-header {
 
 	svg {
 		margin-top: 2px;
-		display: none;
-		/* Mobile first: hidden */
-
-		@media (min-width: 768px) {
-			display: block;
-		}
 	}
 
 	.meta-label {
@@ -1760,7 +1738,7 @@ html.light .stage-card-header {
 		gap: 0.25rem;
 		margin: 0.5rem 0 !important;
 		color: var(--text-brand-secondary);
-		font-size: var(--body-xs);
+		font-size: var(--body-m);
 		text-align: center;
 	}
 }
@@ -1969,7 +1947,7 @@ body {
 	}
 
 	.tech-stack-container {
-		font-size: var(--body-xs);
+		font-size: var(--body-m);
 		line-height: 1.4;
 		display: flex;
 		flex-direction: column;
@@ -2160,7 +2138,7 @@ body {
 .disclaimer {
 	margin-top: 2rem;
 	color: var(--text-persistent-light);
-	font-size: var(--body-xs);
+	font-size: var(--body-m);
 	font-weight: 100;
 	text-align: center;
 	opacity: 0.7;
@@ -2257,7 +2235,7 @@ body {
 	padding: var(--tooltip-padding);
 	position: absolute;
 	z-index: 50;
-	font-size: var(--body-xs);
+	font-size: var(--body-m);
 	color: var(--text-persistent-light);
 	font-weight: 400;
 	background-color: var(--tooltip-bg);
