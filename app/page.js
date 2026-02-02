@@ -98,13 +98,10 @@ export default function Home() {
 								<Tooltip>
 									<span>This cheering banana is annoying me. <br />Turn the damn thing off!</span>
 									<span className="inline-block ml-1 -mt-2 w-6 h-6 relative">
-										<Image
+										<img
 											src="/images/banana-cheerer.gif"
 											alt="Cheering banana"
-											fill
-											sizes="24px"
-											style={{ objectFit: "contain" }}
-											unoptimized
+											className="w-full h-full object-contain"
 										/>
 									</span>
 								</Tooltip>
@@ -129,7 +126,7 @@ export default function Home() {
 							<li>HTML & CSS (Frontend)</li>
 							<li>CodePen (HTML + CSS) demos</li>
 							<li>Before & After Designs</li>
-							<li>Unapologetic content 🤣</li>
+							<li>Unapologetic tone 😉</li>
 						</ol>
 						<p>I know there is still a lot to learn, but there is also a lot to share. That's what this portfolio is for.</p>
 						<p>Well, have at it! <span className="inline-flex transform-[rotateY(180deg)]">🏃🏽‍♂️💨</span></p>
@@ -838,7 +835,7 @@ export default function Home() {
 										<div className="stage-version">Stage 3 // Web</div>
 									</div>
 									<div className="stage-card-body">
-										<p>From the printing company, I went to software development company called "Netsac" as a "web" designer. On top of taking my first steps with HTML and CSS, I got really good at Flash and even became a teacher.</p>
+										<p>From the printing company, I went to software development company called "Nestsac" as a web designer. On top of taking my first steps with HTML and CSS, I got really good at Flash and even became a teacher.</p>
 										<p>And that's how my Web Design career got going.</p>
 									</div>
 								</div>

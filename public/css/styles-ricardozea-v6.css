@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Ricardo Zea Portfolio v6 - Global Styles */
 
 :root {
@@ -419,8 +420,13 @@ p.text-description:first-of-type {
 		right: 0;
 		bottom: 0;
 		background: rgba(0,0,0,.8);
-		background-attachment: fixed;
 		z-index: 1;
+	}
+}
+
+@media (min-width: 768px) {
+	.hero {
+		background-attachment: fixed;
 	}
 }
 
@@ -900,6 +906,7 @@ html.light .skills .section-container {
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 	display: flex;
 	flex-direction: column;
+	border: 1px solid var(--border-transparent-12);
 }
 
 .project-card:hover {
@@ -910,8 +917,8 @@ html.light .skills .section-container {
 
 .project-card-header {
 	padding: 0.889rem;
-	background-color: var(--bg-secondary-brand);
 	height: 80px;
+	background-color: var(--bg-persistent-dark);
 }
 
 /* Specific logo adjustments for visual balance */
@@ -947,13 +954,13 @@ html.light .skills .section-container {
 
 .project-card-footer {
 	padding: 0.889rem;
-	background-color: var(--bg-secondary-brand);
 	border-top: none;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
 	gap: .5rem;
+	background-color: var(--bg-persistent-dark);
 }
 
 .project-card-content {
@@ -966,7 +973,7 @@ html.light .skills .section-container {
 .project-card-label-icon {
 	width: 1rem;
 	height: 1rem;
-	color: var(--text-bold);
+	color: var(--icon-persistent-light);
 	flex-shrink: 0;
 	margin-top: 0.35rem;
 	/* Visual alignment with tags */
@@ -979,19 +986,20 @@ html.light .skills .section-container {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+
+	li {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--space-xxs) var(--space-s);
+		font-size: var(--body-s);
+		font-weight: 300;
+		border-radius: var(--corner-round);
+		color: var(--text-accent-blue-persistent);
+		border: 1px solid var(--border-accent-blue-persistent);
+	}
 }
 
-.project-card-tags-list li {
-	display: inline-flex;
-	align-items: center;
-	padding: var(--space-xxs) var(--space-s);
-	background-color: var(--bg-transparent-12);
-	color: var(--text-bold);
-	font-size: var(--body-s);
-	font-weight: 300;
-	border-radius: var(--corner-round);
-	border: 1px solid var(--border-transparent-12);
-}
+
 
 /* ============================================
    Skills Section

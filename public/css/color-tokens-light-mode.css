@@ -103,9 +103,9 @@
     --text-accent-blue-subtle: var(--light-blue-700);
     --text-accent-blue-subtle-hover: var(--light-blue-800);
     --text-accent-blue-subtle-active: var(--light-blue-900);
-    --text-accent-blue-persistent: var(--dark-blue-700);
-    --text-accent-blue-hover-persistent: var(--dark-blue-800);
-    --text-accent-blue-active-persistent: var(--dark-blue-900);
+    --text-accent-blue-persistent: var(--dark-blue-500);
+    --text-accent-blue-hover-persistent: var(--dark-blue-600);
+    --text-accent-blue-active-persistent: var(--dark-blue-700);
     --text-accent-red-persistent: var(--dark-red-600);
     --text-accent-red-hover-persistent: var(--dark-red-700);
     --text-accent-red-active-persistent: var(--dark-red-800);
@@ -205,9 +205,9 @@
 
     /* Border Variables */
     --border-accent-blue: var(--light-blue-500);
-    --border-accent-blue-persistent: var(--dark-blue-400);
-    --border-accent-blue-persistent-hover: var(--dark-blue-500);
-    --border-accent-blue-persistent-active: var(--dark-blue-600);
+    --border-accent-blue-persistent: var(--dark-blue-500);
+    --border-accent-blue-persistent-hover: var(--dark-blue-600);
+    --border-accent-blue-persistent-active: var(--dark-blue-700);
     --border-accent-blue-subtle: var(--light-blue-700);
     --border-accent-blue-subtle-hover: var(--light-blue-800);
     --border-accent-blue-subtle-active: var(--light-blue-900);
