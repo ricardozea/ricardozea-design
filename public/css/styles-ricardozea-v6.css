@@ -470,33 +470,30 @@ p.text-description:first-of-type {
 	align-items: center;
 	justify-content: center;
 	border: none;
-	box-shadow: none;
+	box-shadow: var(--drop-shadow-md);
 	background: rgba(0, 29, 56, 0.85);
 	backdrop-filter: blur(5px);
 
 	html.light & {
-		background: rgba(255, 255, 255, 0.85);
+		background: rgba(255, 255, 255, 0.8);
 	}
 
 	@media (min-width: 768px) {
 		padding: 0.5rem 1.5rem;
 		border-bottom: 1px solid var(--border-transparent-12);
 		background: rgba(0, 29, 56, 0.85);
-		box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	}
 
 	&.home {
-		@media (min-width: 768px) {
-			height: 60px;
-		}
-
 		.nav-inner-container {
-			justify-content: flex-end;
-			/* Mobile: Align hamburger to right when logo is hidden */
+
+			@media (max-width: 767px) {
+				justify-content: space-between;
+			}
 
 			@media (min-width: 768px) {
-				justify-content: center;
-				/* Desktop: Center links when logo is hidden */
+				justify-content: space-between;
+
 			}
 		}
 	}
@@ -550,6 +547,38 @@ p.text-description:first-of-type {
 		transition: transform 0.3s ease;
 	}
 
+	@media (min-width: 768px) {
+
+		&.home:not(.show-home-logo) .nav-logo {
+			transform: translateY(-150%);
+			opacity: 0;
+			pointer-events: none;
+			transition: transform 0.25s ease, opacity 0.25s ease;
+		}
+
+		&.home.show-home-logo .nav-logo {
+			transform: translateY(0);
+			opacity: 1;
+			pointer-events: auto;
+			transition: transform 0.25s ease, opacity 0.25s ease;
+		}
+	}
+
+	@media (max-width: 767px) {
+		&.home .nav-logo {
+			transform: translateY(-150%);
+			opacity: 0;
+			pointer-events: none;
+			transition: 0.25s ease;
+		}
+
+		&.home.show-home-logo .nav-logo {
+			transform: translateY(0);
+			opacity: 1;
+			pointer-events: auto;
+		}
+	}
+
 	&.menu-open .nav-logo {
 		top: auto;
 		position: relative;
@@ -557,6 +586,20 @@ p.text-description:first-of-type {
 		height: clamp(50px, 25.71px + 7.59vw, 84px);
 		transform: none;
 		transition: transform 0.3s ease;
+	}
+
+	@media (max-width: 767px) {
+		&.home:not(.show-home-logo).menu-open .nav-logo {
+			transform: translateY(-150%);
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		&.home.show-home-logo.menu-open .nav-logo {
+			transform: translateY(0);
+			opacity: 1;
+			pointer-events: auto;
+		}
 	}
 
 	.nav-logo:hover {
@@ -579,13 +622,14 @@ p.text-description:first-of-type {
 		justify-content: center;
 		width: 44px;
 		height: 44px;
+		padding: 0.8rem;
+		margin: auto 0;
 		background: transparent;
 		border: none;
 		outline: 1px solid transparent;
 		cursor: pointer;
-		padding: 0.8rem;
 		gap: 6px;
-		background: var(--bg-transparent-50);
+		background: var(--bg-transparent-25);
 		border-radius: 0.2rem;
 		transition: 0.3s ease;
 		z-index: 70;
@@ -612,7 +656,7 @@ p.text-description:first-of-type {
 			transition: all 0.3s ease;
 
 			html.light & {
-				background-color: var(--bg-gray-subtle);
+				background-color: var(--bg-persistent-secondary-brand);
 			}
 		}
 	}
@@ -632,6 +676,7 @@ p.text-description:first-of-type {
 	}
 
 	&.menu-open .hamburger-btn span:nth-child(1) {
+		background-color: var(--bg-secondary-brand);
 		transform: translateY(8px) rotate(45deg);
 	}
 
@@ -640,6 +685,7 @@ p.text-description:first-of-type {
 	}
 
 	&.menu-open .hamburger-btn span:nth-child(3) {
+		background-color: var(--bg-secondary-brand);
 		transform: translateY(-8px) rotate(-45deg);
 	}
 
@@ -998,8 +1044,6 @@ html.light .skills .section-container {
 		border: 1px solid var(--border-accent-blue-persistent);
 	}
 }
-
-
 
 /* ============================================
    Skills Section

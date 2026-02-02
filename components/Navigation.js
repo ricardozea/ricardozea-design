@@ -9,6 +9,7 @@ export default function Navigation() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showHomeLogo, setShowHomeLogo] = useState(false);
   const { theme, mounted } = useContext(ThemeContext);
 
   const logoSrc = (mounted && theme === 'light')
@@ -43,6 +44,28 @@ export default function Navigation() {
       document.body.style.width = '';
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isHomePage) {
+      setShowHomeLogo(true);
+      return;
+    }
+
+    const hero = document.getElementById('home') || document.querySelector('.hero');
+    if (!hero) {
+      setShowHomeLogo(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const threshold = hero.offsetHeight;
+      setShowHomeLogo(window.scrollY > threshold);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHomePage]);
 
   const handleNavClick = (targetId) => {
     setIsMenuOpen(false);
@@ -101,13 +124,14 @@ export default function Navigation() {
       </a>
       <nav
         className={`main-nav-container ${isHomePage ? "home" : ""} ${
-          isMenuOpen ? "menu-open" : ""
-        }`}
+          isHomePage && showHomeLogo ? "show-home-logo" : ""
+        } ${isMenuOpen ? "menu-open" : ""}`}
       >
         <div className="nav-inner-container">
           <a
             href="/"
-            className={`nav-logo ${isHomePage ? "home-hidden" : ""}`}
+            className="nav-logo"
+            onClick={handleHomeClick}
           >
             <div className="relative w-full h-full">
               <Image
