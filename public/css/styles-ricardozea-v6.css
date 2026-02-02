@@ -43,9 +43,9 @@
 /* Base Typography */
 html {
 	/* Responsive base font size using clamp(min, preferred, max) */
-	/* This creates a fluid typography that scales between 12px and 18px */
-	font-size: clamp(0.75rem, 0.5rem + 1vw, 1.125rem);
-	/* 12px to 18px */
+	/* This creates a fluid typography that scales between 16px and 18px */
+	font-size: clamp(1rem, 0.5rem + 1vw, 1.125rem);
+	/* 16px to 18px */
 	overflow-x: hidden;
 }
 
