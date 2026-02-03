@@ -320,7 +320,8 @@ export default function Home() {
 							</div>
 							<p>I've been using Figma since it was launched back in September 2016. Figma was a game-changer due to its OS-agnostic nature.</p>
 							<p>This was a blessing for me since I no longer had to deal with Mac-lovers and their dumbfounded belief that Macs were better than PCs, haha 🤣.</p>
-							<p>They ARE NOT, you dink 😂.</p>
+							<p>They ARE NOT, you dink.</p>
+							<p>In fact, Windows &gt; macOS 😂.</p>
 						</div>
 
 						{/* Skill Card 3 */}
