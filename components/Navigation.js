@@ -12,6 +12,10 @@ export default function Navigation() {
   const [showHomeLogo, setShowHomeLogo] = useState(false);
   const { theme, mounted } = useContext(ThemeContext);
 
+  const isAutoScrollingRef = useRef(false);
+  const scrollEndTimeoutRef = useRef(null);
+  const handleScrollRef = useRef(null);
+
   const logoSrc = (mounted && theme === 'light')
     ? "/images/logo-ricardo-zea-for-light.svg"
     : "/images/logo-ricardo-zea-for-dark.svg";
@@ -58,17 +62,59 @@ export default function Navigation() {
     }
 
     const handleScroll = () => {
-      const threshold = hero.offsetHeight;
-      setShowHomeLogo(window.scrollY > threshold);
+      if (isAutoScrollingRef.current) return;
+
+      const heroHeading = document.querySelector('h1.heading-hero.hero-title');
+      const threshold = heroHeading
+        ? heroHeading.getBoundingClientRect().bottom + window.scrollY
+        : hero.offsetHeight;
+      setShowHomeLogo(window.scrollY >= threshold);
     };
+
+    handleScrollRef.current = handleScroll;
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      handleScrollRef.current = null;
+    };
   }, [isHomePage]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!isAutoScrollingRef.current) return;
+      if (scrollEndTimeoutRef.current) {
+        clearTimeout(scrollEndTimeoutRef.current);
+      }
+
+      scrollEndTimeoutRef.current = setTimeout(() => {
+        isAutoScrollingRef.current = false;
+        if (handleScrollRef.current) {
+          handleScrollRef.current();
+        }
+      }, 150);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (scrollEndTimeoutRef.current) {
+        clearTimeout(scrollEndTimeoutRef.current);
+        scrollEndTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   const handleNavClick = (targetId) => {
     setIsMenuOpen(false);
+
+    if (targetId !== 'home') {
+      isAutoScrollingRef.current = true;
+      setShowHomeLogo(true);
+    }
 
     // If not on homepage, navigate to homepage with hash
     if (!isHomePage) {
@@ -158,12 +204,6 @@ export default function Navigation() {
           </button>
 
           <div className="nav-links-container">
-            <a
-              href="/"
-              onClick={handleHomeClick}
-            >
-              Home
-            </a>
             <a
               href="#projects"
               onClick={(e) => {

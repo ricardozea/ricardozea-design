@@ -569,17 +569,12 @@ p.text-description:first-of-type {
 	}
 
 	@media (max-width: 767px) {
-		&.home .nav-logo {
-			transform: translateY(-150%);
-			opacity: 0;
-			pointer-events: none;
-			transition: 0.25s ease;
-		}
-
+		&.home .nav-logo,
 		&.home.show-home-logo .nav-logo {
-			transform: translateY(0);
+			transform: none;
 			opacity: 1;
 			pointer-events: auto;
+			transition: none;
 		}
 	}
 
@@ -594,13 +589,13 @@ p.text-description:first-of-type {
 
 	@media (max-width: 767px) {
 		&.home:not(.show-home-logo).menu-open .nav-logo {
-			transform: translateY(-150%);
-			opacity: 0;
-			pointer-events: none;
+			transform: none;
+			opacity: 1;
+			pointer-events: auto;
 		}
 
 		&.home.show-home-logo.menu-open .nav-logo {
-			transform: translateY(0);
+			transform: none;
 			opacity: 1;
 			pointer-events: auto;
 		}
