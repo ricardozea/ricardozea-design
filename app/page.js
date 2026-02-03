@@ -52,6 +52,28 @@ export default function Home() {
 		};
 	}, []);
 
+	useEffect(() => {
+		const hash = window.location.hash;
+		if (!hash || hash.length <= 1) return;
+		const targetId = decodeURIComponent(hash.slice(1));
+
+		let attempts = 0;
+		const maxAttempts = 30;
+		const tryScroll = () => {
+			const el = document.getElementById(targetId);
+			if (el) {
+				el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				return;
+			}
+
+			attempts += 1;
+			if (attempts >= maxAttempts) return;
+			setTimeout(tryScroll, 50);
+		};
+
+		setTimeout(tryScroll, 0);
+	}, []);
+
 	return (
 		<>
 			<Navigation />
