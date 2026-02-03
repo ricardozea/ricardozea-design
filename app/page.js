@@ -60,7 +60,7 @@ export default function Home() {
 				<div className="hero-content flex flex-col max-w-[1440px] mx-auto relative z-2 p-6 pt-20 md:p-14 md:pt-20">
 
 					{/* Main Content */}
-					<div className="hero-main">
+					<div id="hero-main" className="hero-main" tabIndex={-1}>
 
 						{/* Logo */}
 						<HeroLogo />

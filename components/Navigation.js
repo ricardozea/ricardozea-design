@@ -136,6 +136,13 @@ export default function Navigation() {
 
   const handleSkipToContent = (e) => {
     e.preventDefault();
+    const heroMain = document.getElementById('hero-main');
+    if (heroMain) {
+      heroMain.scrollIntoView({ behavior: "smooth", block: "start" });
+      heroMain.focus();
+      return;
+    }
+
     const mainHeading = document.querySelector('h1');
     if (mainHeading) {
       mainHeading.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -162,7 +169,7 @@ export default function Navigation() {
     <div className="navbar-wrapper">
       {/* Skip to content link for accessibility */}
       <a
-        href="#main-content"
+        href="#hero-main"
         onClick={handleSkipToContent}
         className="skip-to-content"
       >
