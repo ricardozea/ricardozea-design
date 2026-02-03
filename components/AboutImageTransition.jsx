@@ -37,7 +37,6 @@ export default function AboutImageTransition({
 	const progressAnimationRef = useRef(null);
 	const [inView, setInView] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
-	const [styleIndex, setStyleIndex] = useState(0);
 	const [isUserPaused, setIsUserPaused] = useState(false);
 	const progress = useMotionValue(0);
 	const [progressNow, setProgressNow] = useState(0);
@@ -105,7 +104,6 @@ export default function AboutImageTransition({
 				onComplete: () => {
 					progress.set(0);
 					setActiveIndex((prev) => (prev + 1) % images.length);
-					setStyleIndex((prev) => prev + 1);
 					if (isDesktopAnimationEnabled && inView && !isUserPaused) {
 						startOrResume();
 					}
@@ -122,53 +120,6 @@ export default function AboutImageTransition({
 			}
 		};
 	}, [images.length, inView, intervalMs, isDesktopAnimationEnabled, isUserPaused, isPlaying, progress]);
-
-	const transitionStyle = styleIndex % 3;
-
-	const animation = useMemo(() => {
-		if (transitionStyle === 1) {
-			return {
-				initial: { clipPath: "inset(0 100% 0 0)", opacity: 1, filter: "blur(4px)" },
-				animate: { clipPath: "inset(0 0% 0 0)", opacity: 1, filter: "blur(0px)" },
-				exit: { clipPath: "inset(0 0 0 100%)", opacity: 1, filter: "blur(6px)" },
-				transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
-			};
-		}
-
-		if (transitionStyle === 2) {
-			return {
-				initial: {
-					opacity: 0,
-					scale: 1.06,
-					y: 14,
-					rotate: 0.6,
-					filter: "blur(10px) saturate(1.25) contrast(1.15)",
-				},
-				animate: {
-					opacity: 1,
-					scale: 1,
-					y: 0,
-					rotate: 0,
-					filter: "blur(0px) saturate(1) contrast(1)",
-				},
-				exit: {
-					opacity: 0,
-					scale: 1.04,
-					y: -10,
-					rotate: -0.4,
-					filter: "blur(12px) saturate(0.9) contrast(1.05)",
-				},
-				transition: { duration: 1.25, ease: [0.22, 1, 0.36, 1] },
-			};
-		}
-
-		return {
-			initial: { opacity: 0, scale: 1.02, filter: "blur(6px)" },
-			animate: { opacity: 1, scale: 1, filter: "blur(0px)" },
-			exit: { opacity: 0, scale: 1.04, filter: "blur(8px)" },
-			transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
-		};
-	}, [transitionStyle]);
 
 	const active = images[activeIndex];
 	const ringRadius = 10;
@@ -200,27 +151,13 @@ export default function AboutImageTransition({
 			{isDesktop && !prefersReducedMotion && (
 				<AnimatePresence mode="wait">
 					<motion.div
-						key={`${active.src}-${transitionStyle}`}
-						initial={animation.initial}
-						animate={animation.animate}
-						exit={animation.exit}
-						transition={animation.transition}
-						style={{ position: "absolute", inset: 0, willChange: "transform, opacity, filter, clip-path" }}
+						key={active.src}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.8, ease: "easeInOut" }}
+						style={{ position: "absolute", inset: 0, willChange: "opacity" }}
 					>
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: transitionStyle === 0 ? 0.22 : transitionStyle === 1 ? 0.18 : 0.28 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-							style={{
-								position: "absolute",
-								inset: 0,
-								background:
-									"radial-gradient(60% 45% at 30% 25%, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%), radial-gradient(55% 45% at 70% 70%, rgba(255,255,255,0.12), rgba(255,255,255,0) 65%)",
-								mixBlendMode: "screen",
-								pointerEvents: "none",
-							}}
-						/>
 						<Image
 							src={active.src}
 							alt={active.alt}
@@ -234,71 +171,52 @@ export default function AboutImageTransition({
 			)}
 
 			{isDesktop && (
-				<div
-				style={{
-					position: "absolute",
-					right: "0.75rem",
-					bottom: "0.75rem",
-					display: "flex",
-					alignItems: "center",
-					gap: "0.5rem",
-					zIndex: 5,
-				}}
-				>
-				<div
-					aria-label="Slideshow progress"
-					role="progressbar"
-					aria-valuemin={0}
-					aria-valuemax={100}
-					aria-valuenow={progressNow}
-					style={{
-						width: "28px",
-						height: "28px",
-						display: "grid",
-						placeItems: "center",
-						borderRadius: "999px",
-						background: "rgba(0,0,0,0.45)",
-						backdropFilter: "blur(10px)",
-						border: "1px solid rgba(255,255,255,0.18)",
-					}}
-				>
-					<svg width="22" height="22" viewBox="0 0 24 24">
-						<circle
-							cx="12"
-							cy="12"
-							r={ringRadius}
-							fill="none"
-							stroke="rgba(255,255,255,0.22)"
-							strokeWidth={ringStroke}
-						/>
-						<motion.circle
-							cx="12"
-							cy="12"
-							r={ringRadius}
-							fill="none"
-							stroke="rgba(255,255,255,0.92)"
-							strokeLinecap="round"
-							strokeWidth={ringStroke}
-							style={{
-								rotate: -90,
-								transformOrigin: "12px 12px",
-								strokeDasharray: ringCircumference,
-								strokeDashoffset: ringDashOffset,
-							}}
-						/>
-					</svg>
-				</div>
+				<div className="about-slideshow-controls">
+					<div
+						aria-label="Slideshow progress"
+						role="progressbar"
+						aria-valuemin={0}
+						aria-valuemax={100}
+						aria-valuenow={progressNow}
+						className="about-slideshow-progress"
+					>
+						<svg width="22" height="22" viewBox="0 0 24 24">
+							<circle
+								cx="12"
+								cy="12"
+								r={ringRadius}
+								fill="none"
+								stroke="rgba(255,255,255,0.22)"
+								strokeWidth={ringStroke}
+							/>
+							<motion.circle
+								cx="12"
+								cy="12"
+								r={ringRadius}
+								fill="none"
+								strokeLinecap="round"
+								strokeWidth={ringStroke}
+								className="about-slideshow-progress-ring"
+								style={{
+									rotate: -90,
+									transformOrigin: "12px 12px",
+									strokeDasharray: ringCircumference,
+									strokeDashoffset: ringDashOffset,
+								}}
+							/>
+						</svg>
+					</div>
 
-				<button
-					type="button"
-					onClick={() => setIsUserPaused((v) => !v)}
-					aria-label={isUserPaused ? "Play slideshow" : "Pause slideshow"}
-					title={isUserPaused ? "Play" : "Pause"}
-					disabled={!isDesktopAnimationEnabled}
-					className="image-controls-button"
-				>
-					{isUserPaused ? "Play" : "Pause"}
-				</button>
+					<button
+						type="button"
+						onClick={() => setIsUserPaused((v) => !v)}
+						aria-label={isUserPaused ? "Play slideshow" : "Pause slideshow"}
+						title={isUserPaused ? "Play" : "Pause"}
+						disabled={!isDesktopAnimationEnabled}
+						className="image-controls-button"
+					>
+						{isUserPaused ? "Play" : "Pause"}
+					</button>
 				</div>
 			)}
 		</div>

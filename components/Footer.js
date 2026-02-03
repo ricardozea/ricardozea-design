@@ -5,7 +5,7 @@ export default function Footer() {
 		<footer className="footer">
 			<div className="footer-container">
 				{/* Top Section */}
-				<div className="logo-nav-container flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-0 mb-4 pb-8 text-center md:text-left">
+				<div className="logo-nav-container">
 					{/* Logo */}
 					<div className="footer-logo">
 						<img
@@ -16,7 +16,7 @@ export default function Footer() {
 					</div>
 
 					{/* Navigation */}
-					<nav className="flex justify-center md:justify-start gap-4">
+					<nav className="footer-nav">
 						<a href="#home">Home</a>
 						<a href="#about">About</a>
 						<a href="#contact">Contact</a>
@@ -24,13 +24,13 @@ export default function Footer() {
 				</div>
 
 				{/* Bottom Section */}
-				<div className="credits-container flex flex-col md:flex-row justify-between items-end gap-8 md:gap-2">
+				<div className="credits-container">
 					{/* Credits */}
-					<div className="text-center md:text-left">
-						<p className="mb-4 md:mb-0">
+					<div className="footer-credits">
+						<p className="footer-credits-text">
 							2006 | {new Date().getFullYear().toString()} - v6.0 - Designed and coded by me. After all, I claim I know HTML and CSS, the proof is all around ☝🏽☝🏽👇🏽👇🏽👈🏽👉🏽👈🏽👉🏽🅱️🅰️💥🤌🏽 lol.
 						</p>
-						<div className="tech-stack-container mt-4">
+						<div className="tech-stack-container">
 							<p>This is what I used to build this thing:</p>
 							<div className="tech-stack-container">
 
@@ -162,9 +162,11 @@ export default function Footer() {
 					</div>
 
 					{/* Social Icons */}
-					<SocialIcons className="justify-center md:justify-end w-full md:w-auto" />
+					<SocialIcons className="footer-social-icons" />
 				</div>
-				<p className="disclaimer">All logos, characters, and brand names blah, blah, blah are the property of their respective owners. Their use does not imply endorsement.</p>
+				<div className="footer-disclaimer">
+					<p className="disclaimer">All logos, characters, and brand names blah, blah, blah are the property of their respective owners. Their use does not imply endorsement.</p>
+				</div>
 			</div>
 		</footer>
 	);
