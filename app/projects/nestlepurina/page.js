@@ -42,10 +42,10 @@ export default function ProjectDetail() {
 									I was the Lead Designer for their internal Checkmark team. I was assigned to work with their HubX group. All my design work affected Purina.com.
 								</p>
 								<p>
-									Due to my experence and knowledge, they created a "Lunch & Learn" session where I shared my knowledge about general design topics, HTML+CSS techniques, Responsive Design, UX and UI Design, etc. I even have some recordings of the sessions somewhere, lol.
+									Due to my experience and knowledge, they created a "Lunch & Learn" session where I shared my knowledge about general design topics, HTML+CSS techniques, Responsive Design, UX and UI Design, etc. I even have some recordings of the sessions somewhere, lol.
 								</p>
 								<p>
-									This is a long page where a elaborate on multiple of my design capabilities. Get ready to scroll! 😂
+									This is a long page where I elaborate on many of my design capabilities. Get ready to scroll! 😂
 								</p>
 							</div>
 
@@ -165,7 +165,7 @@ export default function ProjectDetail() {
 						{/* Data Card 3 */}
 						<div className="project-data-card red flex flex-col items-center justify-center gap-2 p-8 rounded-lg">
 							<h3 className="data-number">20+</h3>
-							<p className="data-label">Employess trained in design subjects</p>
+							<p className="data-label">Employees trained in design subjects</p>
 						</div>
 
 						{/* Data Card 4 */}
@@ -189,7 +189,7 @@ export default function ProjectDetail() {
 								</h3>
 								<div className="description-container">
 									<p>
-										When I landed on Nestle.com's 404 Error page, I realized there was a problem: Their error page showcased a bunch of their products.
+										When I landed on Nestlé's 404 error page, I realized there was a problem: Their error page showcased a bunch of their products.
 									</p>
 									<p>
 										This was a very bad branding idea because it gave their brand a negative connotation.
@@ -244,7 +244,7 @@ export default function ProjectDetail() {
 								<div className="quadrant-container">
 									<ProjectImage
 										src="/images/nestlepurina/404-error-page-new-design-5-live.png"
-										alt="Their implementation 🙄 Check it out for yourself here!."
+										alt="Their implementation 🙄 Check it out for yourself here!"
 										captionElement={<>Their implementation 🙄 Check it out for yourself{" "}
 											<ExternalLink href="https://web.archive.org/web/20240528011004/https://www.purina.com/404"> here!
 											</ExternalLink>{" "}
@@ -259,7 +259,7 @@ export default function ProjectDetail() {
 							<div className="project-image-description">
 								<h3>Check out other 404 page designs</h3>
 								<div className="description-container">
-									<p>Well, not much to say here other than 3 cats, 1 dog. Scroll down dang it! 😜.</p>
+									<p>Well, not much to say here other than: 3 cats, 1 dog. Scroll down, dang it! 😜</p>
 								</div>
 							</div>
 							<div className="project-image-container grid grid-cols-1 items-end sm:grid-cols-2 gap-4">
@@ -414,7 +414,7 @@ export default function ProjectDetail() {
 						{/* Image Block 5 */}
 						<div className="project-image-block">
 							<div className="project-image-description">
-								<h3>Ecommerce</h3>
+								<h3>E-commerce</h3>
 								<div className="description-container">
 									<h4>Designs for the Product Listing Page</h4>
 									<h5>Problem: Complex filtering and sorting</h5>
@@ -502,7 +502,7 @@ export default function ProjectDetail() {
 								<div className="description-container">
 									<h4>Information Architecture File</h4>
 									<p>
-										The giant <span title="ass">🫏</span> screen below, showcases how complex their information architecture was. My responsibility was to take that IA and build a Figma prototype for mobile.
+										The giant <span title="ass">🫏</span> screen below showcases how complex their information architecture was. My responsibility was to take that IA and build a Figma prototype for mobile.
 									</p>
 									<p>Screenshot from Figma with all the frames 👇🏽:</p>
 								</div>
@@ -527,7 +527,7 @@ export default function ProjectDetail() {
 										This prototype is only here to show that I have the skills to build prototypes 🙂. It is the result of the frames from the IA file above.
 									</p>
 									<p>
-										Using a prototype without any context, friggin' sucks. Want to use the prototype? Have at it. And yes, it's fully functional. 👇🏽:
+										Using a prototype without any context friggin' sucks. Want to use the prototype? Have at it. And yes, it's fully functional. 👇🏽:
 									</p>
 								</div>
 							</div>

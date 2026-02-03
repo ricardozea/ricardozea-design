@@ -41,10 +41,10 @@ export default function ProjectDetail() {
 							{/* Project Description */}
 							<div className="project-description">
 								<p className="text-description">
-									Design systems are all the rage. Practically every single post in LinkedIn is about these darn design systems. Eeeeeeveryone is making them. Well, here's mine, lol.
+									Design systems are all the rage. Practically every single post on LinkedIn is about these darn design systems. Eeeeeeveryone is making them. Well, here's mine, lol.
 								</p>
 								<p>
-									In addition, when I inherited this project I was provided files made in… Sketch 😒. I'm glad that's not a thing anymore, haha. So I imported a 💩-ton files to Figma and today I have taken NodeSource's flagship product, N|Solid Console, their website, and other products to a whole new level 😁👍🏽.
+									In addition, when I inherited this project I was provided with files made in… Sketch 😒. I'm glad that's not a thing anymore, haha. So I imported a 💩-ton of files into Figma and today I have taken NodeSource's flagship product, N|Solid Console, their website, and other products to a whole new level 😁👍🏽.
 								</p>
 								<p>
 									Quick note: I've been freelancing for NodeSource since 2020. What you'll see here is from 2024 until now.
@@ -164,14 +164,14 @@ export default function ProjectDetail() {
 										Most of NodeSource's products start with the motif "N|"… yeah, a vertical bar (Pipe symbol). The names with "Solid|" are pricing plans.
 									</p>
 									<p>
-										Check out all their products logos below 👇🏻:
+										Check out all their product logos below 👇🏻:
 									</p>
 								</div>
 							</div>
 							<div className="project-image-container">
 								<ProjectImage
 									src="/images/nodesource/ncore-design-system-product-logos.png"
-									caption="All NodeSource's products logos"
+									caption="All NodeSource's product logos"
 								/>
 							</div>
 						</div>
@@ -183,7 +183,7 @@ export default function ProjectDetail() {
 								<div className="description-container">
 									<h4>Name: N|Core</h4>
 									<p>
-										Obviously I had to use the "N|" motif somehow. And "Core" is a central system that everything else is built upon. That's how the name N|Core happen. Doh!
+										Obviously I had to use the "N|" motif somehow. And "Core" is a central system that everything else is built upon. That's how the name N|Core happened. Doh!
 									</p>
 									<p>
 										Below: Cover design for the Figma file and justification page for the name N|Core below 👇🏽:
@@ -219,7 +219,7 @@ export default function ProjectDetail() {
 									</p>
 									<h4>Did you build this design system from scratch?</h4>
 									<p>
-										What! No way! I used the <strong>UI Prep Design System</strong> as a starting point. I got access to the full DS file after completing the <strong>Design System Bootcamp</strong> by Molly Hellmut. I completed this bootcamp in October 13th, 2024.
+										What! No way! I used the <strong>UI Prep Design System</strong> as a starting point. I got access to the full DS file after completing the <strong>Design System Bootcamp</strong> by Molly Hellmut. I completed this bootcamp on October 13, 2024.
 									</p>
 									<p>
 										Check out <ExternalLink href="https://maven.com/certificate/sBHiXyRc">my certificate!</ExternalLink> lol.
@@ -273,13 +273,13 @@ export default function ProjectDetail() {
 							<div className="project-image-description max-w-[1000px] mx-auto mb-8">
 								<h3 className="text-section-subtitle">Typography System</h3>
 								<div className="description-container">
-									<h4>Lets talk typography, will ya?</h4>
+									<h4>Let's talk typography, will ya?</h4>
 									<p className="info-text">
 										<Info size={24} weight="regular" />Note: I will use the term "typeface" and "font" interchangeably. I DO KNOW the difference, but for the sake of making this thing somewhat enjoyable to read for designers and non-designers… whatever, lol.
 									</p>
 
 									<p>
-										When I inheretied the NodeSource project, I was given the "Source Sans Pro" typeface. RED FLAG! 🚩. Why?
+										When I inherited the NodeSource project, I was given the "Source Sans Pro" typeface. RED FLAG! 🚩. Why?
 									</p>
 									<ol>
 										<li>Performance:
@@ -350,8 +350,8 @@ export default function ProjectDetail() {
 										What the heck is happening in this demo?
 									</p>
 									<ol>
-										<li>As you shrink/enlarge the viewport, the font sizes changes.</li>
-										<li>The font sizes are based on the Modular Scale which keeps the harmony regardless of the viewport size.</li>
+										<li>As you shrink or enlarge the viewport, the font sizes change.</li>
+										<li>The font sizes are based on the Modular Scale, which keeps the harmony regardless of the viewport size.</li>
 										<li>This method uses the <code>calc()</code> function.</li>
 										<li className="info-text"><Info size={24} weight="regular" />FYI, the <code>clamp()</code> function wasn't supported at the time 🤷🏽.</li>
 									</ol>
@@ -384,12 +384,12 @@ export default function ProjectDetail() {
 							<div className="project-image-description max-w-[1000px] mx-auto mb-8">
 								<h3 className="text-section-subtitle">Color System</h3>
 								<div className="description-container">
-									<h4>Lets talk colors, will ya?</h4>
+									<h4>Let's talk colors, will ya?</h4>
 									<p>
 										When I inherited the NodeSource project, the client had 7 base colors defined. You can see them on the "Base Colors" column on the image below with white background.
 									</p>
 									<p>
-										After a 💩-ton of work, using all kinds of color creation tools and Figma plugins, the final color palette is show below in the screenshot from Figma.
+										After a 💩-ton of work, using all kinds of color creation tools and Figma plugins, the final color palette is shown below in the screenshot from Figma.
 									</p>
 									<h4>Why was it difficult to create the color palette?</h4>
 									<p>
@@ -398,7 +398,7 @@ export default function ProjectDetail() {
 									<ol>
 										<li>As powerful as they may be, the Figma plugins do not consider accessibility. In other words, they can create shades that don't work with either White or Black text.</li>
 										<li>Most tools only create a Light mode ramp.</li>
-										<li>Some tools are unncessarily complicated to use.</li>
+										<li>Some tools are unnecessarily complicated to use.</li>
 										<li>I ended editing each shade in each ramp manually to make sure they were accessible.</li>
 									</ol>
 									<h4>What tool did you use then?</h4>
@@ -414,7 +414,7 @@ export default function ProjectDetail() {
 								<div className="quadrant-container">
 									<ProjectImage
 										src="/images/nodesource/ncore-design-system-colors-old.png"
-										caption="Middle column: 7 defined dolors by the client"
+										caption="Middle column: 7 defined colors by the client"
 									/>
 								</div>
 								<div className="quadrant-container">
@@ -647,7 +647,7 @@ export default function ProjectDetail() {
 								<div className="quadrant-container">
 									<ProjectImage
 										src="/images/nodesource/website-nodesource-page-1.png"
-										caption="Figma file. From left: Components & Exploration, Design, and Wirframe"
+										caption="Figma file. From left: Components & Exploration, Design, and Wireframe"
 										quality={95}
 										className="plain"
 									/>
@@ -655,7 +655,7 @@ export default function ProjectDetail() {
 								<div className="quadrant-container">
 									<ProjectImage
 										src="/images/nodesource/website-nodesource-page-2.png"
-										caption="Close up of the Design and the Wireframe"
+										caption="Close-up of the design and the wireframe"
 										quality={95}
 										className="plain"
 									/>
@@ -697,7 +697,7 @@ export default function ProjectDetail() {
 											<ul>
 												<li>40x40px target size of the hamburger menu button.</li>
 												<li>Slide-in navigation with a duration of <code>0.2s</code> and <code>ease-in-out</code> timing function. In other words, the damn thing feels organic and responsive, haha.</li>
-												<li>Tranforming the "3-line" icon to an "x" icon to clearly convey when the menu is open or closed. This also happens smoothly and quickly.</li>
+												<li>Transforming the "3-line" icon to an "x" icon to clearly convey when the menu is open or closed. This also happens smoothly and quickly.</li>
 												<li>Dropdowns from main nav items are also smoothly animated.</li>
 												<li>For good measure, hover effects on menu and submenu items. This is also a visual cue when the link is tapped on a mobile device.</li>
 											</ul>
@@ -740,19 +740,19 @@ export default function ProjectDetail() {
 							<div className="project-image-description max-w-[1000px] mx-auto mb-8">
 								<h3 className="text-section-subtitle">A few more notes about Color Accessibility and Branding ☝🏽</h3>
 								<div className="description-container">
-									<h4>Accessibility issues with the color off the bat! 🦇 (there is no baseball bat emoji, WTF, lol)</h4>
-									<p>
-										The original green <code>#5AC878</code> the client providedwas Ok.
-									</p>
-									<p>
-										The problem was that the prior designs had white text over that green which failed accessibility with a contrast ratio of <code>2.1:1</code> - Minimum contrast ratio should be <code>4.5:1</code> for Normal size text.
-									</p>
-									<p>
-										I knew I needed to use black text over that green. But I went a step further and lighten up that green a little to make it "pop" (🤦🏽lol ) in Dark mode, and settled on <code>#71D08B</code>. The contrast ratio was excellent: <code>11.09:1</code> with dark text.
-									</p>
-									<p>
-										This adjustment was ideal for Dark mode, which is NodeSource’s default theme.
-									</p>
+										<h4>Accessibility issues with the color off the bat! 🦇 (there is no baseball bat emoji, WTF, lol)</h4>
+										<p>
+											The original green <code>#5AC878</code> the client provided was OK.
+										</p>
+										<p>
+											The problem was that the prior designs had white text over that green which failed accessibility with a contrast ratio of <code>2.1:1</code> - Minimum contrast ratio should be <code>4.5:1</code> for Normal size text.
+										</p>
+										<p>
+											I knew I needed to use black text over that green. But I went a step further and lightened up that green a little to make it "pop" (🤦🏽lol ) in Dark mode, and settled on <code>#71D08B</code>. The contrast ratio was excellent: <code>11.09:1</code> with dark text.
+										</p>
+										<p>
+											This adjustment was ideal for Dark mode, which is NodeSource’s default theme.
+										</p>
 									<h4>Retaining branding identity</h4>
 									<p>
 										To get to the new green <code>#71D08B</code>, I edited the Lightness in the HSL color space of the original green <code>#5AC878</code> from <code>57%</code> to <code>63%</code>. It was light enough while retaining the same Hue and Saturation of the original green 👍🏽.
@@ -787,7 +787,7 @@ export default function ProjectDetail() {
 										This gave me a darker, more saturated green perfect for Light mode while retaining the same Hue of the original green. The contrast ratio is <code>7.9:1</code> with white text or over light backgrounds.
 									</p>
 									<p>
-										Check out all the greens in and the NodeSource logo in both Dark and Light modes below 👇🏽:
+										Check out all the greens and the NodeSource logo in both Dark and Light modes below 👇🏽:
 									</p>
 								</div>
 							</div>

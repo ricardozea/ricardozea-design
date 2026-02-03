@@ -431,7 +431,7 @@ export default function Home() {
 								<h3>Typography</h3>
 							</div>
 							<p><span className="highlighted-text">The 2nd of the three things a designer must dominate.</span> I admit it: I have not designed a typeface (at least, not yet, lol). But I do understand the importance of dotting your i's and crossing your t's. No pun… actually, it was intended. </p>
-							<p>Learning how to use and create a Modular Scale, has taken my typography skills to 🚀.</p>
+							<p>Learning how to use and create a Modular Scale has taken my typography skills to 🚀.</p>
 							<ul className="skill-tag-container">
 								<li>Modular Scale</li>
 								<li>Typescale.com</li>
@@ -461,7 +461,7 @@ export default function Home() {
 							</ul>
 						</div>
 					</div>
-					<p className="text-description personal-comment">☝🏽It goes without saying that I'm still learning. I am open minded and not set in my ways despite my experience. So… yeah.</p>
+					<p className="text-description personal-comment">☝🏽It goes without saying that I'm still learning. I am open-minded and not set in my ways despite my experience. So… yeah.</p>
 					<p className="personal-comment">Plus, I really like to <ExternalLink href="https://adplist.org/mentors/ricardo-zea" title="View ADPList profile">share my knowledge with others</ExternalLink>.</p>
 				</div>
 			</section>
@@ -657,8 +657,8 @@ export default function Home() {
 							</div>
 
 							{/* Content */}
-							<p>Ricardo has the ability to understand your needs even through complicated and sometimes contradictory discusssions between the business people. He provides good suggestions and is very well organized to keep track and make you aware of the improvements he makes.</p>
-							<p>It was a pleaseure to work with him.</p>
+							<p>Ricardo has the ability to understand your needs even through complicated and sometimes contradictory discussions between the business people. He provides good suggestions and is very well organized to keep track and make you aware of the improvements he makes.</p>
+							<p>It was a pleasure to work with him.</p>
 
 							{/* CTA Button */}
 							<ExternalLink href="https://www.linkedin.com/in/ricardozea/details/recommendations/" className="review-link">
@@ -879,7 +879,7 @@ export default function Home() {
 										<div className="stage-version">Stage 3 // Web</div>
 									</div>
 									<div className="stage-card-body">
-										<p>From the printing company, I went to software development company called "Nestsac" as a web designer. On top of taking my first steps with HTML and CSS, I got really good at Flash and even became a teacher.</p>
+										<p>From the printing company, I went to software development company called "Netsac" as a web designer. On top of taking my first steps with HTML and CSS, I got really good at Flash and even became a teacher.</p>
 										<p>And that's how my Web Design career got going.</p>
 									</div>
 								</div>
@@ -928,9 +928,9 @@ export default function Home() {
 
 								{/* Description */}
 								<p>
-									In 2014 I got contacted by Packt Publishing to write a book for them. I said No, lol. In 2015 they contacted me again, and I was like <span className="personal-comment">"Damn, these guys are persisent! Hmmm, this is something I've never done before. Alright! F it! Let's do it!".</span> haha😂.
+									In 2014 I got contacted by Packt Publishing to write a book for them. I said No, lol. In 2015 they contacted me again, and I was like <span className="personal-comment">"Damn, these guys are persistent! Hmmm, this is something I've never done before. Alright! F it! Let's do it!".</span> haha😂.
 								</p>
-								<p>Would I do it again? Nope! </p>
+								<p>Would I do it again? Nope!</p>
 
 								{/* Testimonial */}
 								<div className="testimonial-container">
@@ -1003,7 +1003,7 @@ export default function Home() {
 
 								{/* Description */}
 								<p>
-									Packt Publishing contacts me again at the end of 2015 to work on this book. I was going to work with other authors. I was doing several chapters about CSS. I wrote a whole chaptert about CSS Pseudo Classes and Pseudo Elements… but another author had already written it 😒. See next card from Smashing Magazine, lol 👉🏽…
+									Packt Publishing contacts me again at the end of 2015 to work on this book. I was going to work with other authors. I was doing several chapters about CSS. I wrote a whole chapter about CSS Pseudo Classes and Pseudo Elements… but another author had already written it 😒. See next card from Smashing Magazine, lol 👉🏽…
 								</p>
 
 								{/* Testimonial */}
@@ -1017,7 +1017,7 @@ export default function Home() {
 											height={40}
 										/> */}
 										<blockquote>
-											"I have been writing software since the time when ALL phones had wires. And I have been working with HTML since the birth of the Internet.This is the most thorough and complete reference I have ever seen. […]"
+											"I have been writing software since the time when ALL phones had wires. And I have been working with HTML since the birth of the Internet. This is the most thorough and complete reference I have ever seen. […]"
 										</blockquote>
 										{/* Quote Icon */}
 										<div className="quote-icon-container">
