@@ -137,7 +137,7 @@ export default function Home() {
 							<li>Figma Components</li>
 							<li>Accessibility Expertise</li>
 							<li>Design System</li>
-							<li>AI (Artificial Intelligence)</li>
+							<li>AI</li>
 							<li>Typography Expertise</li>
 							<li>Responsive Typography</li>
 							<li>Color Systems</li>
