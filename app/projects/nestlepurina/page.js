@@ -550,10 +550,11 @@ export default function ProjectDetail() {
 						</div>
 					</div>
 				</div>
+				<hr />
 			</section>
 
 			{/* Project Navigation */}
-			<section className="project-navigation">
+			{/* <section className="project-navigation">
 				<div className="section-container">
 					<div className="flex justify-between items-center max-w-[1400px] mx-auto">
 						<a
@@ -583,7 +584,7 @@ export default function ProjectDetail() {
 						</a>
 					</div>
 				</div>
-			</section>
+			</section> */}
 
 			{/* Footer */}
 			<Footer />

@@ -1246,11 +1246,11 @@ h2 .character {
 }
 
 .red-quote-icon {
-	color: var(--icon-accent-red-persistent);
+	color: var(--icon-accent-red-subtle);
 }
 
 .blue-quote-icon {
-	color: var(--icon-accent-blue-persistent);
+	color: var(--icon-accent-blue-subtle);
 }
 
 .testimonial-avatar img {
@@ -1263,7 +1263,8 @@ h2 .character {
 	font-family: var(--font-roboto-flex), sans-serif;
 
 	h3 {
-		font-weight: 500;
+		font-weight: 200;
+		font-size: var(--heading-s);
 	}
 
 	p {

@@ -555,25 +555,25 @@ export default function Home() {
 							{/* User Info */}
 							<div className="testimonial-user-info">
 								<Image
-									src="/images/avatar-testimonial-yue.png"
+									src="/images/avatar-testimonial-tina.png"
 									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
 								/>
 								<div className="testimonial-name-position-container">
-									<h3>Yue Zhao (Janie)</h3>
-									<p>Research Assistant, University of Pennsylvania</p>
+									<h3>Tina George</h3>
+									<p>Founder, TAG Marketing Group</p>
 								</div>
 							</div>
 
 							{/* Content */}
-							<p>I am a recurring mentee and have had the pleasure of scheduling two meetings with Ricardo. He is incredibly kind, patient, and has provided me with invaluable advice on improving my portfolio and presentation skills.</p>
-							<p>Ricardo is highly knowledgeable and has a unique ability to break down complex problems into clear, actionable bullet points, making it easy to understand and implement solutions.</p>
-							<p>I highly recommend scheduling a meeting with him—it’s an opportunity you won’t want to miss!</p>
+							<p>Ricardo is a meticulous web designer and manages to stay focused on the voice and needs of the client. He is an honest and hardworking team player - always willing to pitch in to help the team.</p>
+							<p>Ricardo's design skills, communication and openness to solving problems are all valuable traits. I really enjoyed working with him one-on-one or in a team.</p>
+							<p>Without hesitation, I highly recommend Ricardo for any design project.</p>
 
 							{/* CTA Button */}
-							<ExternalLink href="https://adplist.org/widgets/reviews?src=ricardo-zea" className="review-link">
+							<ExternalLink href="https://www.linkedin.com/in/ricardozea/details/recommendations/" className="review-link">
 								See Review
 							</ExternalLink>
 						</div>
@@ -637,7 +637,7 @@ export default function Home() {
 							<p>It was a pleaseure to work with him.</p>
 
 							{/* CTA Button */}
-							<ExternalLink href="#" className="review-link">
+							<ExternalLink href="https://www.linkedin.com/in/ricardozea/details/recommendations/" className="review-link">
 								See Review
 							</ExternalLink>
 						</div>
@@ -652,25 +652,25 @@ export default function Home() {
 							{/* User Info */}
 							<div className="testimonial-user-info">
 								<Image
-									src="/images/avatar-testimonial-tina.png"
+									src="/images/avatar-testimonial-yue.png"
 									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
 								/>
 								<div className="testimonial-name-position-container">
-									<h3>Tina George</h3>
-									<p>Founder, TAG Marketing Group</p>
+									<h3>Yue Zhao (Janie)</h3>
+									<p>Research Assistant, University of Pennsylvania</p>
 								</div>
 							</div>
 
 							{/* Content */}
-							<p>Ricardo is a meticulous web designer and manages to stay focused on the voice and needs of the client. He is an honest and hardworking team player - always willing to pitch in to help the team.</p>
-							<p>Ricardo's design skills, communication and openness to solving problems are all valuable traits. I really enjoyed working with him one-on-one or in a team.</p>
-							<p>Without hesitation, I highly recommend Ricardo for any design project.</p>
+							<p>I am a recurring mentee and have had the pleasure of scheduling two meetings with Ricardo. He is incredibly kind, patient, and has provided me with invaluable advice on improving my portfolio and presentation skills.</p>
+							<p>Ricardo is highly knowledgeable and has a unique ability to break down complex problems into clear, actionable bullet points, making it easy to understand and implement solutions.</p>
+							<p>I highly recommend scheduling a meeting with him—it’s an opportunity you won’t want to miss!</p>
 
 							{/* CTA Button */}
-							<ExternalLink href="#" className="review-link">
+							<ExternalLink href="https://adplist.org/widgets/reviews?src=ricardo-zea" className="review-link">
 								See Review
 							</ExternalLink>
 						</div>
@@ -703,7 +703,7 @@ export default function Home() {
 							<p>I consider him a respected friend and collaborator.</p>
 
 							{/* CTA Button */}
-							<ExternalLink href="#" className="review-link">
+							<ExternalLink href="https://www.linkedin.com/in/ricardozea/details/recommendations/" className="review-link">
 								See Review
 							</ExternalLink>
 						</div>
