@@ -290,8 +290,8 @@ export default function Home() {
 								</div>
 								<h3>Web & Product Design</h3>
 							</div>
-							<p>Plenty of experience in the industry. I don't play politics with managers or sugarcoat the truth for CEOs. I take your complex mess and turn it into a high-performance tool that hits every standard.</p>
-							<p>You hire me for the results, not for my "yes". BTW, I will never call you "boss", lol.</p>
+							<p>More than 20 years of experience in the industry. I don't play politics with managers or sugarcoat the truth for CEOs. I take your complex mess and turn it into a high-performance tool that hits every standard.</p>
+							<p>You hire me for the results, not for my "yes". BTW, I will never call you "boss" or design your PowerPoint presentation 🫵🏽, lol.</p>
 							<ul className="skill-tag-container">
 								<li>Figma</li>
 								<li>HTML + CSS</li>
@@ -320,6 +320,7 @@ export default function Home() {
 							</div>
 							<p>I've been using Figma since it was launched back in September 2016. Figma was a game-changer due to its OS-agnostic nature.</p>
 							<p>This was a blessing for me since I no longer had to deal with Mac-lovers and their dumbfounded belief that Macs were better than PCs, haha 🤣.</p>
+							<p>They ARE NOT, you dink 😂.</p>
 						</div>
 
 						{/* Skill Card 3 */}
