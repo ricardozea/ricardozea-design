@@ -26,7 +26,7 @@ export const metadata = {
     template: '%s | Ricardo Zea',
   },
   description:
-    'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template presentation 😂.',
+    'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
   keywords: [
     'Ricardo Zea',
     'Product Designer',
@@ -68,7 +68,7 @@ export const metadata = {
     siteName: 'Ricardo Zea',
     title: 'Ricardo Zea - Sr. Web & Product Designer',
     description:
-      'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template presentation 😂.',
+      'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
     images: [
       {
         url: '/og.png',
@@ -83,7 +83,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Ricardo Zea - Sr. Web & Product Designer',
     description:
-      'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template presentation 😂.',
+      'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
     images: ['/og.png'],
   },
   themeColor: [
