@@ -757,17 +757,30 @@ p.text-description:first-of-type {
 	}
 
 	&.menu-open a:not(.nav-logo) {
-		font-size: var(--body-l);
+		display: block;
+		width: 100%;
 		padding: 0.5rem 0;
+		text-align: center;
+		font-size: var(--body-l);
+		transition: .3s ease;
+	}
+
+	&.menu-open a:not(.nav-logo):hover,
+	&.menu-open .theme-switcher:hover {
+		background-color: var(--bg-transparent-12);
 	}
 }
 
 /* Theme Switcher */
 .theme-switcher {
 	display: flex;
+	width: 100%;
+	padding: 0.5rem 0;
 	align-items: center;
+	justify-content: center;
 	cursor: pointer;
 	color: var(--text-persistent-light);
+	transition: .3s ease;
 
 	html.light & {
 		color: var(--text-brand-secondary);
