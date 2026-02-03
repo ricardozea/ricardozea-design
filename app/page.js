@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from "next/image";
 import { ThemeToggle } from "../components/ThemeSwitcher";
 import Footer from "../components/Footer";
@@ -31,6 +31,26 @@ import {
 } from '@phosphor-icons/react/ssr';
 
 export default function Home() {
+	const [resumeSizeMb, setResumeSizeMb] = useState(null);
+
+	useEffect(() => {
+		let cancelled = false;
+		fetch('/api/resume-size', { cache: 'no-store' })
+			.then((res) => (res.ok ? res.json() : null))
+			.then((data) => {
+				if (cancelled) return;
+				if (data && typeof data.mb === 'number') {
+					setResumeSizeMb(data.mb);
+				}
+			})
+			.catch(() => {
+				// ignore
+			});
+
+		return () => {
+			cancelled = true;
+		};
+	}, []);
 
 	return (
 		<>
@@ -791,8 +811,8 @@ export default function Home() {
 
 							{/* CTA Buttons */}
 							<div className="about-cta flex flex-wrap gap-4 mt-8">
-								<a href="#" className="cta-button button-primary flex items-center gap-2">
-									Download Resume (PDF - 1.1 MB)
+								<a href="/images/Resume-Ricardo-Zea.pdf" target="_blank" rel="noopener noreferrer" className="cta-button button-primary flex items-center gap-2 new-tab hide-new-tab-icon" title="PDF opens in a new tab">
+									Download Resume (PDF{resumeSizeMb === null ? '' : ` - ${resumeSizeMb} MB`})
 									<DownloadSimple size={20} weight="regular" />
 								</a>
 

@@ -133,6 +133,10 @@ a.new-tab::after {
 	mask-position: center;
 }
 
+a.new-tab.hide-new-tab-icon::after {
+	display: none;
+}
+
 /* ============================================
    CTA Button Styles
    ============================================ */
