@@ -167,7 +167,7 @@ export default function Home() {
 							<div className="project-card-image">
 								<Image
 									src="/images/nodesource/ncore-design-system-cover.png"
-									alt="Project Screenshot"
+									alt="NodeSource Project"
 									width={670}
 									height={300}
 									className="w-full h-full object-cover"
@@ -213,7 +213,7 @@ export default function Home() {
 							<div className="project-card-image">
 								<Image
 									src="/images/nestlepurina/404-error-page-new-design-5-live.png"
-									alt="Project Screenshot"
+									alt="Purina Project"
 									width={670}
 									height={300}
 								/>
@@ -447,7 +447,7 @@ export default function Home() {
 				<div className="section-container">
 					<small className="flex justify-center mb-3">"Greetings! Ah-ah-ah!" lol</small>
 					<h2 className="heading-section section-title-dark">
-						<img src="/images/img-character-count.svg" alt="Count von Count" title="Count von Count" className="character"/>
+						<img src="/images/img-character-count.svg" alt="Count von Count" className="character"/>
 						Let's <span className="text-brand-primary">Count!</span>
 					</h2>
 
@@ -523,7 +523,7 @@ export default function Home() {
 							<div className="testimonial-user-info">
 								<Image
 									src="/images/avatar-testimonial-jefferson.png"
-									alt="User Avatar"
+									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
@@ -540,7 +540,7 @@ export default function Home() {
 							<p>Mr. Zea gave an advise with empathy and truly passing on his experience of knowledge to help my situation to be good. I am very happy thank you so much Mr. Zea.</p>
 
 							{/* CTA Button */}
-							<ExternalLink href="https://adplist.org/mentors/ricardo-zea" className="review-link">
+							<ExternalLink href="https://adplist.org/widgets/reviews?src=ricardo-zea" className="review-link">
 								See Review
 							</ExternalLink>
 						</div>
@@ -556,7 +556,7 @@ export default function Home() {
 							<div className="testimonial-user-info">
 								<Image
 									src="/images/avatar-testimonial-yue.png"
-									alt="User Avatar"
+									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
@@ -573,7 +573,7 @@ export default function Home() {
 							<p>I highly recommend scheduling a meeting with him—it’s an opportunity you won’t want to miss!</p>
 
 							{/* CTA Button */}
-							<ExternalLink href="https://www.codementor.io/@ricardozea" className="review-link">
+							<ExternalLink href="https://adplist.org/widgets/reviews?src=ricardo-zea" className="review-link">
 								See Review
 							</ExternalLink>
 						</div>
@@ -589,7 +589,7 @@ export default function Home() {
 							<div className="testimonial-user-info">
 								<Image
 									src="/images/avatar-testimonial-bryce.png"
-									alt="User Avatar"
+									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
@@ -621,7 +621,7 @@ export default function Home() {
 							<div className="testimonial-user-info">
 								<Image
 									src="/images/avatar-testimonial-eric.png"
-									alt="User Avatar"
+									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
@@ -653,7 +653,7 @@ export default function Home() {
 							<div className="testimonial-user-info">
 								<Image
 									src="/images/avatar-testimonial-tina.png"
-									alt="User Avatar"
+									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
@@ -686,7 +686,7 @@ export default function Home() {
 							<div className="testimonial-user-info">
 								<Image
 									src="/images/avatar-testimonial-allen.png"
-									alt="User Avatar"
+									alt=""
 									width={48}
 									height={48}
 									className="testimonial-avatar"
@@ -766,7 +766,7 @@ export default function Home() {
 											<p>Universidad Pontificia Bolivariana (Colombia)</p>
 											<Modal
 												trigger={
-													<span className="modal-link">
+													<span className="modal-link" role="link">
 														View Diploma
 													</span>
 												}
@@ -885,7 +885,7 @@ export default function Home() {
 							<div className="authoring-card-image">
 								<Image
 									src="/images/img-book-mastering-rwd.png"
-									alt="Book cover"
+									alt="Book: Mastering Responsive Web Design with HTML5 and CSS3"
 									width={392}
 									height={294}
 								/>
@@ -960,7 +960,7 @@ export default function Home() {
 							<div className="authoring-card-image">
 								<Image
 									src="/images/img-book-web-devs-ref-guide.png"
-									alt="Book cover"
+									alt="Book: Web Developer's Reference Guide"
 									width={392}
 									height={294}
 								/>
@@ -1014,7 +1014,7 @@ export default function Home() {
 							<div className="authoring-card-image">
 								<Image
 									src="/images/img-book-smashing-magazine-article.png"
-									alt="Book cover"
+									alt="Article: An Ultimate Guide To CSS Pseudo Classes And Pseudo Elements"
 									width={392}
 									height={294}
 								/>
@@ -1047,7 +1047,7 @@ export default function Home() {
 												href="https://maujor.com/tutorial/guia-definitivo-das-pseudoclasses-e-pseudoelementos-css.php"
 												title="Brazilian-Portuguese translation"
 											>
-												here
+												[article page]
 											</ExternalLink>
 											."
 										</blockquote>

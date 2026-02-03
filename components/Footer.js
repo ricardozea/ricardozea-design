@@ -41,18 +41,15 @@ export default function Footer() {
 										<img
 											src="/images/logo-html5.svg"
 											alt="HTML5"
-											title="HTML5"
 										/>
-										<img src="/images/logo-css3.svg" alt="CSS3" title="CSS3" />
+										<img src="/images/logo-css3.svg" alt="CSS3" />
 										<img
 											src="/images/logo-js.svg"
 											alt="JavaScript"
-											title="JavaScript"
 										/>
 										<img
 											src="/images/logo-tailwindcss.svg"
 											alt="TailwindCSS"
-											title="TailwindCSS"
 										/>
 									</div>
 								</div>
@@ -64,32 +61,26 @@ export default function Footer() {
 										<img
 											src="/images/logo-windsurf.svg"
 											alt="Windsurf"
-											title="Windsurf"
 										/>
 										<img
 											src="/images/logo-antigravity.svg"
 											alt="Antigravity"
-											title="Antigravity"
 										/>
 										<img
 											src="/images/logo-nextjs.svg"
 											alt="Next.js"
-											title="Next.js"
 										/>
 										<img
 											src="/images/logo-nodejs.svg"
 											alt="Node.js"
-											title="Node.js"
 										/>
 										<img
 											src="/images/logo-react.svg"
 											alt="React"
-											title="React"
 										/>
 										<img
 											src="/images/logo-motion.svg"
 											alt="Motion"
-											title="Motion"
 										/>
 									</div>
 								</div>
@@ -101,17 +92,14 @@ export default function Footer() {
 										<img
 											src="/images/logo-figma.svg"
 											alt="Figma"
-											title="Figma"
 										/>
 										<img
 											src="/images/logo-color-ramp.svg"
 											alt="Color-Ramp.com"
-											title="Color-Ramp.com"
 										/>
 										<img
 											src="/images/logo-google-fonts.svg"
 											alt="Google Fonts"
-											title="Google Fonts"
 										/>
 										<img
 											src="/images/logo-phosphor.svg"
@@ -128,32 +116,26 @@ export default function Footer() {
 										<img
 											src="/images/logo-figma.svg"
 											alt="Figma"
-											title="Figma"
 										/>
 										<img
 											src="/images/logo-uxpilot.svg"
 											alt="UX Pilot"
-											title="UX Pilot"
 										/>
 										<img
 											src="/images/logo-banani.svg"
 											alt="Banani"
-											title="Banani"
 										/>
 										<img
 											src="/images/logo-dora.svg"
 											alt="Dora AI"
-											title="Dora AI"
 										/>
 										<img
 											src="/images/logo-openai.svg"
 											alt="ChatGPT"
-											title="ChatGPT"
 										/>
 										<img
 											src="/images/logo-gemini.svg"
 											alt="Gemini"
-											title="Gemini"
 										/>
 									</div>
 								</div>

@@ -211,7 +211,6 @@ export default function AboutImageTransition({
 						type="button"
 						onClick={() => setIsUserPaused((v) => !v)}
 						aria-label={isUserPaused ? "Play slideshow" : "Pause slideshow"}
-						title={isUserPaused ? "Play" : "Pause"}
 						disabled={!isDesktopAnimationEnabled}
 						className="image-controls-button"
 					>
