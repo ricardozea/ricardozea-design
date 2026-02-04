@@ -410,7 +410,8 @@ p.text-description:first-of-type {
 /* Hero Section */
 .hero {
 	position: relative;
-	background: url("/images/background-image-real.webp") center / cover no-repeat fixed;
+	background: url("/images/background-image-real.webp") center / cover no-repeat;
+	background-attachment: scroll;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
@@ -2016,11 +2017,13 @@ body {
    Footer
    ============================================ */
 .footer {
-	background: url("/images/bg-neon-waves.webp") fixed right bottom / cover no-repeat var(--bg-persistent-secondary-brand);
+	background: url("/images/bg-neon-waves.webp") right bottom / cover no-repeat var(--bg-persistent-secondary-brand);
+	background-attachment: scroll;
 	color: var(--text-persistent-light);
 	font-size: var(--body-s);
 
 	@media (min-width: 768px) {
+		background-attachment: fixed;
 		background-position: center bottom;
 		background-size: contain;
 	}
@@ -2214,7 +2217,7 @@ body {
 	display: block;
 
 	@media (min-width: 768px) {
-		height: 180px;
+		height: 150px;
 		margin: 0;
 	}
 }

@@ -55,13 +55,6 @@ export const metadata = {
       'max-video-preview': -1,
     },
   },
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/icon.png', type: 'image/png' },
-    ],
-    apple: [{ url: '/apple-icon.png', type: 'image/png' }],
-  },
   openGraph: {
     type: 'website',
     url: '/',
@@ -104,6 +97,7 @@ export default function RootLayout({ children }) {
         <head>
           {/* Theme stylesheets are managed by ThemeStylesheet component */}
           <ThemeStylesheet />
+          <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
           <noscript>
             <link
               rel="stylesheet"

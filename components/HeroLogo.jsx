@@ -8,8 +8,9 @@ export default function HeroLogo() {
   const { theme, mounted } = useContext(ThemeContext);
 
   const logoSrc = (mounted && theme === 'light')
-    ? "/images/logo-ricardo-zea-base.svg"
-    : "/images/logo-ricardo-zea-base.svg";
+    //Hero logo on homepage
+    ? "/images/logo-ricardo-zea-base.svg" // Dark mode logo
+    : "/images/logo-ricardo-zea-base.svg"; // Light mode logo
 
   return (
     <Image
