@@ -3,6 +3,7 @@ import { Roboto_Flex } from "next/font/google";
 import { Alan_Sans } from "next/font/google";
 import { ThemeProvider, ThemeStylesheet, ThemeToggle } from "../components/ThemeSwitcher";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const robotoFlex = Roboto_Flex({
   subsets: ["latin"],
@@ -134,6 +135,7 @@ export default function RootLayout({ children }) {
           suppressHydrationWarning
         >
           {children}
+          <Analytics />
           <SpeedInsights />
         </body>
       </html>
