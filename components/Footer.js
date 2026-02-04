@@ -79,6 +79,10 @@ export default function Footer() {
 											alt="React"
 										/>
 										<img
+											src="/images/logo-github.svg"
+											alt="GitHub"
+										/>
+										<img
 											src="/images/logo-motion.svg"
 											alt="Motion"
 										/>
