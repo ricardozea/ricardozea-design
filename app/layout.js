@@ -2,6 +2,7 @@ import './globals.css'; // Import Tailwind CSS
 import { Roboto_Flex } from "next/font/google";
 import { Alan_Sans } from "next/font/google";
 import { ThemeProvider, ThemeStylesheet, ThemeToggle } from "../components/ThemeSwitcher";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const robotoFlex = Roboto_Flex({
   subsets: ["latin"],
@@ -133,6 +134,7 @@ export default function RootLayout({ children }) {
           suppressHydrationWarning
         >
           {children}
+          <SpeedInsights />
         </body>
       </html>
     </ThemeProvider>
