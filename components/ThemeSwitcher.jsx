@@ -57,7 +57,7 @@ export function ThemeStylesheet() {
 }
 
 // Component for theme toggle button - to be used in body
-export function ThemeToggle({ onToggle }) {
+export function ThemeToggle({ onToggle, ...props }) {
   const { theme, toggleTheme, mounted } = useContext(ThemeContext);
 
   return (
@@ -70,6 +70,7 @@ export function ThemeToggle({ onToggle }) {
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       suppressHydrationWarning
+      {...props}
     >
       {mounted && theme === 'dark' ? (
         <svg width="24" height="24" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">

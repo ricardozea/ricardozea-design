@@ -12,6 +12,15 @@ export default function Navigation() {
   const [showHomeLogo, setShowHomeLogo] = useState(false);
   const { theme, mounted } = useContext(ThemeContext);
 
+  const navLinksContainerRef = useRef(null);
+  const activeNavLinkRef = useRef(null);
+  const [navIndicator, setNavIndicator] = useState({ x: 0, w: 0, visible: false });
+  const indicatorSwapTimeoutRef = useRef(null);
+  const [allowIndicatorMotion, setAllowIndicatorMotion] = useState(false);
+  const indicatorEnableMotionRafRef = useRef(null);
+  const indicatorHideTimeoutRef = useRef(null);
+  const indicatorVisibleRef = useRef(false);
+
   const isAutoScrollingRef = useRef(false);
   const scrollEndTimeoutRef = useRef(null);
   const handleScrollRef = useRef(null);
@@ -21,6 +30,10 @@ export default function Navigation() {
     : "/images/logo-ricardo-zea-for-dark.svg";
   // Prevent body scroll when menu is open
   const scrollYRef = useRef(0);
+
+  useEffect(() => {
+    indicatorVisibleRef.current = navIndicator.visible;
+  }, [navIndicator.visible]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -107,6 +120,111 @@ export default function Navigation() {
       }
     };
   }, []);
+
+  const updateNavIndicator = (el) => {
+    if (!navLinksContainerRef.current || !el) return;
+    const containerRect = navLinksContainerRef.current.getBoundingClientRect();
+    const linkRect = el.getBoundingClientRect();
+
+    if (activeNavLinkRef.current === el) {
+      setNavIndicator((prev) => (prev.visible ? prev : { ...prev, visible: true }));
+      return;
+    }
+
+    const nextX = linkRect.left - containerRect.left;
+    const nextW = linkRect.width;
+
+    if (indicatorSwapTimeoutRef.current) {
+      clearTimeout(indicatorSwapTimeoutRef.current);
+      indicatorSwapTimeoutRef.current = null;
+    }
+
+    if (indicatorEnableMotionRafRef.current) {
+      cancelAnimationFrame(indicatorEnableMotionRafRef.current);
+      indicatorEnableMotionRafRef.current = null;
+    }
+
+    if (indicatorHideTimeoutRef.current) {
+      clearTimeout(indicatorHideTimeoutRef.current);
+      indicatorHideTimeoutRef.current = null;
+    }
+
+    activeNavLinkRef.current = el;
+
+    if (!indicatorVisibleRef.current) {
+      setAllowIndicatorMotion(false);
+      setNavIndicator({ x: nextX, w: nextW, visible: true });
+      indicatorEnableMotionRafRef.current = requestAnimationFrame(() => {
+        indicatorEnableMotionRafRef.current = null;
+        setAllowIndicatorMotion(true);
+      });
+      return;
+    }
+
+    setAllowIndicatorMotion(true);
+    setNavIndicator({ x: nextX, w: nextW, visible: true });
+  };
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    activeNavLinkRef.current = null;
+    setNavIndicator((prev) => ({ ...prev, visible: false }));
+    setAllowIndicatorMotion(false);
+    if (indicatorSwapTimeoutRef.current) {
+      clearTimeout(indicatorSwapTimeoutRef.current);
+      indicatorSwapTimeoutRef.current = null;
+    }
+    if (indicatorEnableMotionRafRef.current) {
+      cancelAnimationFrame(indicatorEnableMotionRafRef.current);
+      indicatorEnableMotionRafRef.current = null;
+    }
+    if (indicatorHideTimeoutRef.current) {
+      clearTimeout(indicatorHideTimeoutRef.current);
+      indicatorHideTimeoutRef.current = null;
+    }
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (isMenuOpen) return;
+      if (!navIndicator.visible) return;
+      if (!activeNavLinkRef.current) return;
+      updateNavIndicator(activeNavLinkRef.current);
+    };
+
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [isMenuOpen, navIndicator.visible]);
+
+  const hideNavIndicator = () => {
+    if (indicatorSwapTimeoutRef.current) {
+      clearTimeout(indicatorSwapTimeoutRef.current);
+      indicatorSwapTimeoutRef.current = null;
+    }
+    if (indicatorEnableMotionRafRef.current) {
+      cancelAnimationFrame(indicatorEnableMotionRafRef.current);
+      indicatorEnableMotionRafRef.current = null;
+    }
+    if (indicatorHideTimeoutRef.current) {
+      clearTimeout(indicatorHideTimeoutRef.current);
+      indicatorHideTimeoutRef.current = null;
+    }
+
+    indicatorHideTimeoutRef.current = setTimeout(() => {
+      indicatorHideTimeoutRef.current = null;
+      setAllowIndicatorMotion(false);
+      setNavIndicator((prev) => ({ ...prev, visible: false }));
+    }, 60);
+  };
+
+  const handleNavLinksMouseMove = (e) => {
+    const item = e.target?.closest?.('a, .theme-switcher');
+    if (item && navLinksContainerRef.current?.contains(item)) {
+      updateNavIndicator(item);
+      return;
+    }
+    hideNavIndicator();
+  };
 
   const handleNavClick = (targetId) => {
     setIsMenuOpen(false);
@@ -210,9 +328,26 @@ export default function Navigation() {
             <span></span>
           </button>
 
-          <div className="nav-links-container">
+          <div
+            className="nav-links-container"
+            ref={navLinksContainerRef}
+            onMouseMove={handleNavLinksMouseMove}
+            onMouseLeave={hideNavIndicator}
+          >
+            <span
+              className={`nav-hover-indicator${allowIndicatorMotion ? ' is-motion' : ''}`}
+              aria-hidden="true"
+              style={{
+                '--nav-indicator-x': `${navIndicator.x}px`,
+                '--nav-indicator-w': `${navIndicator.w}px`,
+                opacity: navIndicator.visible ? 1 : 0,
+              }}
+            />
             <a
               href="#projects"
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("projects");
@@ -222,6 +357,9 @@ export default function Navigation() {
             </a>
             <a
               href="#skills"
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("skills");
@@ -231,6 +369,9 @@ export default function Navigation() {
             </a>
             <a
               href="#data"
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("data");
@@ -240,6 +381,9 @@ export default function Navigation() {
             </a>
             <a
               href="#testimonials"
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("testimonials");
@@ -249,6 +393,9 @@ export default function Navigation() {
             </a>
             <a
               href="#about"
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("about");
@@ -258,6 +405,9 @@ export default function Navigation() {
             </a>
             <a
               href="#authoring"
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("authoring");
@@ -267,6 +417,9 @@ export default function Navigation() {
             </a>
             <a
               href="#contact"
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("contact");
@@ -274,7 +427,12 @@ export default function Navigation() {
             >
               Contact
             </a>
-            <ThemeToggle onToggle={() => setIsMenuOpen(false)} />
+            <ThemeToggle
+              onToggle={() => setIsMenuOpen(false)}
+              onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+              onFocus={(e) => updateNavIndicator(e.currentTarget)}
+              onBlur={hideNavIndicator}
+            />
           </div>
         </div>
       </nav>
