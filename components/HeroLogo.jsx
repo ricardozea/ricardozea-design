@@ -1,6 +1,5 @@
 'use client';
 
-import Image from "next/image";
 import { useContext } from 'react';
 import { ThemeContext } from "./ThemeSwitcher";
 
@@ -13,13 +12,12 @@ export default function HeroLogo() {
     : "/images/logo-ricardo-zea-base.svg"; // Light mode logo
 
   return (
-    <Image
+    <img
       src={logoSrc}
       alt="Ricardo Zea Logo"
       width={180}
       height={138}
       className='hero-logo'
-      priority
     />
   );
 }
