@@ -491,15 +491,7 @@ p.text-description:first-of-type {
 
 	&.home {
 		.nav-inner-container {
-
-			@media (max-width: 767px) {
-				justify-content: space-between;
-			}
-
-			@media (min-width: 768px) {
-				justify-content: space-between;
-
-			}
+			justify-content: space-between;
 		}
 	}
 
@@ -552,6 +544,14 @@ p.text-description:first-of-type {
 		transition: transform 0.3s ease;
 	}
 
+	&.home .nav-logo,
+	&.home.show-home-logo .nav-logo {
+		transform: none;
+		opacity: 1;
+		pointer-events: auto;
+		transition: none;
+	}
+
 	@media (min-width: 768px) {
 
 		&.home:not(.show-home-logo) .nav-logo {
@@ -569,16 +569,6 @@ p.text-description:first-of-type {
 		}
 	}
 
-	@media (max-width: 767px) {
-		&.home .nav-logo,
-		&.home.show-home-logo .nav-logo {
-			transform: none;
-			opacity: 1;
-			pointer-events: auto;
-			transition: none;
-		}
-	}
-
 	&.menu-open .nav-logo {
 		top: auto;
 		position: relative;
@@ -588,18 +578,16 @@ p.text-description:first-of-type {
 		transition: transform 0.3s ease;
 	}
 
-	@media (max-width: 767px) {
-		&.home:not(.show-home-logo).menu-open .nav-logo {
-			transform: none;
-			opacity: 1;
-			pointer-events: auto;
-		}
+	&.home:not(.show-home-logo).menu-open .nav-logo {
+		transform: none;
+		opacity: 1;
+		pointer-events: auto;
+	}
 
-		&.home.show-home-logo.menu-open .nav-logo {
-			transform: none;
-			opacity: 1;
-			pointer-events: auto;
-		}
+	&.home.show-home-logo.menu-open .nav-logo {
+		transform: none;
+		opacity: 1;
+		pointer-events: auto;
 	}
 
 	.nav-logo:hover {
@@ -717,6 +705,10 @@ p.text-description:first-of-type {
 		transform: translateX(100%);
 		transition: transform 0.3s ease, visibility 0s 0.3s;
 		visibility: hidden;
+
+		html.light & {
+			background: rgba(255, 255, 255, 0);
+		}
 
 		/* Desktop Styles Override */
 		@media (min-width: 768px) {
@@ -1186,7 +1178,7 @@ html.light .skills .section-container {
 
 	code {
 		padding: 0 2px;
-		font-size: var(--body-m);
+		font-size: var(--body-s);
 		font-weight: 100;
 		background: none;
 	}
@@ -2440,9 +2432,9 @@ body {
 	padding: var(--tooltip-padding);
 	position: absolute;
 	z-index: 50;
-	font-size: var(--body-m);
+	font-size: var(--body-xs);
 	color: var(--text-persistent-light);
-	font-weight: 400;
+	font-weight: 200;
 	background-color: var(--tooltip-bg);
 	border-radius: var(--tooltip-radius);
 	white-space: nowrap;

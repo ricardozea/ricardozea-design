@@ -363,6 +363,7 @@ export default function Home() {
 								<li>Midjourney</li>
 								<li>UX Pilot</li>
 								<li>Banani</li>
+								<li>Dora AI</li>
 								<li>ChatGPT</li>
 								<li>Gemini</li>
 								<li>Claude</li>
@@ -412,13 +413,17 @@ export default function Home() {
 								</div>
 								<h3>Prototyping</h3>
 							</div>
-							<p>Most of the times, Figma prototyping is a waste of time, lol. When a prototype tries to replicate the browser's behavior, that's when it's a waste of time.</p>
+							<p>Not all prototyping is created equal. I'm always careful with prototyping so I don't waste time in something temporary. When a prototype tries to replicate the browser's behavior, for example, that's when it's a waste of time.</p>
 							<p>But when it's about helping prove a concept, showcase a specific behavior/feature, or visualize content architecture, then it is worth prototyping.</p>
-							<p>HTML+CSS+JS protyping is the best way to go, especially with all the "vibe coding" apps out there these days.</p>
+							<p>HTML+CSS+JS protyping is the best way to go, especially now with all the vibe coding apps out there these days.</p>
 							<ul className="skill-tag-container">
 								<li>Figma</li>
 								<li>HTML & CSS</li>
 								<li>CodePen</li>
+								<li>Lovable</li>
+								<li>Magic Patterns</li>
+								<li>Windsurf</li>
+								<li>Antigravity</li>
 							</ul>
 						</div>
 

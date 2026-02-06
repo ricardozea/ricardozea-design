@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useId } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 export const Tooltip = React.forwardRef(({
@@ -13,6 +13,7 @@ export const Tooltip = React.forwardRef(({
   const [isVisible, setIsVisible] = useState(false);
   const lastTouchTimeRef = useRef(0);
   const tooltipRef = useRef(null);
+  const tooltipId = useId();
 
   // Handle outside clicks for mobile
   useEffect(() => {
@@ -113,14 +114,25 @@ export const Tooltip = React.forwardRef(({
     }
   };
 
+  const handleFocus = () => {
+    setIsVisible(true);
+  };
+
+  const handleBlur = () => {
+    setIsVisible(false);
+  };
+
   return (
     <span
       ref={ref}
       className={`tooltip ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       onTouchStart={handleTouchStart}
       onClick={handleClick}
+      aria-describedby={isVisible && tooltipContent ? tooltipId : undefined}
       {...props}
     >
       {triggerElement}
@@ -129,6 +141,7 @@ export const Tooltip = React.forwardRef(({
         {isVisible && tooltipContent && (
           <motion.span
             ref={tooltipRef}
+            id={tooltipId}
             initial={initialAnimation[position]}
             animate={animateState[position]}
             exit={initialAnimation[position]}

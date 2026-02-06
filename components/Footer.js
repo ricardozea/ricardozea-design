@@ -1,4 +1,5 @@
 import SocialIcons from "./SocialIcons";
+import { Tooltip } from "./Tooltip";
 
 export default function Footer() {
 	return (
@@ -38,19 +39,22 @@ export default function Footer() {
 								<div className="tech-section-container">
 									<span className="tech-title">Web:</span>
 									<div className="tech-logos">
-										<img
-											src="/images/logo-html5.svg"
-											alt="HTML5"
-										/>
-										<img src="/images/logo-css3.svg" alt="CSS3" />
-										<img
-											src="/images/logo-js.svg"
-											alt="JavaScript"
-										/>
-										<img
-											src="/images/logo-tailwindcss.svg"
-											alt="TailwindCSS"
-										/>
+										<Tooltip tabIndex="0" aria-label="HTML5">
+											<span>HTML5</span>
+											<img src="/images/logo-html5.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="CSS3">
+											<span>CSS3</span>
+											<img src="/images/logo-css3.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="JavaScript">
+											<span>JavaScript</span>
+											<img src="/images/logo-js.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="TailwindCSS">
+											<span>TailwindCSS</span>
+											<img src="/images/logo-tailwindcss.svg" alt="" aria-hidden="true" />
+										</Tooltip>
 									</div>
 								</div>
 
@@ -58,34 +62,38 @@ export default function Footer() {
 								<div className="tech-section-container">
 									<span className="tech-title">Development:</span>
 									<div className="tech-logos">
-										<img
-											src="/images/logo-windsurf.svg"
-											alt="Windsurf"
-										/>
-										<img
-											src="/images/logo-antigravity.svg"
-											alt="Antigravity"
-										/>
-										<img
-											src="/images/logo-nextjs.svg"
-											alt="Next.js"
-										/>
-										<img
-											src="/images/logo-nodejs.svg"
-											alt="Node.js"
-										/>
-										<img
-											src="/images/logo-react.svg"
-											alt="React"
-										/>
-										<img
-											src="/images/logo-github.svg"
-											alt="GitHub"
-										/>
-										<img
-											src="/images/logo-motion.svg"
-											alt="Motion"
-										/>
+										<Tooltip tabIndex="0" aria-label="Windsurf">
+											<span>Windsurf</span>
+											<img src="/images/logo-windsurf.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Antigravity">
+											<span>Antigravity</span>
+											<img src="/images/logo-antigravity.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Next.js">
+											<span>Next.js</span>
+											<img src="/images/logo-nextjs.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Node.js">
+											<span>Node.js</span>
+											<img src="/images/logo-nodejs.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="React">
+											<span>React</span>
+											<img src="/images/logo-react.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="GitHub">
+											<span>GitHub</span>
+											<img src="/images/logo-github.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Vercel">
+											<span>Vercel</span>
+											<img src="/images/logo-vercel.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Motion">
+											<span>Motion</span>
+											<img src="/images/logo-motion.svg" alt="" aria-hidden="true" />
+										</Tooltip>
 									</div>
 								</div>
 
@@ -93,23 +101,22 @@ export default function Footer() {
 								<div className="tech-section-container">
 									<span className="tech-title">Design:</span>
 									<div className="tech-logos">
-										<img
-											src="/images/logo-figma.svg"
-											alt="Figma"
-										/>
-										<img
-											src="/images/logo-color-ramp.svg"
-											alt="Color-Ramp.com"
-										/>
-										<img
-											src="/images/logo-google-fonts.svg"
-											alt="Google Fonts"
-										/>
-										<img
-											src="/images/logo-phosphor.svg"
-											alt="Phosphor"
-											title="Phosphor Icons"
-										/>
+										<Tooltip tabIndex="0" aria-label="Figma">
+											<span>Figma</span>
+											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Color-Ramp.com">
+											<span>Color-Ramp.com</span>
+											<img src="/images/logo-color-ramp.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Google Fonts">
+											<span>Google Fonts</span>
+											<img src="/images/logo-google-fonts.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Phosphor Icons">
+											<span>Phosphor Icons</span>
+											<img src="/images/logo-phosphor.svg" alt="" aria-hidden="true" />
+										</Tooltip>
 									</div>
 								</div>
 
@@ -117,30 +124,30 @@ export default function Footer() {
 								<div className="tech-section-container">
 									<span className="tech-title">AI:</span>
 									<div className="tech-logos">
-										<img
-											src="/images/logo-figma.svg"
-											alt="Figma"
-										/>
-										<img
-											src="/images/logo-uxpilot.svg"
-											alt="UX Pilot"
-										/>
-										<img
-											src="/images/logo-banani.svg"
-											alt="Banani"
-										/>
-										<img
-											src="/images/logo-dora.svg"
-											alt="Dora AI"
-										/>
-										<img
-											src="/images/logo-openai.svg"
-											alt="ChatGPT"
-										/>
-										<img
-											src="/images/logo-gemini.svg"
-											alt="Gemini"
-										/>
+										<Tooltip tabIndex="0" aria-label="Figma">
+											<span>Figma</span>
+											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="UX Pilot">
+											<span>UX Pilot</span>
+											<img src="/images/logo-uxpilot.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Banani">
+											<span>Banani</span>
+											<img src="/images/logo-banani.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Dora AI">
+											<span>Dora AI</span>
+											<img src="/images/logo-dora.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="ChatGPT">
+											<span>ChatGPT</span>
+											<img src="/images/logo-openai.svg" alt="" aria-hidden="true" />
+										</Tooltip>
+										<Tooltip tabIndex="0" aria-label="Gemini">
+											<span>Gemini</span>
+											<img src="/images/logo-gemini.svg" alt="" aria-hidden="true" />
+										</Tooltip>
 									</div>
 								</div>
 							</div>
@@ -151,7 +158,7 @@ export default function Footer() {
 					<SocialIcons className="footer-social-icons" />
 				</div>
 				<div className="footer-disclaimer">
-					<p className="disclaimer">All logos, characters, and brand names blah, blah, blah are the property of their respective owners. Their use does not imply endorsement.</p>
+					<p className="disclaimer">All logos, characters, and brand names blah, blah, blah are the property of their respective owners. Their use does not imply endorsement. Their use does not imply endorsement.</p>
 				</div>
 			</div>
 		</footer>
