@@ -369,7 +369,22 @@ a.new-tab.hide-new-tab-icon::after {
 }
 
 .glow-button:focus-visible {
-	outline-color: rgba(255, 255, 255, 0.6);
+	box-shadow: 0 0 0 1px white;
+}
+
+.glow-button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.glow-button-wrap:focus-within::after {
+	content: "";
+	position: absolute;
+	inset: -3px;
+	border-radius: var(--corner-m);
+	border: 2px solid rgba(255, 255, 255, 0.35);
+	box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+	opacity: 1;
+	pointer-events: none;
 }
 
 .glow-button:active {
