@@ -108,7 +108,7 @@ a:hover {
 	text-decoration: none;
 
 	svg {
-		transform: translateY(-2px);
+		transform: translateY(2px);
 	}
 }
 
@@ -153,6 +153,14 @@ a.new-tab.hide-new-tab-icon::after {
 	transition: 0.3s ease;
 	cursor: pointer;
 	white-space: nowrap;
+	transition: .5s ease;
+	background-image:
+		radial-gradient(60% 110% at 50% 0%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 70%),
+		linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+
+	box-shadow:
+		0 1px 0 rgba(255, 255, 255, 0.12) inset,
+		0 10px 35px rgba(0, 0, 0, 0.2);
 
 	&.small {
 		padding: var(--space-xs) var(--space-s);
@@ -166,14 +174,9 @@ a.new-tab.hide-new-tab-icon::after {
 
 	/* Primary Button */
 	&.button-primary {
-		border: 1px solid var(--border-light-25);
 		color: var(--text-persistent-light) !important;
-		background-color: var(--bg-accent-red-strong-persistent);
-	}
-
-	&.button-primary:hover {
-		background-color: var(--bg-accent-red-strong-hover-persistent);
-		transition: 0.3s ease;
+		background-color: rgba(120, 2, 2, 0.5);
+		background-color: color-mix(in srgb, var(--bg-accent-red-strong-persistent) 90%, transparent);
 	}
 
 	&.button-primary:active {
@@ -182,8 +185,8 @@ a.new-tab.hide-new-tab-icon::after {
 
 	/* Secondary Button */
 	&.button-secondary {
-		border: 1px solid var(--border-accent-blue-subtle);
 		color: var(--text-accent-blue-subtle);
+		background-color: color-mix(in srgb, var(--bg-persistent-dark) 98%, transparent);
 	}
 
 	&.button-secondary svg {
@@ -191,7 +194,6 @@ a.new-tab.hide-new-tab-icon::after {
 	}
 
 	&.button-secondary:hover {
-		border-color: var(--border-accent-blue-subtle-hover);
 		color: var(--text-accent-blue-subtle-hover);
 		text-decoration: none;
 	}
@@ -207,6 +209,189 @@ a.new-tab.hide-new-tab-icon::after {
 
 	&.button-secondary:active svg {
 		color: var(--icon-accent-blue-subtle-active);
+	}
+}
+
+/* ============================================
+   Glow Button (Wrapper + Rotating Ring)
+   ============================================ */
+.glow-button-wrap {
+	position: relative;
+	display: inline-block;
+	border-radius: calc(var(--corner-s) + 2px);
+	padding: 1px;
+	overflow: hidden;
+	place-self: flex-start;
+
+	--glow-border-angle: 0turn;
+	--glow-ring-opacity: 1;
+
+	background:
+		conic-gradient(
+			from var(--glow-border-angle) at 50% 50%,
+			rgba(255, 255, 255, var(--glow-ring-opacity)) 0deg,
+			rgba(255, 255, 255, 0) 60deg,
+			rgba(255, 255, 255, 0) 310deg,
+			rgba(255, 255, 255, var(--glow-ring-opacity)) 360deg
+		);
+
+	animation: glow-border-rotate 7s linear infinite;
+}
+
+/* ============================================
+   Glow Button (Animated CSS Custom Properties)
+   ============================================ */
+@property --glow-border-angle {
+	syntax: "<angle>";
+	initial-value: 0turn;
+	inherits: false;
+}
+
+@property --glow-highlight-width {
+	syntax: "<percentage>";
+	initial-value: 40%;
+	inherits: false;
+}
+
+@property --glow-highlight-length {
+	syntax: "<percentage>";
+	initial-value: 10%;
+	inherits: false;
+}
+
+/* ============================================
+   Glow Button (Keyframes)
+   ============================================ */
+@keyframes glow-border-rotate {
+	to {
+		--glow-border-angle: 1turn;
+	}
+}
+
+@keyframes glow-hover-in {
+	to {
+		--glow-highlight-width: 80%;
+		--glow-highlight-length: 55%;
+	}
+}
+
+@keyframes glow-hover-out {
+	from {
+		--glow-highlight-width: 80%;
+		--glow-highlight-length: 55%;
+	}
+	to {
+		--glow-highlight-width: 40%;
+		--glow-highlight-length: 10%;
+	}
+}
+
+/* ============================================
+   Glow Button (Blurred Glow Layer)
+   ============================================ */
+.glow-button-wrap::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: calc(var(--corner-s) + 2px);
+	filter: blur(10px);
+	opacity: 0.2;
+	background:
+		conic-gradient(
+			from var(--glow-border-angle) at 50% 50%,
+			rgba(255, 255, 255, 0.35) 0deg,
+			rgba(255, 255, 255, 0) 70deg,
+			rgba(255, 255, 255, 0) 300deg,
+			rgba(255, 255, 255, 0.35) 360deg
+		);
+	pointer-events: none;
+}
+
+/* ============================================
+   Glow Button (Base Element)
+   ============================================ */
+.glow-button {
+	position: relative;
+	--glow-highlight-opacity: 0;
+	--glow-highlight-width: 40%;
+	--glow-highlight-length: 10%;
+	border-radius: var(--corner-s);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+
+	transform: translateY(0);
+	transition: .3s;
+
+	outline: 2px solid transparent;
+	outline-offset: 3px;
+}
+
+/* ============================================
+   Glow Button (Hover Radial Overlay)
+   ============================================ */
+.glow-button::after {
+	content: "";
+	position: absolute;
+	left: -2px;
+	top: -2px;
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	border-radius: calc(var(--corner-s) + 2px);
+	opacity: var(--glow-highlight-opacity);
+	background: radial-gradient(var(--glow-highlight-length) var(--glow-highlight-width) at 50% 120%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 100%);
+	pointer-events: none;
+	transition: opacity .6s ease;
+	animation: .6s glow-hover-out forwards;
+}
+
+/* ============================================
+   Glow Button (Icon Treatment)
+   ============================================ */
+.glow-button :is(svg) {
+	filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.15));
+}
+
+/* ============================================
+   Glow Button (Hover / Focus / Active States)
+   ============================================ */
+.glow-button:is(:hover, :focus-visible) {
+	--glow-highlight-opacity: 0.75;
+	box-shadow:
+		0 1px 0 rgba(255, 255, 255, 0.16) inset,
+		0 5px 45px rgba(0, 0, 0, 0.25),
+		0 0 18px rgba(255, 255, 255, 0.16);
+	border-color: color-mix(in srgb, var(--border-persistent-light) 20%, transparent);
+}
+
+.glow-button:is(:hover, :focus-visible)::after {
+	animation: .6s glow-hover-in forwards;
+}
+
+.glow-button:focus-visible {
+	outline-color: rgba(255, 255, 255, 0.6);
+}
+
+.glow-button:active {
+	--glow-highlight-opacity: 0.45;
+	transform: translateY(1px) scale(0.99);
+	filter: saturate(1.08);
+}
+
+/* ============================================
+   Glow Button (Reduced Motion)
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+	.glow-button-wrap {
+		animation: none;
+	}
+
+	.glow-button {
+		transition: none;
+	}
+
+	.glow-button::after {
+		animation: none;
 	}
 }
 
@@ -1984,19 +2169,42 @@ html.light .info-text {
 
 .contact-section {
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: stretch;
 	justify-content: center;
 	gap: 2.5rem;
 	max-width: 1200px;
 	margin: 0 auto;
+
+	@media (min-width: 1024px) {
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: space-between;
+	}
 }
 
 .contact-info {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: center;
 	gap: 1.5rem;
 	color: var(--text-bolder);
+	width: 100%;
+
+	@media (min-width: 1024px) {
+		flex: 1 1 0;
+		align-items: flex-start;
+		min-width: 0;
+	}
+}
+
+.contact-form-container {
+	width: 100%;
+
+	@media (min-width: 1024px) {
+		flex: 2 1 0;
+		min-width: 0;
+	}
 }
 
 .contact-email {

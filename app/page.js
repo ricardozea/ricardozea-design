@@ -19,7 +19,6 @@ import {
 	ArrowRight,
 	Tag,
 	PenNibIcon,
-	Toolbox,
 	Quotes,
 	GraduationCap,
 	Certificate,
@@ -106,10 +105,12 @@ export default function Home() {
 
 					{/* CTA Button */}
 					<div className="hero-cta">
-						<a href="#projects" className="cta-button button-primary">
-							View My Work
-							<ArrowLineDown size={24} />
-						</a>
+						<span className="glow-button-wrap">
+							<a href="#projects" className="cta-button button-primary glow-button">
+								View My Work
+								<ArrowLineDown size={24} />
+							</a>
+						</span>
 					</div>
 				</div>
 			</header>
@@ -214,10 +215,12 @@ export default function Home() {
 										<li>Frontend</li>
 									</ul>
 
-									<a href="/projects/nodesource" className="cta-button button-primary small">
-										View Project
-										<ArrowRight size={16} weight="bold" />
-									</a>
+									<span className="glow-button-wrap">
+										<a href="/projects/nodesource" className="cta-button button-primary small glow-button">
+											View Project
+											<ArrowRight size={16} weight="bold" />
+										</a>
+									</span>
 								</div>
 							</div>
 						</article>
@@ -259,10 +262,12 @@ export default function Home() {
 										<li>Usability</li>
 									</ul>
 
-									<a href="/projects/nestlepurina" className="cta-button button-primary small">
-										View Project
-										<ArrowRight size={16} weight="bold" />
-									</a>
+									<span className="glow-button-wrap">
+										<a href="/projects/nestlepurina" className="cta-button button-primary small glow-button">
+											View Project
+											<ArrowRight size={16} weight="bold" />
+										</a>
+									</span>
 								</div>
 							</div>
 						</article>
@@ -840,15 +845,19 @@ export default function Home() {
 
 							{/* CTA Buttons */}
 							<div className="about-cta flex flex-wrap gap-4 mt-8">
-								<a href="/images/Resume-Ricardo-Zea.pdf" target="_blank" rel="noopener noreferrer" className="cta-button button-primary flex items-center gap-2 new-tab hide-new-tab-icon" title="PDF opens in a new tab">
-									Download Resume (PDF{resumeSizeMb === null ? '' : ` - ${resumeSizeMb} MB`})
-									<DownloadSimple size={20} weight="regular" />
-								</a>
+								<span className="glow-button-wrap">
+									<a href="/images/Resume-Ricardo-Zea.pdf" target="_blank" rel="noopener noreferrer" className="cta-button button-primary flex items-center gap-2 new-tab hide-new-tab-icon glow-button" title="PDF opens in a new tab">
+										Download Resume (PDF{resumeSizeMb === null ? '' : ` - ${resumeSizeMb} MB`})
+										<DownloadSimple size={20} weight="regular" />
+									</a>
+								</span>
 
-								<a href="#contact" className="cta-button button-secondary flex items-center gap-2">
-									Get In Touch
-									<Envelope size={20} weight="regular" />
-								</a>
+								<span className="glow-button-wrap">
+									<a href="#contact" className="cta-button button-secondary flex items-center gap-2 glow-button">
+										Get In Touch
+										<Envelope size={20} weight="regular" />
+									</a>
+								</span>
 							</div>
 						</div>
 
@@ -1129,7 +1138,6 @@ export default function Home() {
 
 							{/* Email */}
 							<div className="contact-email">
-								<Envelope size={40} weight="light" />
 								<div className="contact-email-content">
 									<p>Email:</p>
 									<p><a href="mailto:ricardozea@gmail.com">ricardozea@gmail.com</a></p>
