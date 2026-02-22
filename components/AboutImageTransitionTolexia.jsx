@@ -1,44 +1,51 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
-import gsap from 'gsap';
 import Image from "next/image";
 
 /**
  * 🛠️ CONFIGURATION SETTINGS
- * You can edit these values to change the behavior of the particle system.
  */
 const SETTINGS = {
-  particleResolution: 850,    // 128x128 = 16k particles. Higher = more detail, lower = more performance.
-  particleSize: 0.1,         // Base size of each particle.
-  waitDuration: 1.0,          // Seconds the image stays fully formed and static.
-  morphDuration: 3.5,         // Seconds for the dispersion/convergence animation (per phase).
-  explosionStrength: 50.0,    // How far particles fly out during dispersion.
-  glitchStrength: 0,       // Intensity of the subtle glitch effect.
-  dpr: [1, 1.5],              // Device Pixel Ratio range for rendering quality.
+  particleResolution: 800,
+  particleSize: 0.12,
+  transitionFrequency: 10.0,   // Total cycle time in seconds
+  morphDuration: 3,         // Duration to disperse/converge
+  explosionStrength: 50.0,    // How far particles fly
+  dpr: [1, 1.5],
+  stylesCount: 10,
 };
 
-// Total cycle for one image transition = waitDuration + (morphDuration * 2)
-// With wait: 2.0 and morph: 1.5, the frequency is exactly 5 seconds.
+const STYLE_NAMES = [
+  "Horizontal Slide",
+  "Vertical Cascade",
+  "Radial Bloom",
+  "Spiral Unwind",
+  "Grid Shift",
+  "Wave Ripple",
+  "Diagonal Wipe",
+  "Pinwheel Rotate",
+  "Scale Zoom",
+  "Row Shuffle"
+];
 
-// Vertex Shader
+// ─── Vertex Shader ───────────────────────────────────────────────────────────
 const vertexShader = `
     uniform vec2 uResolution;
     uniform sampler2D uPictureTexture;
+    uniform sampler2D uNextTexture;
+    uniform float uMixFactor;
     uniform float uParticleSize;
     uniform float uTime;
     uniform float uProgress;
+    uniform int uStyle;
 
     varying vec3 vColor;
     varying vec2 vUv;
     varying vec3 vPosition;
-
-    float random2D(vec2 value) {
-        return fract(sin(dot(value.xy, vec2(12.9898,78.233))) * 43758.5453123);
-    }
 
     vec4 permute(vec4 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
     vec4 taylorInvSqrt(vec4 r){ return 1.79284291400159 - 0.85373472095314 * r; }
@@ -99,28 +106,69 @@ const vertexShader = `
         return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
     }
 
-    float rand(float n){return fract(sin(n) * 43758.5453123);}
-
-    float noise(float p){
-        float fl = floor(p);
-        float fc = fract(p);
-        return mix(rand(fl), rand(fl + 1.0), fc);
-    }
-
     void main() {
         vUv = uv;
 
         float multiplier = ${SETTINGS.explosionStrength.toFixed(1)};
-        float modX = mod(position.x, 2.0) > 1.0 ? 1.0 : -1.0;
-        float modY = mod(position.y, 2.0) > 1.0 ? 1.0 : -1.0;
-        float modZ = mod(position.z, 2.0) > 1.0 ? 1.0 : -1.0;
+        vec3 positionTarget;
 
-        vec3 positionTarget = vec3(
-            noise(position.x) * multiplier * modX,
-            noise(position.y) * multiplier * modY,
-            noise(position.z) * multiplier * modZ
-        );
+        if (uStyle == 0) { // Horizontal Slide — uniform left slide
+            positionTarget = position + vec3(-multiplier, 0.0, 0.0);
 
+        } else if (uStyle == 1) { // Vertical Cascade — columns fall with stagger
+            float colStagger = position.x * 0.15;
+            positionTarget = position + vec3(0.0, -multiplier + colStagger, 0.0);
+
+        } else if (uStyle == 2) { // Radial Bloom — concentric ring expansion
+            float dist = length(position.xy);
+            vec2 dir = dist > 0.001 ? normalize(position.xy) : vec2(0.0);
+            positionTarget = vec3(dir * multiplier, position.z);
+
+        } else if (uStyle == 3) { // Spiral Unwind — clean spiral path
+            float dist = length(position.xy);
+            float angle = dist * 1.5;
+            float c = cos(angle);
+            float s = sin(angle);
+            positionTarget = vec3(
+                c * position.x - s * position.y,
+                s * position.x + c * position.y,
+                position.z
+            ) * (1.0 + multiplier * 0.08);
+
+        } else if (uStyle == 4) { // Grid Shift — odd cols up, even cols down
+            float colIndex = floor((position.x + 5.0) * 80.0);
+            float direction = mod(colIndex, 2.0) > 0.5 ? 1.0 : -1.0;
+            positionTarget = position + vec3(0.0, direction * multiplier, 0.0);
+
+        } else if (uStyle == 5) { // Wave Ripple — sine wave horizontal sweep
+            float wave = sin(position.x * 1.5) * multiplier * 0.4;
+            positionTarget = position + vec3(0.0, wave, 0.0);
+
+        } else if (uStyle == 6) { // Diagonal Wipe — 45° sweep
+            float diagonal = (position.x + position.y) * 0.5;
+            positionTarget = position + vec3(diagonal, diagonal, 0.0) * (multiplier * 0.08);
+
+        } else if (uStyle == 7) { // Pinwheel Rotate — flat 2D rotation + centrifugal
+            float dist = length(position.xy);
+            float angle = 3.14159 * 0.5;
+            float c = cos(angle);
+            float s = sin(angle);
+            positionTarget = vec3(
+                c * position.x - s * position.y,
+                s * position.x + c * position.y,
+                position.z
+            ) * (1.0 + dist * 0.3);
+
+        } else if (uStyle == 8) { // Scale Zoom — uniform expansion from center
+            positionTarget = position * (1.0 + multiplier * 0.15);
+
+        } else { // Row Shuffle — odd rows left, even rows right
+            float rowIndex = floor((position.y + 5.0) * 80.0);
+            float direction = mod(rowIndex, 2.0) > 0.5 ? 1.0 : -1.0;
+            positionTarget = position + vec3(direction * multiplier, 0.0, 0.0);
+        }
+
+        // Smooth stagger based on position (not noise)
         float noiseOrigin = simplexNoise3d( positionTarget );
         float noiseTarget = simplexNoise3d( position );
         float noiseVal = mix(noiseOrigin, noiseTarget, uProgress);
@@ -134,29 +182,24 @@ const vertexShader = `
         vPosition = mixedPosition;
 
         vec4 modelPosition = modelMatrix * vec4(mixedPosition, 1.0);
-
-        float glitchTime = uTime * 0.5 - sin(modelPosition.y / 5.) - sin(modelPosition.x / 5.);
-        float glitchStrength = sin(glitchTime) + abs(sin(glitchTime * 3.45)) +  abs(sin(glitchTime * 8.76));
-        glitchStrength = smoothstep(0.4, 1.0, glitchStrength / 4.0) * ${SETTINGS.glitchStrength.toFixed(2)};
-
-        modelPosition.x += (random2D(modelPosition.xz + uTime) - .5) * glitchStrength;
-        modelPosition.y += (random2D(modelPosition.zx + uTime) - .5) * glitchStrength;
-
         vec4 viewPosition = viewMatrix * modelPosition;
         vec4 projectedPosition = projectionMatrix * viewPosition;
         gl_Position = projectedPosition;
 
-        vec4 texColor = texture(uPictureTexture, uv);
+        // Dual-texture crossfade: smoothly blend colors between images
+        vec4 texA = texture(uPictureTexture, uv);
+        vec4 texB = texture(uNextTexture, uv);
+        vec4 texColor = mix(texA, texB, uMixFactor);
         float intensity = (texColor.r + texColor.g + texColor.b) / 3.0;
 
-        gl_PointSize = uParticleSize * (intensity + 0.15) * uResolution.y;
+        gl_PointSize = uParticleSize * (intensity + 0.2) * uResolution.y;
         gl_PointSize *= (1.0 / - viewPosition.z);
 
         vColor = texColor.rgb;
     }
 `;
 
-// Fragment Shader
+// ─── Fragment Shader ─────────────────────────────────────────────────────────
 const fragmentShader = `
     varying vec3 vColor;
     varying vec3 vPosition;
@@ -165,8 +208,8 @@ const fragmentShader = `
         vec2 uv = gl_PointCoord;
         if(distance(uv, vec2(0.5)) > 0.5) discard;
 
-        float alphaX = 1.0 - smoothstep(0.0, 20., abs(vPosition.x));
-        float alphaY = 1.0 - smoothstep(0.0, 10., abs(vPosition.y));
+        float alphaX = 1.0 - smoothstep(0.0, 25., abs(vPosition.x));
+        float alphaY = 1.0 - smoothstep(0.0, 15., abs(vPosition.y));
         float alpha = clamp(alphaX * alphaY, 0.0, 1.0);
 
         gl_FragColor = vec4(vColor, alpha);
@@ -174,7 +217,15 @@ const fragmentShader = `
     }
 `;
 
-const Particles = ({ images, isPaused }) => {
+// ─── Particles Component ─────────────────────────────────────────────────────
+const Particles = ({ images, isPaused, onStyleChange }) => {
+  const pointsRef = useRef();
+  const materialRef = useRef();
+  const { size, viewport } = useThree();
+  const texturesRef = useRef([]);
+  const [texturesLoaded, setTexturesLoaded] = useState(false);
+
+  // Geometry
   const geometry = useMemo(() => {
     const res = SETTINGS.particleResolution;
     const geo = new THREE.PlaneGeometry(10, 10, res, res);
@@ -182,128 +233,143 @@ const Particles = ({ images, isPaused }) => {
     return geo;
   }, []);
 
-  const materialRef = useRef();
-  const { size, viewport } = useThree();
-  const [textures, setTextures] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const timelineRef = useRef(null);
+  // Material — imperative creation so React reconciler never destroys it
+  useEffect(() => {
+    const mat = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      uniforms: {
+        uResolution: { value: new THREE.Vector2(size.width, size.height) },
+        uPictureTexture: { value: null },
+        uNextTexture: { value: null },
+        uMixFactor: { value: 0.0 },
+        uParticleSize: { value: SETTINGS.particleSize },
+        uProgress: { value: 1.0 },
+        uTime: { value: 0 },
+        uStyle: { value: 0 },
+      },
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+    });
+    materialRef.current = mat;
 
+    if (pointsRef.current) {
+      pointsRef.current.material = mat;
+    }
+
+    return () => mat.dispose();
+  }, []);
+
+  // Engine State
+  const engineRef = useRef({
+    currentIndex: 0,
+    styleIndex: 0,
+    lastCycleId: -1,
+    accumulatedTime: 0,
+  });
+
+  // Texture loading
   useEffect(() => {
     const loader = new THREE.TextureLoader();
-    let loaded = 0;
-    const tempTextures = [];
-
+    let loadedItems = 0;
+    const temp = [];
     images.forEach((img, i) => {
       loader.load(img.src, (tex) => {
         tex.colorSpace = THREE.SRGBColorSpace;
-        tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
-        tempTextures[i] = tex;
-        loaded++;
-        if (loaded === images.length) {
-          setTextures(tempTextures);
+        temp[i] = tex;
+        loadedItems++;
+        if (loadedItems === images.length) {
+          texturesRef.current = temp;
+          // Initialize both texture slots
+          if (materialRef.current) {
+            materialRef.current.uniforms.uPictureTexture.value = temp[0];
+            materialRef.current.uniforms.uNextTexture.value = temp[1 % temp.length];
+          }
+          setTexturesLoaded(true);
         }
       });
     });
-
-    return () => {
-      tempTextures.forEach(t => t.dispose());
-    };
+    return () => temp.forEach(t => t.dispose());
   }, [images]);
 
-  const uniforms = useMemo(() => ({
-    uResolution: { value: new THREE.Vector2(size.width, size.height) },
-    uPictureTexture: { value: null },
-    uParticleSize: { value: SETTINGS.particleSize },
-    uProgress: { value: 0 },
-    uTime: { value: 0 },
-  }), [size]);
+  useFrame((state, delta) => {
+    const mat = materialRef.current;
+    if (!mat || !texturesLoaded) return;
 
-  useEffect(() => {
-    if (textures.length > 0 && materialRef.current) {
-      materialRef.current.uniforms.uPictureTexture.value = textures[currentIndex];
-      gsap.to(materialRef.current.uniforms.uProgress, {
-        value: 1,
-        duration: SETTINGS.morphDuration,
-        ease: "power2.inOut"
-      });
-    }
-  }, [textures]);
+    const absoluteTime = state.clock.getElapsedTime();
+    mat.uniforms.uTime.value = absoluteTime;
 
-  useFrame((state) => {
-    if (materialRef.current && !isPaused) {
-      materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
-      materialRef.current.uniforms.uResolution.value.set(
-        size.width * viewport.initialDpr,
-        size.height * viewport.initialDpr
-      );
+    const dpr = viewport.initialDpr || 1;
+    mat.uniforms.uResolution.value.set(size.width * dpr, size.height * dpr);
+
+    // Advance transition clock
+    engineRef.current.accumulatedTime += Math.min(delta, 0.1);
+    const time = engineRef.current.accumulatedTime;
+
+    const cycle = SETTINGS.transitionFrequency;
+    const morph = SETTINGS.morphDuration;
+    const wait = Math.max(0.1, cycle - (morph * 2));
+
+    const localTime = time % cycle;
+    const currentCycleId = Math.floor(time / cycle);
+
+    // At cycle boundary: commit previous transition, then prepare next one
+    if (engineRef.current.lastCycleId !== currentCycleId) {
+      engineRef.current.lastCycleId = currentCycleId;
+
+      // STEP 1: Commit the previous crossfade — "current" becomes what we were blending towards
+      if (currentCycleId > 0) {
+        const commitIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
+        engineRef.current.currentIndex = commitIdx;
+        mat.uniforms.uPictureTexture.value = texturesRef.current[commitIdx];
+      }
+
+      // STEP 2: Prepare the NEXT crossfade target
+      const nextIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
+      mat.uniforms.uNextTexture.value = texturesRef.current[nextIdx];
+
+      // STEP 3: Advance style
+      const nextStyle = (engineRef.current.styleIndex + 1) % SETTINGS.stylesCount;
+      engineRef.current.styleIndex = nextStyle;
+      mat.uniforms.uStyle.value = nextStyle;
+      onStyleChange(nextStyle);
     }
+
+    if (localTime < wait) {
+      // STILL PHASE — showing current image only
+      mat.uniforms.uProgress.value = 1.0;
+      mat.uniforms.uMixFactor.value = 0.0;
+
+    } else if (localTime < wait + morph) {
+      // DISPERSING PHASE — particles scatter, colors crossfade 0→1
+      const p = (localTime - wait) / morph;
+      mat.uniforms.uProgress.value = 1.0 - p;
+      mat.uniforms.uMixFactor.value = p;
+
+    } else {
+      // CONVERGING PHASE — particles reform showing next image
+      const p = (localTime - (wait + morph)) / morph;
+      mat.uniforms.uProgress.value = p;
+      mat.uniforms.uMixFactor.value = 1.0;
+    }
+
   });
 
   useEffect(() => {
-    if (isPaused || textures.length < 2 || !materialRef.current) return;
-
-    let isCancelled = false;
-
-    const startCycle = () => {
-      if (isCancelled || !materialRef.current) return;
-
-      timelineRef.current = gsap.timeline({
-        repeat: -1,
-        defaults: { ease: "power2.inOut", duration: SETTINGS.morphDuration }
-      });
-
-      // Cycle defined by waitDuration + (morphDuration * 2) = Total Frequency
-      timelineRef.current
-        .to({}, { duration: SETTINGS.waitDuration })
-        .to(materialRef.current.uniforms.uProgress, { value: 0 })
-        .call(() => {
-          if (isCancelled || !materialRef.current) return;
-          setCurrentIndex(prev => {
-            const next = (prev + 1) % textures.length;
-            materialRef.current.uniforms.uPictureTexture.value = textures[next];
-            return next;
-          });
-        })
-        .to(materialRef.current.uniforms.uProgress, { value: 1 })
-        .to({}, { duration: SETTINGS.waitDuration });
-    };
-
-    // Align the start cycle with the initial convergence
-    const initialDelay = (SETTINGS.waitDuration + SETTINGS.morphDuration) * 1000;
-    const timeout = setTimeout(startCycle, initialDelay);
-
-    return () => {
-      isCancelled = true;
-      clearTimeout(timeout);
-      if (timelineRef.current) timelineRef.current.kill();
-    };
-  }, [textures, isPaused]);
-
-  useEffect(() => {
-    return () => {
-      geometry.dispose();
-      if (materialRef.current) materialRef.current.dispose();
-    };
+    return () => geometry.dispose();
   }, [geometry]);
 
   return (
-    <points geometry={geometry}>
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-        transparent={true}
-        depthTest={false}
-        depthWrite={false}
-      />
-    </points>
+    <points ref={pointsRef} geometry={geometry} />
   );
 };
 
-export default function AboutImageTransitionTolexia({ className = "" }) {
-  const [inView, setInView] = useState(false);
+// ─── Main Component ──────────────────────────────────────────────────────────
+function AboutImageTransitionTolexiaInner({ className = "" }) {
+  const [inView, setInView] = useState(true);
   const containerRef = useRef(null);
+  const labelRef = useRef(null);
   const [contextLost, setContextLost] = useState(false);
 
   const images = useMemo(() => [
@@ -317,16 +383,12 @@ export default function AboutImageTransitionTolexia({ className = "" }) {
   useEffect(() => {
     const mqlDesktop = window.matchMedia("(min-width: 768px)");
     const mqlMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
     setIsDesktop(mqlDesktop.matches);
     setPrefersReducedMotion(mqlMotion.matches);
-
     const listenerDesktop = (e) => setIsDesktop(e.matches);
     const listenerMotion = (e) => setPrefersReducedMotion(e.matches);
-
     mqlDesktop.addEventListener("change", listenerDesktop);
     mqlMotion.addEventListener("change", listenerMotion);
-
     return () => {
       mqlDesktop.removeEventListener("change", listenerDesktop);
       mqlMotion.removeEventListener("change", listenerMotion);
@@ -334,37 +396,60 @@ export default function AboutImageTransitionTolexia({ className = "" }) {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
+    if (typeof window === "undefined") return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setInView(entry.isIntersecting);
+    }, {
+      threshold: 0,
+      rootMargin: "600px"
+    });
+
     if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
+
+    const syncVisibility = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const visible = rect.bottom > -200 && rect.top < window.innerHeight + 200;
+      setInView(visible);
+    };
+
+    window.addEventListener('scroll', syncVisibility, { passive: true });
+    window.addEventListener('resize', syncVisibility);
+    syncVisibility();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', syncVisibility);
+      window.removeEventListener('resize', syncVisibility);
+    };
   }, []);
 
-  const handleContextLost = (e) => {
-    e.preventDefault();
-    setContextLost(true);
-  };
+  const handleStyleChange = useCallback((index) => {
+    if (labelRef.current) {
+      labelRef.current.innerText = STYLE_NAMES[index];
+    }
+  }, []);
 
-  const handleContextRestored = () => {
-    setContextLost(false);
-  };
+  const handleContextLost = useCallback((e) => { e.preventDefault(); setContextLost(true); }, []);
+  const handleContextRestored = useCallback(() => setContextLost(false), []);
 
   const shouldShowParticles = isDesktop && !prefersReducedMotion && !contextLost;
 
   return (
-    <div ref={containerRef} className={className} style={{ position: "relative", width: "100%", aspectRatio: "1 / 1" }}>
-      {/* Fallback Image */}
+    <div
+      ref={containerRef}
+      className={className}
+      style={{ position: "relative", width: "100%", aspectRatio: "1 / 1", overflow: "hidden" }}
+    >
+      {/* Base Image (Fallback/Static) */}
       <div style={{
         position: "absolute",
         inset: 0,
         opacity: (shouldShowParticles && inView) ? 0 : 1,
-        transition: "opacity 1.5s ease-in-out",
+        transition: "opacity 1.0s ease-in-out",
         zIndex: 1,
-        pointerEvents: (shouldShowParticles && inView) ? "none" : "auto"
+        pointerEvents: "none"
       }}>
         <Image
           src={images[0].src}
@@ -376,20 +461,25 @@ export default function AboutImageTransitionTolexia({ className = "" }) {
         />
       </div>
 
-      {/* Canvas */}
+      {/* Canvas Layer */}
       {isDesktop && !prefersReducedMotion && (
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          opacity: inView && !contextLost ? 1 : 0,
-          transition: "opacity 0.8s ease"
-        }}>
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            opacity: !contextLost ? 1 : 0,
+            transition: "opacity 0.5s ease",
+            pointerEvents: "auto"
+          }}
+        >
           <Canvas
+            frameloop="always"
             dpr={SETTINGS.dpr}
             gl={{
               antialias: false,
-              powerPreference: "high-performance"
+              powerPreference: "high-performance",
+              alpha: true
             }}
             onCreated={({ gl }) => {
               gl.domElement.addEventListener("webglcontextlost", handleContextLost, false);
@@ -397,10 +487,41 @@ export default function AboutImageTransitionTolexia({ className = "" }) {
             }}
           >
             <PerspectiveCamera makeDefault position={[0, 0, 18]} fov={35} />
-            <Particles images={images} isPaused={!inView || contextLost} />
+            <Particles images={images} isPaused={false} onStyleChange={handleStyleChange} />
           </Canvas>
         </div>
       )}
+
+      {/* Label Overlay */}
+      <div style={{
+        position: "absolute",
+        bottom: "30px",
+        right: "30px",
+        backgroundColor: "rgba(0,0,0,0.85)",
+        color: "white",
+        padding: "10px 20px",
+        borderRadius: "40px",
+        fontSize: "12px",
+        fontWeight: "700",
+        textTransform: "uppercase",
+        letterSpacing: "0.15em",
+        fontFamily: "var(--font-outfit), sans-serif",
+        border: "2px solid rgba(255,255,255,0.25)",
+        backdropFilter: "blur(16px)",
+        zIndex: 100,
+        pointerEvents: "none",
+        boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+        display: shouldShowParticles ? "flex" : "none",
+        alignItems: "center",
+        gap: "10px"
+      }}>
+        <span style={{ opacity: 0.5 }}>Effect:</span>
+        <span ref={labelRef}>Horizontal Slide</span>
+      </div>
     </div>
   );
 }
+
+// React.memo prevents re-renders from ThemeProvider context changes.
+const AboutImageTransitionTolexia = React.memo(AboutImageTransitionTolexiaInner);
+export default AboutImageTransitionTolexia;
