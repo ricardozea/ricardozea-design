@@ -11,7 +11,8 @@ import ContactForm from '../components/ContactForm';
 import { MotionBurst } from "../components/MotionBurst";
 import { Tooltip } from "../components/Tooltip";
 import { ExternalLink } from "../components/ExternalLink";
-import AboutImageTransition from "../components/AboutImageTransition";
+import AboutImageTransitionTolexia from "../components/AboutImageTransitionTolexia";
+
 import Modal from "../components/Modal";
 
 import {
@@ -756,7 +757,8 @@ export default function Home() {
 						{/* Left Column - Image */}
 						<div className="about-image-container">
 							<div className="about-image-wrapper relative overflow-hidden">
-								<AboutImageTransition className="about-image" />
+								<AboutImageTransitionTolexia className="about-image" />
+
 							</div>
 
 							{/* Education and Experience Section */}

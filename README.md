@@ -1,7 +1,9 @@
 
-<a href="https://ricardozea.design" target="_blank" rel="noreferrer">
-    <img src="public/images/logo-for-github.svg" alt="Ricardo Zea logo" />
-</a>
+<p align="center">
+    <a href="https://ricardozea.design" target="_blank" rel="noreferrer">
+        <img src="public/images/logo-for-github.svg" alt="Ricardo Zea logo" />
+    </a>
+</p>
 
 ## My Portfolio
 
