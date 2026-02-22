@@ -12,11 +12,11 @@ import Image from "next/image";
  * You can edit these values to change the behavior of the particle system.
  */
 const SETTINGS = {
-  particleResolution: 800,    // 128x128 = 16k particles. Higher = more detail, lower = more performance.
+  particleResolution: 850,    // 128x128 = 16k particles. Higher = more detail, lower = more performance.
   particleSize: 0.1,         // Base size of each particle.
   waitDuration: 1.0,          // Seconds the image stays fully formed and static.
   morphDuration: 3.5,         // Seconds for the dispersion/convergence animation (per phase).
-  explosionStrength: 10.0,    // How far particles fly out during dispersion.
+  explosionStrength: 50.0,    // How far particles fly out during dispersion.
   glitchStrength: 0,       // Intensity of the subtle glitch effect.
   dpr: [1, 1.5],              // Device Pixel Ratio range for rendering quality.
 };
