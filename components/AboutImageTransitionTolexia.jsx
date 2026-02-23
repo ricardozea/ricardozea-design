@@ -14,7 +14,7 @@ const SETTINGS = {
   particleSize: 0.12,
   transitionFrequency: 5.0,   // Total cycle time in seconds
   morphDuration: 1,         // Duration to disperse/converge
-  explosionStrength: 50.0,    // How far particles fly
+  explosionStrength: 100.0,    // How far particles fly
   dpr: [1, 1.5],
   stylesCount: 5,
 };
@@ -424,7 +424,7 @@ const fragmentShader = `
 `;
 
 // ─── Particles Component ─────────────────────────────────────────────────────
-const Particles = ({ images, isPaused, onStyleChange, styleIndex }) => {
+const Particles = ({ images, isPaused, onStyleChange, onCycleBoundary, styleIndex }) => {
   const pointsRef = useRef();
   const linesRef = useRef();
   const materialRef = useRef();
@@ -598,6 +598,9 @@ const Particles = ({ images, isPaused, onStyleChange, styleIndex }) => {
       sharedUniforms.uNextTexture.value = texturesRef.current[nextIdx];
 
       // STEP 3: Style is controlled externally for review
+      if (currentCycleId > 0) {
+        onCycleBoundary?.(currentCycleId);
+      }
     }
 
     if (localTime < wait) {
@@ -750,10 +753,14 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
     }));
   }, [styleIndex]);
 
+  const shouldShowParticles = isDesktop && !prefersReducedMotion && !contextLost;
+
+  const handleCycleBoundary = useCallback(() => {
+    setStyleIndex((s) => (s + 1) % SETTINGS.stylesCount);
+  }, []);
+
   const handleContextLost = useCallback((e) => { e.preventDefault(); setContextLost(true); }, []);
   const handleContextRestored = useCallback(() => setContextLost(false), []);
-
-  const shouldShowParticles = isDesktop && !prefersReducedMotion && !contextLost;
 
   return (
     <div
@@ -806,7 +813,13 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
             }}
           >
             <PerspectiveCamera makeDefault position={[0, 0, 18]} fov={35} />
-            <Particles images={images} isPaused={!inView} onStyleChange={handleStyleChange} styleIndex={styleIndex} />
+            <Particles
+              images={images}
+              styleIndex={styleIndex}
+              onStyleChange={handleStyleChange}
+              onCycleBoundary={handleCycleBoundary}
+              isPaused={!inView}
+            />
           </Canvas>
         </div>
       )}
