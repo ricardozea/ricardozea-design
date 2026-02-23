@@ -12,9 +12,9 @@ import Image from "next/image";
 const SETTINGS = {
   particleResolution: 800,
   particleSize: 0.12,
-  transitionFrequency: 5.0,   // Total cycle time in seconds
-  morphDuration: 1,         // Duration to disperse/converge
-  explosionStrength: 100.0,    // How far particles fly
+  transitionFrequency: 10.0,   // Total cycle time in seconds
+  morphDuration: 2,         // Duration to disperse/converge
+  explosionStrength: 10.0,    // How far particles fly
   dpr: [1, 1.5],
   stylesCount: 5,
 };
