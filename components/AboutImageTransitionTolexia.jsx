@@ -12,25 +12,214 @@ import Image from "next/image";
 const SETTINGS = {
   particleResolution: 800,
   particleSize: 0.12,
-  transitionFrequency: 10.0,   // Total cycle time in seconds
-  morphDuration: 3,         // Duration to disperse/converge
+  transitionFrequency: 5.0,   // Total cycle time in seconds
+  morphDuration: 1,         // Duration to disperse/converge
   explosionStrength: 50.0,    // How far particles fly
   dpr: [1, 1.5],
-  stylesCount: 10,
+  stylesCount: 5,
 };
 
 const STYLE_NAMES = [
-  "Horizontal Slide",
-  "Vertical Cascade",
-  "Radial Bloom",
-  "Spiral Unwind",
-  "Grid Shift",
-  "Wave Ripple",
-  "Diagonal Wipe",
-  "Pinwheel Rotate",
-  "Scale Zoom",
-  "Row Shuffle"
+  "Linked Swarm Pull",
+  "Elastic Web Drift",
+  "Spark Constellation",
+  "Ripple Bloom",
+  "Grid Jitter"
 ];
+
+const lineVertexShader = `
+    uniform vec2 uResolution;
+    uniform sampler2D uPictureTexture;
+    uniform sampler2D uNextTexture;
+    uniform float uMixFactor;
+    uniform float uTime;
+    uniform float uProgress;
+    uniform int uStyle;
+
+    varying vec3 vColor;
+    varying vec2 vUv;
+    varying vec3 vPosition;
+
+    vec4 permute(vec4 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
+    vec4 taylorInvSqrt(vec4 r){ return 1.79284291400159 - 0.85373472095314 * r; }
+
+    float simplexNoise3d(vec3 v) {
+        const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+        const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+
+        vec3 i  = floor(v + dot(v, C.yyy) );
+        vec3 x0 =   v - i + dot(i, C.xxx) ;
+
+        vec3 g = step(x0.yzx, x0.xyz);
+        vec3 l = 1.0 - g;
+        vec3 i1 = min( g.xyz, l.zxy );
+        vec3 i2 = max( g.xyz, l.zxy );
+
+        vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+        vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+        vec3 x3 = x0 - 1. + 3.0 * C.xxx;
+
+        i = mod(i, 289.0 );
+        vec4 p = permute( permute( permute( i.z + vec4(0.0, i1.z, i2.z, 1.0 )) + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))  + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+
+        float n_ = 1.0/7.0;
+        vec3  ns = n_ * D.wyz - D.xzx;
+        vec4 j = p - 49.0 * floor(p * ns.z *ns.z);
+
+        vec4 x_ = floor(j * ns.z);
+        vec4 y_ = floor(j - 7.0 * x_ );
+
+        vec4 x = x_ *ns.x + ns.yyyy;
+        vec4 y = y_ *ns.x + ns.yyyy;
+        vec4 h = 1.0 - abs(x) - abs(y);
+
+        vec4 b0 = vec4( x.xy, y.xy );
+        vec4 b1 = vec4( x.zw, y.zw );
+
+        vec4 s0 = floor(b0)*2.0 + 1.0;
+        vec4 s1 = floor(b1)*2.0 + 1.0;
+        vec4 sh = -step(h, vec4(0.0));
+
+        vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+        vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+
+        vec3 p0 = vec3(a0.xy,h.x);
+        vec3 p1 = vec3(a0.zw,h.y);
+        vec3 p2 = vec3(a1.xy,h.z);
+        vec3 p3 = vec3(a1.zw,h.w);
+
+        vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+        p0 *= norm.x;
+        p1 *= norm.y;
+        p2 *= norm.z;
+        p3 *= norm.w;
+
+        vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+        m = m * m;
+        return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
+    }
+
+    void main() {
+        vUv = uv;
+
+        float multiplier = ${SETTINGS.explosionStrength.toFixed(1)};
+        vec3 positionTarget;
+
+        if (uStyle == 0) {
+            float seed = fract(sin(dot(vUv, vec2(12.9898, 78.233))) * 43758.5453);
+            vec2 dir2 = normalize(vec2(
+                cos(uTime * 0.6 + seed * 6.28318),
+                sin(uTime * 0.6 + seed * 6.28318)
+            ));
+
+            float sweepKey = clamp(vUv.x, 0.0, 1.0);
+            float pull = multiplier * (0.22 + sweepKey * 0.95);
+            float zKick = (seed - 0.5) * multiplier * 0.44;
+
+            vec3 p = position;
+            float swirl = 0.8 + 0.2 * sin(uTime + seed * 6.28318);
+            positionTarget = p + vec3(dir2 * pull * swirl, zKick);
+
+        } else if (uStyle == 1) {
+            float seed = fract(sin(dot(vUv, vec2(21.9898, 18.233))) * 43758.5453);
+            float sweepKey = clamp(vUv.y, 0.0, 1.0);
+
+            vec3 p = position;
+            float w = sin(uTime * 0.9 + seed * 6.28318);
+            float c = cos(uTime * 0.7 + seed * 6.28318);
+
+            vec3 spring = vec3(
+                c * (0.6 + seed),
+                w * (0.6 + (1.0 - seed)),
+                (seed - 0.5) * 1.6
+            );
+
+            float push = multiplier * (0.16 + sweepKey * 0.95);
+            positionTarget = p + spring * push;
+
+        } else if (uStyle == 2) {
+            float seed = fract(sin(dot(vUv, vec2(19.19, 91.7))) * 43758.5453);
+            float r = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+            float t = uTime * 0.6 + seed * 6.28318;
+
+            vec2 dir2 = normalize(vec2(cos(t), sin(t)));
+            float push = multiplier * (0.14 + r * 0.95);
+            float zKick = (seed - 0.5) * multiplier * 0.50;
+            positionTarget = position + vec3(dir2 * push, zKick);
+
+        } else if (uStyle == 3) {
+            float seed = fract(sin(dot(vUv, vec2(9.91, 83.17))) * 43758.5453);
+            float r = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+
+            vec3 p = position;
+            vec2 dir2 = normalize(position.xy + vec2(0.001));
+
+            float t = uTime * 0.9 + seed * 6.28318;
+            float ripple = sin(t + r * 10.0);
+            float push = multiplier * (0.10 + r * 0.95) * (0.5 + 0.5 * ripple);
+            float zKick = (seed - 0.5) * multiplier * 0.44;
+            positionTarget = p + vec3(dir2 * push, zKick);
+
+        } else if (uStyle == 4) {
+            float seed = fract(sin(dot(vUv, vec2(77.77, 22.22))) * 43758.5453);
+            float sweepKey = clamp(vUv.x, 0.0, 1.0);
+
+            vec3 p = position;
+            vec2 cell = floor((p.xy + 5.0) * 0.9);
+            float cellSeed = fract(sin(dot(cell, vec2(12.9898, 78.233))) * 43758.5453);
+            float a = cellSeed * 6.28318 + uTime * 0.35;
+            vec2 dir2 = normalize(vec2(cos(a), sin(a)));
+
+            float jitter = 0.65 + 0.35 * sin(uTime * 1.4 + seed * 6.28318);
+            float push = multiplier * (0.10 + sweepKey * 0.95) * jitter;
+            float zKick = (seed - 0.5) * multiplier * 0.44;
+            positionTarget = p + vec3(dir2 * push, zKick);
+        } else {
+            positionTarget = position;
+        }
+
+        float noiseOrigin = simplexNoise3d( positionTarget );
+        float noiseTarget = simplexNoise3d( position );
+        float noiseVal = mix(noiseOrigin, noiseTarget, uProgress);
+
+        if (uStyle == 0) noiseVal = vUv.x;
+        if (uStyle == 1) noiseVal = vUv.y;
+        if (uStyle == 2) noiseVal = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+        if (uStyle == 3) noiseVal = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+        if (uStyle == 4) noiseVal = vUv.x;
+
+        float duration = 0.55;
+        float delay = (1.0 - duration) * noiseVal;
+        float end = delay + duration;
+        float progress = smoothstep(delay, end, uProgress);
+
+        vec3 mixedPosition = mix(positionTarget, position, progress);
+        vPosition = mixedPosition;
+
+        vec4 modelPosition = modelMatrix * vec4(mixedPosition, 1.0);
+        vec4 viewPosition = viewMatrix * modelPosition;
+        vec4 projectedPosition = projectionMatrix * viewPosition;
+        gl_Position = projectedPosition;
+
+        vec4 texA = texture(uPictureTexture, vUv);
+        vec4 texB = texture(uNextTexture, vUv);
+        vec4 texColor = mix(texA, texB, uMixFactor);
+        vColor = texColor.rgb;
+    }
+`;
+
+const lineFragmentShader = `
+    varying vec3 vColor;
+    varying vec3 vPosition;
+
+    void main() {
+        float alphaX = 1.0 - smoothstep(0.0, 25., abs(vPosition.x));
+        float alphaY = 1.0 - smoothstep(0.0, 15., abs(vPosition.y));
+        float alpha = clamp(alphaX * alphaY, 0.0, 1.0);
+        gl_FragColor = vec4(vColor, alpha * 0.38);
+        #include <colorspace_fragment>
+    }
+`;
 
 // ─── Vertex Shader ───────────────────────────────────────────────────────────
 const vertexShader = `
@@ -112,60 +301,77 @@ const vertexShader = `
         float multiplier = ${SETTINGS.explosionStrength.toFixed(1)};
         vec3 positionTarget;
 
-        if (uStyle == 0) { // Horizontal Slide — uniform left slide
-            positionTarget = position + vec3(-multiplier, 0.0, 0.0);
+        if (uStyle == 0) {
+            float seed = fract(sin(dot(vUv, vec2(12.9898, 78.233))) * 43758.5453);
+            vec2 dir2 = normalize(vec2(
+                cos(uTime * 0.6 + seed * 6.28318),
+                sin(uTime * 0.6 + seed * 6.28318)
+            ));
 
-        } else if (uStyle == 1) { // Vertical Cascade — columns fall with stagger
-            float colStagger = position.x * 0.15;
-            positionTarget = position + vec3(0.0, -multiplier + colStagger, 0.0);
+            float sweepKey = clamp(vUv.x, 0.0, 1.0);
+            float pull = multiplier * (0.22 + sweepKey * 0.95);
+            float zKick = (seed - 0.5) * multiplier * 0.44;
 
-        } else if (uStyle == 2) { // Radial Bloom — concentric ring expansion
-            float dist = length(position.xy);
-            vec2 dir = dist > 0.001 ? normalize(position.xy) : vec2(0.0);
-            positionTarget = vec3(dir * multiplier, position.z);
+            vec3 p = position;
+            float swirl = 0.8 + 0.2 * sin(uTime + seed * 6.28318);
+            positionTarget = p + vec3(dir2 * pull * swirl, zKick);
 
-        } else if (uStyle == 3) { // Spiral Unwind — clean spiral path
-            float dist = length(position.xy);
-            float angle = dist * 1.5;
-            float c = cos(angle);
-            float s = sin(angle);
-            positionTarget = vec3(
-                c * position.x - s * position.y,
-                s * position.x + c * position.y,
-                position.z
-            ) * (1.0 + multiplier * 0.08);
+        } else if (uStyle == 1) {
+            float seed = fract(sin(dot(vUv, vec2(21.9898, 18.233))) * 43758.5453);
+            float sweepKey = clamp(vUv.y, 0.0, 1.0);
 
-        } else if (uStyle == 4) { // Grid Shift — odd cols up, even cols down
-            float colIndex = floor((position.x + 5.0) * 80.0);
-            float direction = mod(colIndex, 2.0) > 0.5 ? 1.0 : -1.0;
-            positionTarget = position + vec3(0.0, direction * multiplier, 0.0);
+            vec3 p = position;
+            float w = sin(uTime * 0.9 + seed * 6.28318);
+            float c = cos(uTime * 0.7 + seed * 6.28318);
 
-        } else if (uStyle == 5) { // Wave Ripple — sine wave horizontal sweep
-            float wave = sin(position.x * 1.5) * multiplier * 0.4;
-            positionTarget = position + vec3(0.0, wave, 0.0);
+            vec3 spring = vec3(
+                c * (0.6 + seed),
+                w * (0.6 + (1.0 - seed)),
+                (seed - 0.5) * 1.6
+            );
 
-        } else if (uStyle == 6) { // Diagonal Wipe — 45° sweep
-            float diagonal = (position.x + position.y) * 0.5;
-            positionTarget = position + vec3(diagonal, diagonal, 0.0) * (multiplier * 0.08);
+            float push = multiplier * (0.16 + sweepKey * 0.95);
+            positionTarget = p + spring * push;
 
-        } else if (uStyle == 7) { // Pinwheel Rotate — flat 2D rotation + centrifugal
-            float dist = length(position.xy);
-            float angle = 3.14159 * 0.5;
-            float c = cos(angle);
-            float s = sin(angle);
-            positionTarget = vec3(
-                c * position.x - s * position.y,
-                s * position.x + c * position.y,
-                position.z
-            ) * (1.0 + dist * 0.3);
+        } else if (uStyle == 2) {
+            float seed = fract(sin(dot(vUv, vec2(19.19, 91.7))) * 43758.5453);
+            float r = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+            float t = uTime * 0.6 + seed * 6.28318;
 
-        } else if (uStyle == 8) { // Scale Zoom — uniform expansion from center
-            positionTarget = position * (1.0 + multiplier * 0.15);
+            vec2 dir2 = normalize(vec2(cos(t), sin(t)));
+            float push = multiplier * (0.14 + r * 0.95);
+            float zKick = (seed - 0.5) * multiplier * 0.50;
+            positionTarget = position + vec3(dir2 * push, zKick);
 
-        } else { // Row Shuffle — odd rows left, even rows right
-            float rowIndex = floor((position.y + 5.0) * 80.0);
-            float direction = mod(rowIndex, 2.0) > 0.5 ? 1.0 : -1.0;
-            positionTarget = position + vec3(direction * multiplier, 0.0, 0.0);
+        } else if (uStyle == 3) {
+            float seed = fract(sin(dot(vUv, vec2(9.91, 83.17))) * 43758.5453);
+            float r = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+
+            vec3 p = position;
+            vec2 dir2 = normalize(position.xy + vec2(0.001));
+
+            float t = uTime * 0.9 + seed * 6.28318;
+            float ripple = sin(t + r * 10.0);
+            float push = multiplier * (0.10 + r * 0.95) * (0.5 + 0.5 * ripple);
+            float zKick = (seed - 0.5) * multiplier * 0.44;
+            positionTarget = p + vec3(dir2 * push, zKick);
+
+        } else if (uStyle == 4) {
+            float seed = fract(sin(dot(vUv, vec2(77.77, 22.22))) * 43758.5453);
+            float sweepKey = clamp(vUv.x, 0.0, 1.0);
+
+            vec3 p = position;
+            vec2 cell = floor((p.xy + 5.0) * 0.9);
+            float cellSeed = fract(sin(dot(cell, vec2(12.9898, 78.233))) * 43758.5453);
+            float a = cellSeed * 6.28318 + uTime * 0.35;
+            vec2 dir2 = normalize(vec2(cos(a), sin(a)));
+
+            float jitter = 0.65 + 0.35 * sin(uTime * 1.4 + seed * 6.28318);
+            float push = multiplier * (0.10 + sweepKey * 0.95) * jitter;
+            float zKick = (seed - 0.5) * multiplier * 0.44;
+            positionTarget = p + vec3(dir2 * push, zKick);
+        } else {
+            positionTarget = position;
         }
 
         // Smooth stagger based on position (not noise)
@@ -173,7 +379,12 @@ const vertexShader = `
         float noiseTarget = simplexNoise3d( position );
         float noiseVal = mix(noiseOrigin, noiseTarget, uProgress);
 
-        float duration = 0.6;
+        if (uStyle == 0) noiseVal = vUv.x;
+        if (uStyle == 1) noiseVal = vUv.y;
+        if (uStyle == 2) noiseVal = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+        if (uStyle == 3) noiseVal = clamp(length(position.xy) / 5.0, 0.0, 1.0);
+
+        float duration = 0.55;
         float delay = (1.0 - duration) * noiseVal;
         float end = delay + duration;
         float progress = smoothstep(delay, end, uProgress);
@@ -206,23 +417,21 @@ const fragmentShader = `
 
     void main() {
         vec2 uv = gl_PointCoord;
-        if(distance(uv, vec2(0.5)) > 0.5) discard;
 
-        float alphaX = 1.0 - smoothstep(0.0, 25., abs(vPosition.x));
-        float alphaY = 1.0 - smoothstep(0.0, 15., abs(vPosition.y));
-        float alpha = clamp(alphaX * alphaY, 0.0, 1.0);
-
-        gl_FragColor = vec4(vColor, alpha);
+        gl_FragColor = vec4(vColor, 1.0);
         #include <colorspace_fragment>
     }
 `;
 
 // ─── Particles Component ─────────────────────────────────────────────────────
-const Particles = ({ images, isPaused, onStyleChange }) => {
+const Particles = ({ images, isPaused, onStyleChange, styleIndex }) => {
   const pointsRef = useRef();
+  const linesRef = useRef();
   const materialRef = useRef();
+  const lineMaterialRef = useRef();
   const { size, viewport } = useThree();
   const texturesRef = useRef([]);
+  const uniformsRef = useRef(null);
   const [texturesLoaded, setTexturesLoaded] = useState(false);
 
   // Geometry
@@ -233,32 +442,81 @@ const Particles = ({ images, isPaused, onStyleChange }) => {
     return geo;
   }, []);
 
+  const lineGeometry = useMemo(() => {
+    const res = Math.min(180, Math.max(60, Math.floor(SETTINGS.particleResolution / 6)));
+    const base = new THREE.PlaneGeometry(10, 10, res, res);
+    base.deleteAttribute('normal');
+
+    const { position, uv } = base.attributes;
+    const idx = [];
+    const w = res + 1;
+    const h = res + 1;
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const i = y * w + x;
+        if (x < w - 1) {
+          idx.push(i, i + 1);
+        }
+        if (y < h - 1) {
+          idx.push(i, i + w);
+        }
+      }
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', position);
+    geo.setAttribute('uv', uv);
+    geo.setIndex(idx);
+    return geo;
+  }, []);
+
   // Material — imperative creation so React reconciler never destroys it
   useEffect(() => {
+    const sharedUniforms = {
+      uResolution: { value: new THREE.Vector2(size.width, size.height) },
+      uPictureTexture: { value: null },
+      uNextTexture: { value: null },
+      uMixFactor: { value: 0.0 },
+      uParticleSize: { value: SETTINGS.particleSize },
+      uProgress: { value: 1.0 },
+      uTime: { value: 0 },
+      uStyle: { value: 0 },
+    };
+    uniformsRef.current = sharedUniforms;
+
     const mat = new THREE.ShaderMaterial({
       vertexShader,
       fragmentShader,
-      uniforms: {
-        uResolution: { value: new THREE.Vector2(size.width, size.height) },
-        uPictureTexture: { value: null },
-        uNextTexture: { value: null },
-        uMixFactor: { value: 0.0 },
-        uParticleSize: { value: SETTINGS.particleSize },
-        uProgress: { value: 1.0 },
-        uTime: { value: 0 },
-        uStyle: { value: 0 },
-      },
+      uniforms: sharedUniforms,
       transparent: true,
       depthTest: false,
       depthWrite: false,
     });
+
+    const lineMat = new THREE.ShaderMaterial({
+      vertexShader: lineVertexShader,
+      fragmentShader: lineFragmentShader,
+      uniforms: sharedUniforms,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
     materialRef.current = mat;
+    lineMaterialRef.current = lineMat;
 
     if (pointsRef.current) {
       pointsRef.current.material = mat;
     }
 
-    return () => mat.dispose();
+    if (linesRef.current) {
+      linesRef.current.material = lineMat;
+    }
+
+    return () => {
+      mat.dispose();
+      lineMat.dispose();
+    };
   }, []);
 
   // Engine State
@@ -268,6 +526,15 @@ const Particles = ({ images, isPaused, onStyleChange }) => {
     lastCycleId: -1,
     accumulatedTime: 0,
   });
+
+  useEffect(() => {
+    const mat = materialRef.current;
+    if (!mat) return;
+    const next = Math.max(0, Math.min(STYLE_NAMES.length - 1, styleIndex ?? 0));
+    engineRef.current.styleIndex = next;
+    mat.uniforms.uStyle.value = next;
+    onStyleChange(next);
+  }, [styleIndex, onStyleChange]);
 
   // Texture loading
   useEffect(() => {
@@ -295,13 +562,14 @@ const Particles = ({ images, isPaused, onStyleChange }) => {
 
   useFrame((state, delta) => {
     const mat = materialRef.current;
-    if (!mat || !texturesLoaded) return;
+    const sharedUniforms = uniformsRef.current;
+    if (!mat || !sharedUniforms || !texturesLoaded || isPaused) return;
 
     const absoluteTime = state.clock.getElapsedTime();
-    mat.uniforms.uTime.value = absoluteTime;
+    sharedUniforms.uTime.value = absoluteTime;
 
     const dpr = viewport.initialDpr || 1;
-    mat.uniforms.uResolution.value.set(size.width * dpr, size.height * dpr);
+    sharedUniforms.uResolution.value.set(size.width * dpr, size.height * dpr);
 
     // Advance transition clock
     engineRef.current.accumulatedTime += Math.min(delta, 0.1);
@@ -322,36 +590,32 @@ const Particles = ({ images, isPaused, onStyleChange }) => {
       if (currentCycleId > 0) {
         const commitIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
         engineRef.current.currentIndex = commitIdx;
-        mat.uniforms.uPictureTexture.value = texturesRef.current[commitIdx];
+        sharedUniforms.uPictureTexture.value = texturesRef.current[commitIdx];
       }
 
       // STEP 2: Prepare the NEXT crossfade target
       const nextIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
-      mat.uniforms.uNextTexture.value = texturesRef.current[nextIdx];
+      sharedUniforms.uNextTexture.value = texturesRef.current[nextIdx];
 
-      // STEP 3: Advance style
-      const nextStyle = (engineRef.current.styleIndex + 1) % SETTINGS.stylesCount;
-      engineRef.current.styleIndex = nextStyle;
-      mat.uniforms.uStyle.value = nextStyle;
-      onStyleChange(nextStyle);
+      // STEP 3: Style is controlled externally for review
     }
 
     if (localTime < wait) {
       // STILL PHASE — showing current image only
-      mat.uniforms.uProgress.value = 1.0;
-      mat.uniforms.uMixFactor.value = 0.0;
+      sharedUniforms.uProgress.value = 1.0;
+      sharedUniforms.uMixFactor.value = 0.0;
 
     } else if (localTime < wait + morph) {
       // DISPERSING PHASE — particles scatter, colors crossfade 0→1
       const p = (localTime - wait) / morph;
-      mat.uniforms.uProgress.value = 1.0 - p;
-      mat.uniforms.uMixFactor.value = p;
+      sharedUniforms.uProgress.value = 1.0 - p;
+      sharedUniforms.uMixFactor.value = p;
 
     } else {
       // CONVERGING PHASE — particles reform showing next image
       const p = (localTime - (wait + morph)) / morph;
-      mat.uniforms.uProgress.value = p;
-      mat.uniforms.uMixFactor.value = 1.0;
+      sharedUniforms.uProgress.value = p;
+      sharedUniforms.uMixFactor.value = 1.0;
     }
 
   });
@@ -360,8 +624,15 @@ const Particles = ({ images, isPaused, onStyleChange }) => {
     return () => geometry.dispose();
   }, [geometry]);
 
+  useEffect(() => {
+    return () => lineGeometry.dispose();
+  }, [lineGeometry]);
+
   return (
-    <points ref={pointsRef} geometry={geometry} />
+    <group scale={[viewport.width / 10, viewport.height / 10, 1]}>
+      <lineSegments ref={linesRef} geometry={lineGeometry} />
+      <points ref={pointsRef} geometry={geometry} />
+    </group>
   );
 };
 
@@ -371,6 +642,9 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
   const containerRef = useRef(null);
   const labelRef = useRef(null);
   const [contextLost, setContextLost] = useState(false);
+  const [styleIndex, setStyleIndex] = useState(0);
+  const [styleDecisions, setStyleDecisions] = useState({});
+  const storagePrefix = "aboutImageTransitionTolexia.batch9";
 
   const images = useMemo(() => [
     { src: "/images/image-ricardo-zea-illustration.png", alt: "Ricardo Zea Illustration" },
@@ -425,11 +699,56 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
     };
   }, []);
 
-  const handleStyleChange = useCallback((index) => {
-    if (labelRef.current) {
-      labelRef.current.innerText = STYLE_NAMES[index];
+  useEffect(() => {
+    try {
+      const storedIndexRaw = window.localStorage.getItem(`${storagePrefix}.styleIndex`);
+      const storedIndex = storedIndexRaw == null ? 0 : Number(storedIndexRaw);
+      if (Number.isFinite(storedIndex)) {
+        setStyleIndex(((storedIndex % SETTINGS.stylesCount) + SETTINGS.stylesCount) % SETTINGS.stylesCount);
+      }
+
+      const storedDecisionsRaw = window.localStorage.getItem(`${storagePrefix}.styleDecisions`);
+      if (storedDecisionsRaw) {
+        const parsed = JSON.parse(storedDecisionsRaw);
+        if (parsed && typeof parsed === "object") setStyleDecisions(parsed);
+      } else {
+        setStyleDecisions({ 0: "Approved", 1: "Approved", 2: "Approved", 3: "Approved", 4: "Approved" });
+      }
+    } catch {
+      setStyleDecisions({ 0: "Approved", 1: "Approved", 2: "Approved", 3: "Approved", 4: "Approved" });
     }
   }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(`${storagePrefix}.styleIndex`, String(styleIndex));
+    } catch {
+    }
+  }, [styleIndex]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(`${storagePrefix}.styleDecisions`, JSON.stringify(styleDecisions));
+    } catch {
+    }
+  }, [styleDecisions]);
+
+  const handleStyleChange = useCallback((index) => {
+    if (labelRef.current) {
+      labelRef.current.innerText = `${index + 1} / ${SETTINGS.stylesCount} ${STYLE_NAMES[index]}`;
+    }
+  }, []);
+
+  const handleNextStyle = useCallback(() => {
+    setStyleIndex((s) => (s + 1) % SETTINGS.stylesCount);
+  }, []);
+
+  const handleDecision = useCallback((decision) => {
+    setStyleDecisions((prev) => ({
+      ...prev,
+      [styleIndex]: decision,
+    }));
+  }, [styleIndex]);
 
   const handleContextLost = useCallback((e) => { e.preventDefault(); setContextLost(true); }, []);
   const handleContextRestored = useCallback(() => setContextLost(false), []);
@@ -440,7 +759,7 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
     <div
       ref={containerRef}
       className={className}
-      style={{ position: "relative", width: "100%", aspectRatio: "1 / 1", overflow: "hidden" }}
+      style={{ position: "relative", width: "100%", height: "100%", aspectRatio: "1 / 1", overflow: "hidden" }}
     >
       {/* Base Image (Fallback/Static) */}
       <div style={{
@@ -487,10 +806,95 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
             }}
           >
             <PerspectiveCamera makeDefault position={[0, 0, 18]} fov={35} />
-            <Particles images={images} isPaused={false} onStyleChange={handleStyleChange} />
+            <Particles images={images} isPaused={!inView} onStyleChange={handleStyleChange} styleIndex={styleIndex} />
           </Canvas>
         </div>
       )}
+
+      <div style={{
+        position: "absolute",
+        bottom: "30px",
+        left: "30px",
+        zIndex: 101,
+        display: "none",
+        alignItems: "center",
+        gap: "8px",
+        pointerEvents: "auto"
+      }}>
+        <button type="button" onClick={handleNextStyle} style={{
+          backgroundColor: "rgba(0,0,0,0.85)",
+          color: "white",
+          padding: "6px 10px",
+          borderRadius: "40px",
+          fontSize: "10px",
+          fontWeight: "400",
+          textTransform: "uppercase",
+          letterSpacing: "0.15em",
+          fontFamily: "var(--font-outfit), sans-serif",
+          border: "2px solid rgba(255,255,255,0.25)",
+          backdropFilter: "blur(16px)",
+          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+          cursor: "pointer"
+        }}>Next</button>
+
+        <button type="button" onClick={() => handleDecision("Approved")} style={{
+          backgroundColor: "green",
+          color: "white",
+          padding: "6px 10px",
+          borderRadius: "40px",
+          fontSize: "10px",
+          fontWeight: "400",
+          textTransform: "uppercase",
+          letterSpacing: "0.15em",
+          fontFamily: "var(--font-outfit), sans-serif",
+          border: "2px solid rgba(255,255,255,0.25)",
+          backdropFilter: "blur(16px)",
+          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+          cursor: "pointer"
+        }}>Approve</button>
+
+        <button type="button" onClick={() => handleDecision("Rejected")} style={{
+          backgroundColor: "red",
+          color: "white",
+          padding: "6px 10px",
+          borderRadius: "40px",
+          fontSize: "10px",
+          fontWeight: "400",
+          textTransform: "uppercase",
+          letterSpacing: "0.15em",
+          fontFamily: "var(--font-outfit), sans-serif",
+          border: "2px solid rgba(255,255,255,0.25)",
+          backdropFilter: "blur(16px)",
+          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+          cursor: "pointer"
+        }}>Reject</button>
+
+        <div style={{
+          backgroundColor:
+            (styleDecisions[styleIndex] === "Rejected")
+              ? "rgba(255,0,0,0.65)"
+              : (styleDecisions[styleIndex] === "Approved")
+                ? "rgba(0,128,0,0.65)"
+                : "rgba(0,0,0,0.65)",
+          color: "white",
+          padding: "6px 10px",
+          borderRadius: "40px",
+          fontSize: "10px",
+          fontWeight: "400",
+          textTransform: "uppercase",
+          letterSpacing: "0.15em",
+          fontFamily: "var(--font-outfit), sans-serif",
+          border:
+            (styleDecisions[styleIndex] === "Rejected")
+              ? "2px solid rgba(255,0,0,0.35)"
+              : (styleDecisions[styleIndex] === "Approved")
+                ? "2px solid rgba(0,128,0,0.35)"
+                : "2px solid rgba(255,255,255,0.15)",
+          backdropFilter: "blur(16px)",
+          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+          pointerEvents: "none"
+        }}>{styleDecisions[styleIndex] || "Pending"}</div>
+      </div>
 
       {/* Label Overlay */}
       <div style={{
@@ -499,10 +903,10 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
         right: "30px",
         backgroundColor: "rgba(0,0,0,0.85)",
         color: "white",
-        padding: "10px 20px",
+        padding: "5px 10px",
         borderRadius: "40px",
-        fontSize: "12px",
-        fontWeight: "700",
+        fontSize: "10px",
+        fontWeight: "400",
         textTransform: "uppercase",
         letterSpacing: "0.15em",
         fontFamily: "var(--font-outfit), sans-serif",
@@ -511,12 +915,12 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
         zIndex: 100,
         pointerEvents: "none",
         boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-        display: shouldShowParticles ? "flex" : "none",
+        display: "none",
         alignItems: "center",
         gap: "10px"
       }}>
         <span style={{ opacity: 0.5 }}>Effect:</span>
-        <span ref={labelRef}>Horizontal Slide</span>
+        <span ref={labelRef}>1 / {SETTINGS.stylesCount} Grid Door Slide</span>
       </div>
     </div>
   );
