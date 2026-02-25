@@ -1556,7 +1556,7 @@ h2 .character {
 	border-radius: var(--corner-m);
 	box-shadow: var(--box-shadow-cards);
 	transition: transform 0.2s ease;
-	background-color: var(--bg-persistent-dark);
+	background: var(--bg-persistent-dark);
 }
 
 .about-image-wrapper:hover {

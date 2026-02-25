@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -10,21 +10,21 @@ import Image from "next/image";
  * 🛠️ CONFIGURATION SETTINGS
  */
 const SETTINGS = {
-  particleResolution: 800,
-  particleSize: 0.12,
-  transitionFrequency: 10.0,   // Total cycle time in seconds
-  morphDuration: 2,         // Duration to disperse/converge
-  explosionStrength: 10.0,    // How far particles fly
-  dpr: [1, 1.5],
-  stylesCount: 5,
+	particleResolution: 800,
+	particleSize: 0.1,
+	transitionFrequency: 10.0,   // Total cycle time in seconds (set this once)
+	get morphDuration() { return this.transitionFrequency / 5; }, // Duration to disperse/converge
+	explosionStrength: 100,    // How far particles fly
+	dpr: [1, 2.5],
+	stylesCount: 5,
 };
 
 const STYLE_NAMES = [
-  "Linked Swarm Pull",
-  "Elastic Web Drift",
-  "Spark Constellation",
-  "Ripple Bloom",
-  "Grid Jitter"
+	"Linked Swarm Pull",
+	"Elastic Web Drift",
+	"Spark Constellation",
+	"Helix Bloom",
+	"Grid Jitter"
 ];
 
 const lineVertexShader = `
@@ -148,16 +148,19 @@ const lineVertexShader = `
             positionTarget = position + vec3(dir2 * push, zKick);
 
         } else if (uStyle == 3) {
-            float seed = fract(sin(dot(vUv, vec2(9.91, 83.17))) * 43758.5453);
+            float seed = fract(sin(dot(vUv, vec2(15.73, 61.37))) * 43758.5453);
             float r = clamp(length(position.xy) / 5.0, 0.0, 1.0);
 
             vec3 p = position;
-            vec2 dir2 = normalize(position.xy + vec2(0.001));
+            vec2 radial = normalize(p.xy + vec2(0.001));
+            vec2 tangent = normalize(vec2(-radial.y, radial.x));
 
-            float t = uTime * 0.9 + seed * 6.28318;
-            float ripple = sin(t + r * 10.0);
-            float push = multiplier * (0.10 + r * 0.95) * (0.5 + 0.5 * ripple);
-            float zKick = (seed - 0.5) * multiplier * 0.44;
+            float t = uTime * 0.75 + seed * 6.28318;
+            float helix = sin(t + r * 6.0);
+            vec2 dir2 = normalize(radial * (0.6 + 0.4 * helix) + tangent * 0.5);
+
+            float push = multiplier * (0.12 + r * 0.95);
+            float zKick = helix * multiplier * 0.38;
             positionTarget = p + vec3(dir2 * push, zKick);
 
         } else if (uStyle == 4) {
@@ -344,16 +347,19 @@ const vertexShader = `
             positionTarget = position + vec3(dir2 * push, zKick);
 
         } else if (uStyle == 3) {
-            float seed = fract(sin(dot(vUv, vec2(9.91, 83.17))) * 43758.5453);
+            float seed = fract(sin(dot(vUv, vec2(15.73, 61.37))) * 43758.5453);
             float r = clamp(length(position.xy) / 5.0, 0.0, 1.0);
 
             vec3 p = position;
-            vec2 dir2 = normalize(position.xy + vec2(0.001));
+            vec2 radial = normalize(p.xy + vec2(0.001));
+            vec2 tangent = normalize(vec2(-radial.y, radial.x));
 
-            float t = uTime * 0.9 + seed * 6.28318;
-            float ripple = sin(t + r * 10.0);
-            float push = multiplier * (0.10 + r * 0.95) * (0.5 + 0.5 * ripple);
-            float zKick = (seed - 0.5) * multiplier * 0.44;
+            float t = uTime * 0.75 + seed * 6.28318;
+            float helix = sin(t + r * 6.0);
+            vec2 dir2 = normalize(radial * (0.6 + 0.4 * helix) + tangent * 0.5);
+
+            float push = multiplier * (0.12 + r * 0.95);
+            float zKick = helix * multiplier * 0.38;
             positionTarget = p + vec3(dir2 * push, zKick);
 
         } else if (uStyle == 4) {
@@ -424,519 +430,585 @@ const fragmentShader = `
 `;
 
 // ─── Particles Component ─────────────────────────────────────────────────────
-const Particles = ({ images, isPaused, onStyleChange, onCycleBoundary, styleIndex }) => {
-  const pointsRef = useRef();
-  const linesRef = useRef();
-  const materialRef = useRef();
-  const lineMaterialRef = useRef();
-  const { size, viewport } = useThree();
-  const texturesRef = useRef([]);
-  const uniformsRef = useRef(null);
-  const [texturesLoaded, setTexturesLoaded] = useState(false);
+const Particles = ({ images, isPaused, onStyleChange, onProgress, onCycle, styleIndex }) => {
+	const pointsRef = useRef();
+	const linesRef = useRef();
+	const materialRef = useRef();
+	const lineMaterialRef = useRef();
+	const { size, viewport } = useThree();
+	const texturesRef = useRef([]);
+	const uniformsRef = useRef(null);
+	const [texturesLoaded, setTexturesLoaded] = useState(false);
 
-  // Geometry
-  const geometry = useMemo(() => {
-    const res = SETTINGS.particleResolution;
-    const geo = new THREE.PlaneGeometry(10, 10, res, res);
-    geo.deleteAttribute('normal');
-    return geo;
-  }, []);
+	// Geometry
+	const geometry = useMemo(() => {
+		const res = SETTINGS.particleResolution;
+		const geo = new THREE.PlaneGeometry(10, 10, res, res);
+		geo.deleteAttribute('normal');
+		return geo;
+	}, []);
 
-  const lineGeometry = useMemo(() => {
-    const res = Math.min(180, Math.max(60, Math.floor(SETTINGS.particleResolution / 6)));
-    const base = new THREE.PlaneGeometry(10, 10, res, res);
-    base.deleteAttribute('normal');
+	const lineGeometry = useMemo(() => {
+		const res = Math.min(180, Math.max(60, Math.floor(SETTINGS.particleResolution / 6)));
+		const base = new THREE.PlaneGeometry(10, 10, res, res);
+		base.deleteAttribute('normal');
 
-    const { position, uv } = base.attributes;
-    const idx = [];
-    const w = res + 1;
-    const h = res + 1;
-    for (let y = 0; y < h; y++) {
-      for (let x = 0; x < w; x++) {
-        const i = y * w + x;
-        if (x < w - 1) {
-          idx.push(i, i + 1);
-        }
-        if (y < h - 1) {
-          idx.push(i, i + w);
-        }
-      }
-    }
+		const { position, uv } = base.attributes;
+		const idx = [];
+		const w = res + 1;
+		const h = res + 1;
+		for (let y = 0; y < h; y++) {
+			for (let x = 0; x < w; x++) {
+				const i = y * w + x;
+				if (x < w - 1) {
+					idx.push(i, i + 1);
+				}
+				if (y < h - 1) {
+					idx.push(i, i + w);
+				}
+			}
+		}
 
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', position);
-    geo.setAttribute('uv', uv);
-    geo.setIndex(idx);
-    return geo;
-  }, []);
+		const geo = new THREE.BufferGeometry();
+		geo.setAttribute('position', position);
+		geo.setAttribute('uv', uv);
+		geo.setIndex(idx);
+		return geo;
+	}, []);
 
-  // Material — imperative creation so React reconciler never destroys it
-  useEffect(() => {
-    const sharedUniforms = {
-      uResolution: { value: new THREE.Vector2(size.width, size.height) },
-      uPictureTexture: { value: null },
-      uNextTexture: { value: null },
-      uMixFactor: { value: 0.0 },
-      uParticleSize: { value: SETTINGS.particleSize },
-      uProgress: { value: 1.0 },
-      uTime: { value: 0 },
-      uStyle: { value: 0 },
-    };
-    uniformsRef.current = sharedUniforms;
+	// Material — imperative creation so React reconciler never destroys it
+	useEffect(() => {
+		const sharedUniforms = {
+			uResolution: { value: new THREE.Vector2(size.width, size.height) },
+			uPictureTexture: { value: null },
+			uNextTexture: { value: null },
+			uMixFactor: { value: 0.0 },
+			uParticleSize: { value: SETTINGS.particleSize },
+			uProgress: { value: 1.0 },
+			uTime: { value: 0 },
+			uStyle: { value: 0 },
+		};
+		uniformsRef.current = sharedUniforms;
 
-    const mat = new THREE.ShaderMaterial({
-      vertexShader,
-      fragmentShader,
-      uniforms: sharedUniforms,
-      transparent: true,
-      depthTest: false,
-      depthWrite: false,
-    });
+		const mat = new THREE.ShaderMaterial({
+			vertexShader,
+			fragmentShader,
+			uniforms: sharedUniforms,
+			transparent: true,
+			depthTest: false,
+			depthWrite: false,
+		});
 
-    const lineMat = new THREE.ShaderMaterial({
-      vertexShader: lineVertexShader,
-      fragmentShader: lineFragmentShader,
-      uniforms: sharedUniforms,
-      transparent: true,
-      depthTest: false,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    });
-    materialRef.current = mat;
-    lineMaterialRef.current = lineMat;
+		const lineMat = new THREE.ShaderMaterial({
+			vertexShader: lineVertexShader,
+			fragmentShader: lineFragmentShader,
+			uniforms: sharedUniforms,
+			transparent: true,
+			depthTest: false,
+			depthWrite: false,
+			blending: THREE.AdditiveBlending,
+		});
+		materialRef.current = mat;
+		lineMaterialRef.current = lineMat;
 
-    if (pointsRef.current) {
-      pointsRef.current.material = mat;
-    }
+		if (pointsRef.current) {
+			pointsRef.current.material = mat;
+		}
 
-    if (linesRef.current) {
-      linesRef.current.material = lineMat;
-    }
+		if (linesRef.current) {
+			linesRef.current.material = lineMat;
+		}
 
-    return () => {
-      mat.dispose();
-      lineMat.dispose();
-    };
-  }, []);
+		return () => {
+			mat.dispose();
+			lineMat.dispose();
+		};
+	}, []);
 
-  // Engine State
-  const engineRef = useRef({
-    currentIndex: 0,
-    styleIndex: 0,
-    lastCycleId: -1,
-    accumulatedTime: 0,
-  });
+	// Engine State
+	const engineRef = useRef({
+		currentIndex: 0,
+		styleIndex: 0,
+		lastCycleId: -1,
+		accumulatedTime: 0,
+	});
 
-  useEffect(() => {
-    const mat = materialRef.current;
-    if (!mat) return;
-    const next = Math.max(0, Math.min(STYLE_NAMES.length - 1, styleIndex ?? 0));
-    engineRef.current.styleIndex = next;
-    mat.uniforms.uStyle.value = next;
-    onStyleChange(next);
-  }, [styleIndex, onStyleChange]);
+	useEffect(() => {
+		const mat = materialRef.current;
+		if (!mat) return;
+		const next = Math.max(0, Math.min(STYLE_NAMES.length - 1, styleIndex ?? 0));
+		engineRef.current.styleIndex = next;
+		mat.uniforms.uStyle.value = next;
+		onStyleChange(next);
+	}, [styleIndex, onStyleChange]);
 
-  // Texture loading
-  useEffect(() => {
-    const loader = new THREE.TextureLoader();
-    let loadedItems = 0;
-    const temp = [];
-    images.forEach((img, i) => {
-      loader.load(img.src, (tex) => {
-        tex.colorSpace = THREE.SRGBColorSpace;
-        temp[i] = tex;
-        loadedItems++;
-        if (loadedItems === images.length) {
-          texturesRef.current = temp;
-          // Initialize both texture slots
-          if (materialRef.current) {
-            materialRef.current.uniforms.uPictureTexture.value = temp[0];
-            materialRef.current.uniforms.uNextTexture.value = temp[1 % temp.length];
-          }
-          setTexturesLoaded(true);
-        }
-      });
-    });
-    return () => temp.forEach(t => t.dispose());
-  }, [images]);
+	// Texture loading
+	useEffect(() => {
+		const loader = new THREE.TextureLoader();
+		let loadedItems = 0;
+		const temp = [];
+		images.forEach((img, i) => {
+			loader.load(img.src, (tex) => {
+				tex.colorSpace = THREE.SRGBColorSpace;
+				temp[i] = tex;
+				loadedItems++;
+				if (loadedItems === images.length) {
+					texturesRef.current = temp;
+					// Initialize both texture slots
+					if (materialRef.current) {
+						materialRef.current.uniforms.uPictureTexture.value = temp[0];
+						materialRef.current.uniforms.uNextTexture.value = temp[1 % temp.length];
+					}
+					setTexturesLoaded(true);
+				}
+			});
+		});
+		return () => temp.forEach((t) => t && t.dispose());
+	}, [images]);
 
-  useFrame((state, delta) => {
-    const mat = materialRef.current;
-    const sharedUniforms = uniformsRef.current;
-    if (!mat || !sharedUniforms || !texturesLoaded || isPaused) return;
+	useEffect(() => {
+		const sharedUniforms = uniformsRef.current;
+		if (!sharedUniforms) return;
+		const dpr = viewport.initialDpr || 1;
+		sharedUniforms.uResolution.value.set(size.width * dpr, size.height * dpr);
+	}, [size.width, size.height, viewport.initialDpr]);
 
-    const absoluteTime = state.clock.getElapsedTime();
-    sharedUniforms.uTime.value = absoluteTime;
+	useFrame((state, delta) => {
+		const mat = materialRef.current;
+		const sharedUniforms = uniformsRef.current;
+		if (!mat || !sharedUniforms || !texturesLoaded) return;
 
-    const dpr = viewport.initialDpr || 1;
-    sharedUniforms.uResolution.value.set(size.width * dpr, size.height * dpr);
+		const absoluteTime = state.clock.getElapsedTime();
+		sharedUniforms.uTime.value = absoluteTime;
 
-    // Advance transition clock
-    engineRef.current.accumulatedTime += Math.min(delta, 0.1);
-    const time = engineRef.current.accumulatedTime;
+		// Advance transition clock
+		engineRef.current.accumulatedTime += Math.min(delta, 0.1);
+		const time = engineRef.current.accumulatedTime;
 
-    const cycle = SETTINGS.transitionFrequency;
-    const morph = SETTINGS.morphDuration;
-    const wait = Math.max(0.1, cycle - (morph * 2));
+		const cycle = SETTINGS.transitionFrequency;
+		const morph = SETTINGS.morphDuration;
+		const wait = Math.max(0.1, cycle - (morph * 2));
 
-    const localTime = time % cycle;
-    const currentCycleId = Math.floor(time / cycle);
+		const localTime = time % cycle;
+		const currentCycleId = Math.floor(time / cycle);
 
-    // At cycle boundary: commit previous transition, then prepare next one
-    if (engineRef.current.lastCycleId !== currentCycleId) {
-      engineRef.current.lastCycleId = currentCycleId;
+		// At cycle boundary: commit previous transition, then prepare next one
+		if (engineRef.current.lastCycleId !== currentCycleId) {
+			engineRef.current.lastCycleId = currentCycleId;
 
-      // STEP 1: Commit the previous crossfade — "current" becomes what we were blending towards
-      if (currentCycleId > 0) {
-        const commitIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
-        engineRef.current.currentIndex = commitIdx;
-        sharedUniforms.uPictureTexture.value = texturesRef.current[commitIdx];
-      }
+			// STEP 1: Commit the previous crossfade — "current" becomes what we were blending towards
+			if (currentCycleId > 0) {
+				const commitIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
+				engineRef.current.currentIndex = commitIdx;
+				sharedUniforms.uPictureTexture.value = texturesRef.current[commitIdx];
+			}
 
-      // STEP 2: Prepare the NEXT crossfade target
-      const nextIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
-      sharedUniforms.uNextTexture.value = texturesRef.current[nextIdx];
+			// STEP 2: Prepare the NEXT crossfade target
+			const nextIdx = (engineRef.current.currentIndex + 1) % texturesRef.current.length;
+			sharedUniforms.uNextTexture.value = texturesRef.current[nextIdx];
 
-      // STEP 3: Style is controlled externally for review
-      if (currentCycleId > 0) {
-        onCycleBoundary?.(currentCycleId);
-      }
-    }
+			// STEP 3: Style is controlled externally for review
+			if (onCycle) onCycle();
+		}
 
-    if (localTime < wait) {
-      // STILL PHASE — showing current image only
-      sharedUniforms.uProgress.value = 1.0;
-      sharedUniforms.uMixFactor.value = 0.0;
+		if (localTime < wait) {
+			// STILL PHASE — showing current image only
+			sharedUniforms.uProgress.value = 1.0;
+			sharedUniforms.uMixFactor.value = 0.0;
 
-    } else if (localTime < wait + morph) {
-      // DISPERSING PHASE — particles scatter, colors crossfade 0→1
-      const p = (localTime - wait) / morph;
-      sharedUniforms.uProgress.value = 1.0 - p;
-      sharedUniforms.uMixFactor.value = p;
+		} else if (localTime < wait + morph) {
+			// DISPERSING PHASE — particles scatter, colors crossfade 0→1
+			const p = (localTime - wait) / morph;
+			sharedUniforms.uProgress.value = 1.0 - p;
+			sharedUniforms.uMixFactor.value = p;
 
-    } else {
-      // CONVERGING PHASE — particles reform showing next image
-      const p = (localTime - (wait + morph)) / morph;
-      sharedUniforms.uProgress.value = p;
-      sharedUniforms.uMixFactor.value = 1.0;
-    }
+		} else {
+			// CONVERGING PHASE — particles reform showing next image
+			const p = (localTime - (wait + morph)) / morph;
+			sharedUniforms.uProgress.value = p;
+			sharedUniforms.uMixFactor.value = 1.0;
+		}
 
-  });
+		if (onProgress) {
+			const stillProgress = Math.max(0, Math.min(1, localTime / wait));
+			const barProgress = localTime < wait ? stillProgress : 1;
+			onProgress(barProgress);
+		}
 
-  useEffect(() => {
-    return () => geometry.dispose();
-  }, [geometry]);
+	});
 
-  useEffect(() => {
-    return () => lineGeometry.dispose();
-  }, [lineGeometry]);
+	useEffect(() => {
+		return () => geometry.dispose();
+	}, [geometry]);
 
-  return (
-    <group scale={[viewport.width / 10, viewport.height / 10, 1]}>
-      <lineSegments ref={linesRef} geometry={lineGeometry} />
-      <points ref={pointsRef} geometry={geometry} />
-    </group>
-  );
+	useEffect(() => {
+		return () => lineGeometry.dispose();
+	}, [lineGeometry]);
+
+	return (
+		<group scale={[viewport.width / 10, viewport.height / 10, 1]}>
+			<lineSegments ref={linesRef} geometry={lineGeometry} />
+			<points ref={pointsRef} geometry={geometry} />
+		</group>
+	);
 };
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 function AboutImageTransitionTolexiaInner({ className = "" }) {
-  const [inView, setInView] = useState(true);
-  const containerRef = useRef(null);
-  const labelRef = useRef(null);
-  const [contextLost, setContextLost] = useState(false);
-  const [styleIndex, setStyleIndex] = useState(0);
-  const [styleDecisions, setStyleDecisions] = useState({});
-  const storagePrefix = "aboutImageTransitionTolexia.batch9";
+	const [inView, setInView] = useState(true);
+	const containerRef = useRef(null);
+	const labelRef = useRef(null);
+	const [contextLost, setContextLost] = useState(false);
+	const [styleIndex, setStyleIndex] = useState(0);
+	const [progress, setProgress] = useState(0);
+	const [styleDecisions, setStyleDecisions] = useState({});
+	const storagePrefix = "aboutImageTransitionTolexia.batch9";
 
-  const images = useMemo(() => [
-    { src: "/images/image-ricardo-zea-illustration.png", alt: "Ricardo Zea Illustration" },
-    { src: "/images/image-ricardo-zea-real.png", alt: "Ricardo Zea Real" },
-  ], []);
+	const images = useMemo(() => [
+		{ src: "/images/image-ricardo-zea-illustration.png", alt: "Ricardo Zea Illustration" },
+		{ src: "/images/image-ricardo-zea-real.png", alt: "Ricardo Zea Real" },
+	], []);
 
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+	const [isDesktop, setIsDesktop] = useState(false);
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  useEffect(() => {
-    const mqlDesktop = window.matchMedia("(min-width: 768px)");
-    const mqlMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setIsDesktop(mqlDesktop.matches);
-    setPrefersReducedMotion(mqlMotion.matches);
-    const listenerDesktop = (e) => setIsDesktop(e.matches);
-    const listenerMotion = (e) => setPrefersReducedMotion(e.matches);
-    mqlDesktop.addEventListener("change", listenerDesktop);
-    mqlMotion.addEventListener("change", listenerMotion);
-    return () => {
-      mqlDesktop.removeEventListener("change", listenerDesktop);
-      mqlMotion.removeEventListener("change", listenerMotion);
-    };
-  }, []);
+	useEffect(() => {
+		const mqlDesktop = window.matchMedia("(min-width: 768px)");
+		const mqlMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+		setIsDesktop(mqlDesktop.matches);
+		setPrefersReducedMotion(mqlMotion.matches);
+		const listenerDesktop = (e) => setIsDesktop(e.matches);
+		const listenerMotion = (e) => setPrefersReducedMotion(e.matches);
+		mqlDesktop.addEventListener("change", listenerDesktop);
+		mqlMotion.addEventListener("change", listenerMotion);
+		return () => {
+			mqlDesktop.removeEventListener("change", listenerDesktop);
+			mqlMotion.removeEventListener("change", listenerMotion);
+		};
+	}, []);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+	useEffect(() => {
+		if (typeof window === "undefined") return;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      setInView(entry.isIntersecting);
-    }, {
-      threshold: 0,
-      rootMargin: "600px"
-    });
+		const observer = new IntersectionObserver(([entry]) => {
+			setInView(entry.isIntersecting);
+		}, {
+			threshold: 0,
+			rootMargin: "600px"
+		});
 
-    if (containerRef.current) observer.observe(containerRef.current);
+		if (containerRef.current) observer.observe(containerRef.current);
 
-    const syncVisibility = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const visible = rect.bottom > -200 && rect.top < window.innerHeight + 200;
-      setInView(visible);
-    };
+		const syncVisibility = () => {
+			if (!containerRef.current) return;
+			const rect = containerRef.current.getBoundingClientRect();
+			const visible = rect.bottom > -200 && rect.top < window.innerHeight + 200;
+			setInView(visible);
+		};
 
-    window.addEventListener('scroll', syncVisibility, { passive: true });
-    window.addEventListener('resize', syncVisibility);
-    syncVisibility();
+		window.addEventListener('scroll', syncVisibility, { passive: true });
+		window.addEventListener('resize', syncVisibility);
+		syncVisibility();
 
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', syncVisibility);
-      window.removeEventListener('resize', syncVisibility);
-    };
-  }, []);
+		return () => {
+			observer.disconnect();
+			window.removeEventListener('scroll', syncVisibility);
+			window.removeEventListener('resize', syncVisibility);
+		};
+	}, []);
 
-  useEffect(() => {
-    try {
-      const storedIndexRaw = window.localStorage.getItem(`${storagePrefix}.styleIndex`);
-      const storedIndex = storedIndexRaw == null ? 0 : Number(storedIndexRaw);
-      if (Number.isFinite(storedIndex)) {
-        setStyleIndex(((storedIndex % SETTINGS.stylesCount) + SETTINGS.stylesCount) % SETTINGS.stylesCount);
-      }
+	useEffect(() => {
+		try {
+			const storedIndexRaw = window.localStorage.getItem(`${storagePrefix}.styleIndex`);
+			const storedIndex = storedIndexRaw == null ? 0 : Number(storedIndexRaw);
+			if (Number.isFinite(storedIndex)) {
+				setStyleIndex(((storedIndex % SETTINGS.stylesCount) + SETTINGS.stylesCount) % SETTINGS.stylesCount);
+			}
 
-      const storedDecisionsRaw = window.localStorage.getItem(`${storagePrefix}.styleDecisions`);
-      if (storedDecisionsRaw) {
-        const parsed = JSON.parse(storedDecisionsRaw);
-        if (parsed && typeof parsed === "object") setStyleDecisions(parsed);
-      } else {
-        setStyleDecisions({ 0: "Approved", 1: "Approved", 2: "Approved", 3: "Approved", 4: "Approved" });
-      }
-    } catch {
-      setStyleDecisions({ 0: "Approved", 1: "Approved", 2: "Approved", 3: "Approved", 4: "Approved" });
-    }
-  }, []);
+			const storedDecisionsRaw = window.localStorage.getItem(`${storagePrefix}.styleDecisions`);
+			if (storedDecisionsRaw) {
+				const parsed = JSON.parse(storedDecisionsRaw);
+				if (parsed && typeof parsed === "object") setStyleDecisions(parsed);
+			} else {
+				setStyleDecisions({ 0: "Approved", 1: "Approved", 2: "Approved", 3: "Approved", 4: "Approved" });
+			}
+		} catch {
+			setStyleDecisions({ 0: "Approved", 1: "Approved", 2: "Approved", 3: "Approved", 4: "Approved" });
+		}
+	}, []);
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(`${storagePrefix}.styleIndex`, String(styleIndex));
-    } catch {
-    }
-  }, [styleIndex]);
+	useEffect(() => {
+		try {
+			window.localStorage.setItem(`${storagePrefix}.styleIndex`, String(styleIndex));
+		} catch {
+		}
+	}, [styleIndex]);
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(`${storagePrefix}.styleDecisions`, JSON.stringify(styleDecisions));
-    } catch {
-    }
-  }, [styleDecisions]);
+	useEffect(() => {
+		try {
+			window.localStorage.setItem(`${storagePrefix}.styleDecisions`, JSON.stringify(styleDecisions));
+		} catch {
+		}
+	}, [styleDecisions]);
 
-  const handleStyleChange = useCallback((index) => {
-    if (labelRef.current) {
-      labelRef.current.innerText = `${index + 1} / ${SETTINGS.stylesCount} ${STYLE_NAMES[index]}`;
-    }
-  }, []);
+	const handleStyleChange = useCallback((index) => {
+		if (labelRef.current) {
+			labelRef.current.innerText = `${index + 1} / ${SETTINGS.stylesCount} ${STYLE_NAMES[index]}`;
+		}
+	}, []);
 
-  const handleNextStyle = useCallback(() => {
-    setStyleIndex((s) => (s + 1) % SETTINGS.stylesCount);
-  }, []);
+	const handleNextStyle = useCallback(() => {
+		setStyleIndex((s) => (s + 1) % SETTINGS.stylesCount);
+	}, []);
 
-  const handleDecision = useCallback((decision) => {
-    setStyleDecisions((prev) => ({
-      ...prev,
-      [styleIndex]: decision,
-    }));
-  }, [styleIndex]);
+	const handlePrevStyle = useCallback(() => {
+		setStyleIndex((s) => (s - 1 + SETTINGS.stylesCount) % SETTINGS.stylesCount);
+	}, []);
 
-  const shouldShowParticles = isDesktop && !prefersReducedMotion && !contextLost;
+	const handleCycle = useCallback(() => {
+		setStyleIndex((s) => (s + 1) % SETTINGS.stylesCount);
+	}, []);
 
-  const handleCycleBoundary = useCallback(() => {
-    setStyleIndex((s) => (s + 1) % SETTINGS.stylesCount);
-  }, []);
+	const handleDecision = useCallback((decision) => {
+		setStyleDecisions((prev) => ({
+			...prev,
+			[styleIndex]: decision,
+		}));
+	}, [styleIndex]);
 
-  const handleContextLost = useCallback((e) => { e.preventDefault(); setContextLost(true); }, []);
-  const handleContextRestored = useCallback(() => setContextLost(false), []);
+	const handleToggleReject = useCallback(() => {
+		setStyleDecisions((prev) => {
+			const current = prev[styleIndex];
+			const nextDecision = current === "Rejected" ? "Pending" : "Rejected";
+			return { ...prev, [styleIndex]: nextDecision };
+		});
+	}, [styleIndex]);
 
-  return (
-    <div
-      ref={containerRef}
-      className={className}
-      style={{ position: "relative", width: "100%", height: "100%", aspectRatio: "1 / 1", overflow: "hidden" }}
-    >
-      {/* Base Image (Fallback/Static) */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        opacity: (shouldShowParticles && inView) ? 0 : 1,
-        transition: "opacity 1.0s ease-in-out",
-        zIndex: 1,
-        pointerEvents: "none"
-      }}>
-        <Image
-          src={images[0].src}
-          alt={images[0].alt}
-          fill
-          sizes="(max-width: 767px) 100vw, 600px"
-          style={{ objectFit: "cover" }}
-          priority={true}
-        />
-      </div>
+	const handleContextLost = useCallback((e) => { e.preventDefault(); setContextLost(true); }, []);
+	const handleContextRestored = useCallback(() => setContextLost(false), []);
 
-      {/* Canvas Layer */}
-      {isDesktop && !prefersReducedMotion && (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 2,
-            opacity: !contextLost ? 1 : 0,
-            transition: "opacity 0.5s ease",
-            pointerEvents: "auto"
-          }}
-        >
-          <Canvas
-            frameloop="always"
-            dpr={SETTINGS.dpr}
-            gl={{
-              antialias: false,
-              powerPreference: "high-performance",
-              alpha: true
-            }}
-            onCreated={({ gl }) => {
-              gl.domElement.addEventListener("webglcontextlost", handleContextLost, false);
-              gl.domElement.addEventListener("webglcontextrestored", handleContextRestored, false);
-            }}
-          >
-            <PerspectiveCamera makeDefault position={[0, 0, 18]} fov={35} />
-            <Particles
-              images={images}
-              styleIndex={styleIndex}
-              onStyleChange={handleStyleChange}
-              onCycleBoundary={handleCycleBoundary}
-              isPaused={!inView}
-            />
-          </Canvas>
-        </div>
-      )}
+	const shouldShowParticles = isDesktop && !prefersReducedMotion && !contextLost;
+	const reviewControlsVisible = false; // set to true to show review controls
+	const reviewDisplay = reviewControlsVisible ? "flex" : "none";
+	const currentDecision = styleDecisions[styleIndex];
+	const badgeStyles = currentDecision === "Rejected"
+		? { bg: "rgba(255,0,0,0.65)", border: "2px solid rgba(255,0,0,0.35)" }
+		: currentDecision === "Approved"
+			? { bg: "rgba(0,128,0,0.65)", border: "2px solid rgba(0,128,0,0.35)" }
+			: { bg: "rgba(0,0,0,0.65)", border: "2px solid rgba(255,255,255,0.15)" };
 
-      <div style={{
-        position: "absolute",
-        bottom: "30px",
-        left: "30px",
-        zIndex: 101,
-        display: "none",
-        alignItems: "center",
-        gap: "8px",
-        pointerEvents: "auto"
-      }}>
-        <button type="button" onClick={handleNextStyle} style={{
-          backgroundColor: "rgba(0,0,0,0.85)",
-          color: "white",
-          padding: "6px 10px",
-          borderRadius: "40px",
-          fontSize: "10px",
-          fontWeight: "400",
-          textTransform: "uppercase",
-          letterSpacing: "0.15em",
-          fontFamily: "var(--font-outfit), sans-serif",
-          border: "2px solid rgba(255,255,255,0.25)",
-          backdropFilter: "blur(16px)",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-          cursor: "pointer"
-        }}>Next</button>
+	return (
+		<div
+			ref={containerRef}
+			className={className}
+			style={{ position: "relative", width: "100%", height: "100%", aspectRatio: "1 / 1", overflow: "hidden" }}
+		>
+			{/* Base Image (Fallback/Static) */}
+			<div style={{
+				position: "absolute",
+				inset: 0,
+				opacity: (shouldShowParticles && inView) ? 0 : 1,
+				transition: "opacity 1.0s ease-in-out",
+				zIndex: 1,
+				pointerEvents: "none"
+			}}>
+				<Image
+					src={images[0].src}
+					alt={images[0].alt}
+					fill
+					sizes="(max-width: 767px) 100vw, 600px"
+					style={{ objectFit: "cover" }}
+					priority={true}
+				/>
+			</div>
 
-        <button type="button" onClick={() => handleDecision("Approved")} style={{
-          backgroundColor: "green",
-          color: "white",
-          padding: "6px 10px",
-          borderRadius: "40px",
-          fontSize: "10px",
-          fontWeight: "400",
-          textTransform: "uppercase",
-          letterSpacing: "0.15em",
-          fontFamily: "var(--font-outfit), sans-serif",
-          border: "2px solid rgba(255,255,255,0.25)",
-          backdropFilter: "blur(16px)",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-          cursor: "pointer"
-        }}>Approve</button>
+			{/* Canvas Layer */}
+			{isDesktop && !prefersReducedMotion && (
+				<div
+					style={{
+						position: "absolute",
+						inset: 0,
+						zIndex: 2,
+						opacity: !contextLost ? 1 : 0,
+						transition: "opacity 0.5s ease",
+						pointerEvents: "auto"
+					}}
+				>
+					<Canvas
+						frameloop="always"
+						dpr={SETTINGS.dpr}
+						gl={{
+							antialias: false,
+							powerPreference: "high-performance",
+							alpha: true
+						}}
+						onCreated={({ gl }) => {
+							gl.domElement.addEventListener("webglcontextlost", handleContextLost, false);
+							gl.domElement.addEventListener("webglcontextrestored", handleContextRestored, false);
+						}}
+					>
+						<PerspectiveCamera makeDefault position={[0, 0, 18]} fov={35} />
+						<Particles
+							images={images}
+							isPaused={false}
+							onStyleChange={handleStyleChange}
+							onProgress={setProgress}
+							onCycle={handleCycle}
+							styleIndex={styleIndex}
+						/>
+					</Canvas>
+				</div>
+			)}
 
-        <button type="button" onClick={() => handleDecision("Rejected")} style={{
-          backgroundColor: "red",
-          color: "white",
-          padding: "6px 10px",
-          borderRadius: "40px",
-          fontSize: "10px",
-          fontWeight: "400",
-          textTransform: "uppercase",
-          letterSpacing: "0.15em",
-          fontFamily: "var(--font-outfit), sans-serif",
-          border: "2px solid rgba(255,255,255,0.25)",
-          backdropFilter: "blur(16px)",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-          cursor: "pointer"
-        }}>Reject</button>
+			<div style={{
+				position: "absolute",
+				bottom: "30px",
+				left: "30px",
+				zIndex: 101,
+				display: reviewDisplay,
+				alignItems: "center",
+				gap: "8px",
+				pointerEvents: "auto"
+			}}>
+				<div style={{
+					display: reviewDisplay,
+					justifyContent: "center",
+					gap: "8px",
+					pointerEvents: "auto"
+				}}>
+					<button type="button" onClick={handlePrevStyle} style={{
+						backgroundColor: "rgba(0,0,0,0.85)",
+						color: "white",
+						padding: "6px 10px",
+						border: "1px solid rgba(255,255,255,0.2)",
+						borderRadius: "4px",
+						cursor: "pointer",
+						fontSize: "12px",
+						fontWeight: "bold"
+					}}>
+						Prev.
+					</button>
+					<button type="button" onClick={handleNextStyle} style={{
+						backgroundColor: "rgba(0,0,0,0.85)",
+						color: "white",
+						padding: "6px 10px",
+						border: "1px solid rgba(255,255,255,0.2)",
+						borderRadius: "4px",
+						cursor: "pointer",
+						fontSize: "12px",
+						fontWeight: "bold"
+					}}>
+						Next
+					</button>
+				</div>
 
-        <div style={{
-          backgroundColor:
-            (styleDecisions[styleIndex] === "Rejected")
-              ? "rgba(255,0,0,0.65)"
-              : (styleDecisions[styleIndex] === "Approved")
-                ? "rgba(0,128,0,0.65)"
-                : "rgba(0,0,0,0.65)",
-          color: "white",
-          padding: "6px 10px",
-          borderRadius: "40px",
-          fontSize: "10px",
-          fontWeight: "400",
-          textTransform: "uppercase",
-          letterSpacing: "0.15em",
-          fontFamily: "var(--font-outfit), sans-serif",
-          border:
-            (styleDecisions[styleIndex] === "Rejected")
-              ? "2px solid rgba(255,0,0,0.35)"
-              : (styleDecisions[styleIndex] === "Approved")
-                ? "2px solid rgba(0,128,0,0.35)"
-                : "2px solid rgba(255,255,255,0.15)",
-          backdropFilter: "blur(16px)",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-          pointerEvents: "none"
-        }}>{styleDecisions[styleIndex] || "Pending"}</div>
-      </div>
+				<button type="button" onClick={() => handleDecision("Approved")} style={{
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					backgroundColor: "green",
+					color: "white",
+					width: "40px",
+					height: "40px",
+					borderRadius: "9999px",
+					fontSize: "20px",
+					fontWeight: "400",
+					fontFamily: "var(--font-outfit), sans-serif",
+					border: "2px solid rgba(255,255,255,0.25)",
+					backdropFilter: "blur(16px)",
+					boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+					cursor: "pointer"
+				}}>🗸</button>
 
-      {/* Label Overlay */}
-      <div style={{
-        position: "absolute",
-        bottom: "30px",
-        right: "30px",
-        backgroundColor: "rgba(0,0,0,0.85)",
-        color: "white",
-        padding: "5px 10px",
-        borderRadius: "40px",
-        fontSize: "10px",
-        fontWeight: "400",
-        textTransform: "uppercase",
-        letterSpacing: "0.15em",
-        fontFamily: "var(--font-outfit), sans-serif",
-        border: "2px solid rgba(255,255,255,0.25)",
-        backdropFilter: "blur(16px)",
-        zIndex: 100,
-        pointerEvents: "none",
-        boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-        display: "none",
-        alignItems: "center",
-        gap: "10px"
-      }}>
-        <span style={{ opacity: 0.5 }}>Effect:</span>
-        <span ref={labelRef}>1 / {SETTINGS.stylesCount} Grid Door Slide</span>
-      </div>
-    </div>
-  );
+				<button type="button" onClick={handleToggleReject} style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					backgroundColor: "red",
+					color: "white",
+					width: "40px",
+					height: "40px",
+					borderRadius: "9999px",
+					fontSize: "20px",
+					fontWeight: "400",
+					fontFamily: "var(--font-outfit), sans-serif",
+					border: "2px solid rgba(255,255,255,0.25)",
+					backdropFilter: "blur(16px)",
+					boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+					cursor: "pointer"
+				}}>×</button>
+
+			</div>
+
+			{/* Label Overlay */}
+			<div style={{
+				position: "absolute",
+				bottom: "30px",
+				right: "30px",
+				backgroundColor: badgeStyles.bg,
+				color: "white",
+				padding: "5px 10px",
+				borderRadius: "40px",
+				fontSize: "10px",
+				fontWeight: "400",
+				textTransform: "uppercase",
+				letterSpacing: "0.15em",
+				fontFamily: "var(--font-outfit), sans-serif",
+				border: badgeStyles.border,
+				backdropFilter: "blur(16px)",
+				zIndex: 100,
+				pointerEvents: "none",
+				boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+				display: reviewDisplay,
+				alignItems: "center",
+				gap: "10px"
+			}}>
+				<span style={{ opacity: 0.5 }}>Effect:</span>
+				<span ref={labelRef}>1 / {SETTINGS.stylesCount} Grid Door Slide</span>
+			</div>
+
+			{/* Circular progress (fills during visible time) */}
+			<div style={{
+				position: "absolute",
+				bottom: "10px",
+				right: "10px",
+				width: "32px",
+				height: "32px",
+				borderRadius: "50%",
+				background: "rgba(0,0,0,0.6)",
+				border: "2px solid rgba(255,255,255,0.25)",
+				display: shouldShowParticles ? "flex" : "none",
+				alignItems: "center",
+				justifyContent: "center",
+				zIndex: 102,
+				boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+				pointerEvents: "none",
+				overflow: "hidden"
+			}}>
+				<svg width="44" height="44" viewBox="0 0 44 44" style={{ transform: "rotate(-90deg)" }}>
+					<circle
+						cx="22" cy="22" r="20"
+						stroke="rgba(255,255,255,0.15)"
+						strokeWidth="4"
+						fill="none"
+					/>
+					<circle
+						cx="22" cy="22" r="20"
+						stroke="rgba(0,200,255,0.9)"
+						strokeWidth="4"
+						strokeLinecap="round"
+						fill="none"
+						strokeDasharray={Math.PI * 2 * 20}
+						strokeDashoffset={(1 - progress) * Math.PI * 2 * 20}
+						style={{
+							opacity: progress >= 1 ? 0 : 1,
+							transition: "opacity 0.35s ease"
+						}}
+					/>
+				</svg>
+			</div>
+		</div>
+	);
 }
 
 // React.memo prevents re-renders from ThemeProvider context changes.

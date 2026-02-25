@@ -758,7 +758,6 @@ export default function Home() {
 						<div className="about-image-container">
 							<div className="about-image-wrapper relative overflow-hidden">
 								<AboutImageTransitionTolexia className="about-image" />
-
 							</div>
 
 							{/* Education and Experience Section */}
