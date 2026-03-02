@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Footer from "../components/Footer";
@@ -41,6 +41,8 @@ import {
 
 export default function Home() {
 	const [resumeSizeMb, setResumeSizeMb] = useState(null);
+	const [aboutVisible, setAboutVisible] = useState(false);
+	const aboutRef = useRef(null);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -82,6 +84,23 @@ export default function Home() {
 
 		setTimeout(tryScroll, 0);
 	}, []);
+
+	useEffect(() => {
+		if (aboutVisible) return;
+		const target = aboutRef.current;
+		if (!target) return;
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					setAboutVisible(true);
+					observer.disconnect();
+				}
+			},
+			{ rootMargin: '800px 0px 800px 0px', threshold: 0 }
+		);
+		observer.observe(target);
+		return () => observer.disconnect();
+	}, [aboutVisible]);
 
 	return (
 		<>
@@ -774,7 +793,7 @@ export default function Home() {
 			</section>
 
 			{/* About Section */}
-			<section id="about" className="about">
+			<section id="about" className="about" ref={aboutRef}>
 				<div className="section-container">
 					<h2 className="heading-section section-title-dark">
 						<span className="reveal reveal-slide" data-reveal-delay="0.1">About</span> <span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.2">Ricardo</span> <span className="text-brand-secondary reveal reveal-slide" data-reveal-delay="0.3">Zea</span>
@@ -784,7 +803,7 @@ export default function Home() {
 						{/* Left Column - Image */}
 						<div className="about-image-container">
 							<div className="about-image-wrapper relative overflow-hidden reveal reveal-slide">
-								<AboutImageTransitionTolexia className="about-image" />
+								{aboutVisible ? <AboutImageTransitionTolexia className="about-image" /> : null}
 							</div>
 
 							{/* Education and Experience Section */}
