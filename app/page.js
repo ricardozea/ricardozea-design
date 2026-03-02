@@ -12,6 +12,7 @@ import { MotionBurst } from "../components/MotionBurst";
 import { Tooltip } from "../components/Tooltip";
 import { ExternalLink } from "../components/ExternalLink";
 import AboutImageTransitionTolexia from "../components/AboutImageTransitionTolexia";
+import heroBg from "../public/images/background-image-real.webp";
 
 import Modal from "../components/Modal";
 
@@ -79,6 +80,16 @@ export default function Home() {
 			<Navigation />
 			{/* Hero Section */}
 			<header id="home" className="hero">
+				<Image
+					src={heroBg}
+					alt=""
+					fill
+					priority
+					placeholder="blur"
+					sizes="100vw"
+					className="hero-bg"
+					aria-hidden="true"
+				/>
 				<div id="start-content" className="hero-content flex flex-col max-w-[1440px] mx-auto relative z-2 p-6 pt-20 md:p-14 md:pt-20">
 
 					{/* Main Content */}
