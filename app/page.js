@@ -10,6 +10,7 @@ import SocialIcons from '../components/SocialIcons';
 import ContactForm from '../components/ContactForm';
 import { Tooltip } from "../components/Tooltip";
 import { ExternalLink } from "../components/ExternalLink";
+import heroBg from "../public/images/background-image-real.webp";
 
 const MotionBurst = dynamic(
 	() => import("../components/MotionBurst").then((mod) => mod.MotionBurst || mod.default),
@@ -87,6 +88,15 @@ export default function Home() {
 			<Navigation />
 			{/* Hero Section */}
 			<header id="home" className="hero">
+				<Image
+					src={heroBg}
+					alt=""
+					fill
+					priority
+					sizes="100vw"
+					className="hero-bg"
+					placeholder="empty"
+				/>
 				<div id="start-content" className="hero-content flex flex-col max-w-[1440px] mx-auto relative z-2 p-6 pt-20 md:p-14 md:pt-20">
 
 					{/* Main Content */}
