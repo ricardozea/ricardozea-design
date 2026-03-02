@@ -2,8 +2,10 @@ import './globals.css'; // Import Tailwind CSS
 import { Roboto_Flex } from "next/font/google";
 import { Alan_Sans } from "next/font/google";
 import { ThemeProvider, ThemeStylesheet, ThemeToggle } from "../components/ThemeSwitcher";
+import RevealController from "../components/RevealController";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import BackToTop from "../components/BackToTop";
 
 const robotoFlex = Roboto_Flex({
 	subsets: ["latin"],
@@ -95,7 +97,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
 	return (
 		<ThemeProvider>
-			<html lang="en" suppressHydrationWarning>
+			<html lang="en" suppressHydrationWarning className="reveal-init">
 				<head>
 					{/* Theme stylesheets are managed by ThemeStylesheet component */}
 					<ThemeStylesheet />
@@ -131,12 +133,23 @@ export default function RootLayout({ children }) {
 					/>
 				</head>
 				<body
+					id="top"
 					className={`${robotoFlex.variable} ${alanSans.variable} antialiased homepage`}
 					suppressHydrationWarning
 				>
-					{children}
+					<a
+						href="#start-content"
+						className="skip-to-content"
+					>
+						Skip to content
+					</a>
+					<main tabIndex={-1}>
+						{children}
+					</main>
+					<RevealController />
 					<Analytics />
 					<SpeedInsights />
+					<BackToTop />
 				</body>
 			</html>
 		</ThemeProvider>

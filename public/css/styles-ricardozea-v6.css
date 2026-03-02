@@ -117,6 +117,185 @@ a:active {
 }
 
 /* ============================================
+   Reveal Any Element (class-based, viewport-triggered)
+   ============================================ */
+html.reveal-init .reveal {
+	opacity: 0;
+	transform: translateY(12px);
+	will-change: transform, opacity, clip-path;
+}
+
+html.reveal-init .reveal.is-revealed {
+	animation: reveal-fade 0.65s ease-out forwards;
+	animation-delay: var(--reveal-delay, 0s);
+}
+
+html.reveal-init .reveal-line {
+	overflow: hidden;
+	clip-path: inset(100% 0 0 0);
+	opacity: 0;
+}
+
+html.reveal-init .reveal-line.is-revealed {
+	animation: reveal-line 0.7s ease-out forwards;
+	animation-delay: calc(var(--reveal-delay, 0s) + var(--reveal-index, 0) * var(--reveal-stagger, 0.12s));
+}
+
+html.reveal-init .reveal-line.is-revealed.clip-none {
+	clip-path: none !important;
+	overflow: visible !important;
+}
+
+html.reveal-init .reveal-letters .reveal-letter {
+	display: inline-block;
+	transform: translateY(105%);
+	clip-path: inset(100% 0 0 0);
+	opacity: 0;
+	filter: blur(6px);
+	animation-fill-mode: forwards;
+	animation-duration: 0.8s;
+	animation-timing-function: ease-out;
+}
+
+html.reveal-init .reveal-letters.is-revealed .reveal-letter {
+	animation-name: reveal-slide;
+	animation-delay: calc(var(--reveal-delay, 0s) + var(--reveal-index, 0) * var(--reveal-stagger, 0.05s));
+}
+
+.reveal-letter.reveal-space {
+	width: 0.35em;
+}
+
+/* Fade/blur baseline */
+@keyframes reveal-fade {
+	0% {
+		opacity: 0;
+		transform: translateY(30%);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Line reveal */
+@keyframes reveal-line {
+	0% {
+		opacity: 0;
+		clip-path: inset(100% 0 0 0);
+		transform: translateY(110%);
+	}
+	50% {
+		opacity: 1;
+		clip-path: inset(0 0 0 0);
+	}
+	100% {
+		opacity: 1;
+		clip-path: inset(0 0 0 0);
+		transform: translateY(0);
+	}
+}
+
+/* Letters slide */
+@keyframes reveal-slide {
+	0% {
+		opacity: 0;
+		transform: translateY(110%);
+		clip-path: inset(100% 0 0 0);
+	}
+	45% {
+		opacity: 1;
+		clip-path: inset(0 0 0 0);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+/* Particles (simple radial burst) */
+.reveal-particles::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 6px;
+	height: 6px;
+	background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
+	transform: translate(-50%, -50%) scale(0);
+	opacity: 0;
+	pointer-events: none;
+}
+
+html.reveal-init .reveal-particles.is-revealed::after {
+	animation: reveal-particles 0.6s ease-out forwards;
+}
+
+@keyframes reveal-particles {
+	0% { opacity: 0; transform: translate(-50%, -50%) scale(0.25); }
+	50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
+	100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
+}
+
+/* Skeleton to real content */
+.reveal-skeleton {
+	position: relative;
+	color: transparent;
+}
+
+.reveal-skeleton::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+	background-size: 200% 100%;
+	animation: skeleton-shimmer 1.2s ease-in-out infinite;
+	opacity: 1;
+}
+
+html.reveal-init .reveal-skeleton.is-revealed::before {
+	animation: skeleton-hide 0.4s ease forwards;
+}
+
+html.reveal-init .reveal-skeleton.is-revealed {
+	color: inherit;
+}
+
+@keyframes skeleton-shimmer {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
+
+@keyframes skeleton-hide {
+	to { opacity: 0; }
+}
+
+@media (min-width: 768px) {
+	html.reveal-init .reveal-line.is-revealed {
+		animation-duration: 0.8s;
+	}
+	html.reveal-init .reveal-letters.is-revealed .reveal-letter {
+		animation-duration: 0.9s;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html.reveal-init .reveal,
+	html.reveal-init .reveal-line,
+	html.reveal-init .reveal-letters .reveal-letter,
+	html.reveal-init .reveal-skeleton::before,
+	html.reveal-init .reveal-particles::after {
+		animation: none;
+		opacity: 1;
+		transform: none;
+		clip-path: none;
+		filter: none;
+	}
+}
+
+/* ============================================
    New tab icon for external links
    ============================================ */
 a.new-tab::after {
@@ -295,6 +474,7 @@ a.new-tab.hide-new-tab-icon::after {
 	inset: 0;
 	border-radius: calc(var(--corner-s) + 2px);
 	filter: blur(10px);
+	pointer-events: none;
 	opacity: 0.2;
 	background:
 		conic-gradient(
@@ -318,7 +498,6 @@ a.new-tab.hide-new-tab-icon::after {
 	border-radius: var(--corner-s);
 	border: 1px solid rgba(255, 255, 255, 0.12);
 	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
 
 	transform: translateY(0);
 	transition: .3s;
@@ -596,6 +775,7 @@ ol {
 	font-weight: 100;
 }
 
+
 p.text-description:first-of-type {
 	margin-top: 0.5rem;
 }
@@ -642,7 +822,7 @@ p.text-description:first-of-type {
 	top: -100px;
 	left: 6px;
 	background: var(--bg-persistent-secondary-brand);
-	color: var(--text-persistent-light);
+	color: var(--text-persistent-light) !important;
 	padding: 8px;
 	text-decoration: none;
 	border-radius: var(--corner-s);
@@ -654,6 +834,11 @@ p.text-description:first-of-type {
 	&:focus {
 		top: 6px;
 	}
+}
+
+#start-content:target {
+	border: 1px solid var(--border-transparent-50);
+	padding: 1rem;
 }
 
 .navbar-wrapper {
@@ -1395,7 +1580,105 @@ h2 .character {
 	height: clamp(40px, 10vw, 60px);
 }
 
+/* ============================================
+   Back to Top
+   ============================================ */
+#progress-wrap {
+	position: relative;
+	height: 60px;
+	width: 60px;
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+	border-radius: 50px;
+	box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(15px);
+	transition: all 200ms linear;
+	background: rgba(0, 0, 0, 0.45);
+	pointer-events: none;
+}
 
+#progress-wrap.active-progress {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+	pointer-events: auto;
+}
+
+#progress-wrap .progress-circle {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#progress-wrap.active-progress:hover .progress-circle {
+	top: -2px;
+}
+
+#progress-wrap .progress-bg {
+	stroke-width: 4;
+	box-sizing: border-box;
+	fill: none;
+}
+
+#progress-wrap .progress-fg {
+	stroke: #fff;
+	stroke-width: 4;
+	box-sizing: border-box;
+	stroke-dasharray: 307.919, 307.919;
+	stroke-dashoffset: var(--dashoffset, 307.919);
+	transition: stroke-dashoffset 0.12s linear;
+	fill: none;
+}
+
+#progress-wrap .progress-arrow {
+	color: var(--icon-persistent-light);
+	transform: translateY(0);
+	transform-origin: center center;
+}
+
+#progress-wrap:hover .progress-arrow {
+	animation: bounce-up 600ms ease-out forwards;
+}
+
+#progress-wrap:not(:hover) .progress-arrow {
+	animation: bounce-down 280ms ease-out forwards;
+}
+
+@keyframes bounce-up {
+	0% { transform: translateY(0) scale(1); }
+	12% { transform: translateY(6px) scale(1.2, 0.95); }
+	25% { transform: translateY(-6px) scale(0.95, 1.2); }
+	60% { transform: translateY(2px) scale(1.2, 0.95); }
+	100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes bounce-down {
+	0% { transform: translateY(-2px) scale(1); }
+	40% { transform: translateY(2px) scale(1.05, 0.95); }
+	70% { transform: translateY(-2px) scale(0.98, 1.02); }
+	100% { transform: translateY(0) scale(1); }
+}
+
+/* Back to Top tooltip adjustments */
+.backtotop-tooltip {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 10001;
+	overflow: visible;
+}
+
+.backtotop-tooltip .tooltip-content.tooltip-top {
+	left: 50%;
+	transform: translate(-50%, -8px);
+	bottom: calc(100% + var(--tooltip-offset));
+	top: auto;
+	margin: 0;
+	z-index: 10002;
+}
 
 /* ============================================
    Data Section
@@ -2310,7 +2593,7 @@ body {
 
 		p {
 			width: 100%;
-			margin: 0;
+			margin: revert;
 		}
 	}
 

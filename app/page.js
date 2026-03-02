@@ -79,34 +79,44 @@ export default function Home() {
 			<Navigation />
 			{/* Hero Section */}
 			<header id="home" className="hero">
-				<div className="hero-content flex flex-col max-w-[1440px] mx-auto relative z-2 p-6 pt-20 md:p-14 md:pt-20">
+				<div id="start-content" className="hero-content flex flex-col max-w-[1440px] mx-auto relative z-2 p-6 pt-20 md:p-14 md:pt-20">
 
 					{/* Main Content */}
 					<div id="hero-main" className="hero-main" tabIndex={-1}>
 
 						{/* Logo */}
-						<HeroLogo />
+						<div className="inline-block reveal reveal-slide" data-reveal-delay="0" data-reveal-stagger="0.12" aria-label="Ricardo Zea Logo">
+							<HeroLogo />
+						</div>
 
 						{/* Hero Title */}
-						<h1 className="heading-hero hero-title">
-							Sr.
-							<span className="hero-title-brand">Web</span>
-							&
-							<span className="text-nowrap">
-								<span className="hero-title-info">Product</span> Designer
-							</span>
+						<h1 className="heading-hero hero-title" aria-label="Sr. Web & Product Designer">
+							<span className="inline-block reveal reveal-slide" data-reveal-delay="0" data-reveal-stagger="0.08" data-reveal-index="0">Sr.</span>
+							<span className="hero-title-brand inline-block reveal reveal-slide" data-reveal-delay="0.1" data-reveal-stagger="0.08" data-reveal-index="1">Web</span>
+							<span className="inline-block reveal reveal-slide" data-reveal-delay="0.2" data-reveal-stagger="0.08" data-reveal-index="2">&</span>
+							<span className="hero-title-info inline-block text-nowrap reveal reveal-slide" data-reveal-delay="0.3" data-reveal-stagger="0.08" data-reveal-index="3">Product Designer</span>
 						</h1>
 
 						{/* Hero Description */}
-						<p className="text-description hero-description">
+						<p
+							className="text-description hero-description reveal reveal-slide"
+							data-reveal-delay="0.4"
+							data-reveal-stagger="0.12"
+							data-reveal-index="4"
+						>
 							<span className="strikethrough">Crafting digital experiences</span>
 							… Well, I've been doing this for 💩-load of time <span className="text-nowrap">¯\(ツ)/¯</span>
 						</p>
 					</div>
 
 					{/* CTA Button */}
-					<div className="hero-cta">
-						<span className="glow-button-wrap">
+					<div className="hero-cta reveal reveal-slide" data-reveal-delay="0.5" data-reveal-stagger="0.12" data-reveal-index="5">
+						<span
+							className="glow-button-wrap"
+							data-reveal-delay="0.5"
+							data-reveal-stagger="0.12"
+							data-reveal-index="5"
+						>
 							<a href="#projects" className="cta-button button-primary glow-button">
 								View My Work
 								<ArrowLineDown size={24} />
@@ -119,12 +129,10 @@ export default function Home() {
 			{/* Projects Section */}
 			<section id="projects" className="projects">
 				<div className="section-container">
-					<h2 className="heading-section section-title-dark">
-						What <span className="text-brand-secondary">You</span> <span className="text-brand-primary text-nowrap">Came Here</span> For
-					</h2>
+					<h2 className="heading-section section-title-dark"><span className="reveal reveal-slide" data-reveal-delay="0.1">What</span> <span className="text-brand-secondary reveal reveal-slide" data-reveal-delay="0.2">You</span> <span className="text-brand-primary text-nowrap reveal reveal-slide" data-reveal-delay="0.3">Came Here</span> <span className="reveal reveal-slide" data-reveal-delay="0.4">For</span></h2>
 					<div className="max-w-[40rem] mx-auto">
-						<p className="text-description">Ok, I'll <abbr title="Keep It Simple, Stupid">K.I.S.S.</abbr> 😁</p>
-						<p className="text-description">
+						<p className="text-description reveal reveal-slide">Ok, I'll <abbr title="Keep It Simple, Stupid">K.I.S.S.</abbr> 😁</p>
+						<p className="text-description reveal reveal-slide clip-none">
 							In the following two projects I showcase most of my skills and design&nbsp;capabilities
 							<MotionBurst
 								data-motion-burst="true"
@@ -151,8 +159,8 @@ export default function Home() {
 								</Tooltip>
 							</MotionBurst>.
 						</p>
-						<p>You will see things about:</p>
-						<ol className="columns-2 gap-[2rem]">
+						<p className="reveal reveal-slide">You will see things about:</p>
+						<ol className="columns-2 gap-[2rem] reveal reveal-slide">
 							<li>Web Design (doh!)</li>
 							<li>Product Design (really! lol)</li>
 							<li>Figma Designs</li>
@@ -172,14 +180,14 @@ export default function Home() {
 							<li>Before & After Designs</li>
 							<li>Unapologetic tone 😉</li>
 						</ol>
-						<p>I know there is still a lot to learn, but there is also a lot to share. That's what this portfolio is for.</p>
-						<p>Well, have at it! <span className="inline-flex transform-[rotateY(180deg)]">🏃🏽‍♂️💨</span></p>
+						<p className="reveal reveal-slide">I know there is still a lot to learn, but there is also a lot to share. That's what this portfolio is for.</p>
+						<p className="reveal reveal-slide">Well, have at it! <span className="inline-flex transform-[rotateY(180deg)]">🏃🏽‍♂️💨</span></p>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 max-w-[1400px] mx-auto">
 
 						{/* Project Card */}
-						<article className="project-card max-w-[670px] mx-auto lg:mx-0">
+						<article className="project-card max-w-[670px] mx-auto lg:mx-0 reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="project-card-header">
 								<img
 									src="/images/logo-nodesource-for-dark.svg"
@@ -200,7 +208,7 @@ export default function Home() {
 
 							<div className="project-card-footer flex flex-row gap-4">
 								<div className="project-card-label-icon" title="Tags">
-									<Tag className="rotate-y-180" size={16} weight="bold"/>
+									<Tag className="rotate-y-180" size={16} weight="bold" />
 								</div>
 
 								<div className="project-card-content">
@@ -227,7 +235,7 @@ export default function Home() {
 						</article>
 
 						{/* Project Card 2 */}
-						<article className="project-card max-w-[670px] mx-auto lg:mx-0">
+						<article className="project-card max-w-[670px] mx-auto lg:mx-0 reveal reveal-slide" data-reveal-delay="0.5">
 							<div className="project-card-header">
 								<img
 									src="/images/logo-purina.svg"
@@ -272,6 +280,7 @@ export default function Home() {
 								</div>
 							</div>
 						</article>
+
 					</div>
 				</div>
 			</section>
@@ -279,17 +288,17 @@ export default function Home() {
 			{/* Skills Section */}
 			<section id="skills" className="skills">
 				<div className="section-container">
-					<p className="flex justify-center m-0">In the words of the almighty Scott Adams:</p>
+					<p className="flex justify-center m-0 reveal reveal-slide" data-reveal-delay="0.1">In the words of the almighty Scott Adams:</p>
 					<h2 className="heading-section section-title-light">
-						<img src="/images/img-character-dilbert.svg" alt="Dilbert" title="Dilbert by Scott Adams" className="character"/>
-						<span className="text-accent-blue-persistent">Talent</span> <span className="text-accent-red-persistent">Stack</span>
+						<img src="/images/img-character-dilbert.svg" alt="Dilbert" title="Dilbert by Scott Adams" className="character reveal reveal-slide" />
+						<span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.2">Talent</span> <span className="text-accent-red-persistent reveal reveal-slide" data-reveal-delay="0.3">Stack</span>
 					</h2>
 
 					{/* Skills Cards - First Row */}
 					<div className="cards-grid-container">
 
 						{/* Skill Card 1 */}
-						<div className="skill-card red">
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -317,7 +326,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 2 */}
-						<div className="skill-card blue">
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -331,7 +340,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 3 */}
-						<div className="skill-card red">
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -354,7 +363,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 4 */}
-						<div className="skill-card blue">
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -378,7 +387,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 5 */}
-						<div className="skill-card red">
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -394,7 +403,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 6 */}
-						<div className="skill-card blue">
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -412,7 +421,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 7 */}
-						<div className="skill-card red">
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -434,7 +443,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 8 */}
-						<div className="skill-card blue">
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -454,7 +463,7 @@ export default function Home() {
 						</div>
 
 						{/* Skill Card 9 */}
-						<div className="skill-card red">
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -472,64 +481,64 @@ export default function Home() {
 							</ul>
 						</div>
 					</div>
-					<p className="text-description personal-comment">☝🏽It goes without saying that I'm still learning. I am open-minded and not set in my ways despite my experience. So… yeah.</p>
-					<p className="personal-comment">Plus, I really like to <ExternalLink href="https://adplist.org/mentors/ricardo-zea" title="View ADPList profile">share my knowledge with others</ExternalLink>.</p>
+					<p className="text-description personal-comment reveal reveal-slide">☝🏽It goes without saying that I'm still learning. I am open-minded and not set in my ways despite my experience. So… yeah.</p>
+					<p className="personal-comment reveal reveal-slide">Plus, I really like to <ExternalLink href="https://adplist.org/mentors/ricardo-zea" title="View ADPList profile">share my knowledge with others</ExternalLink>.</p>
 				</div>
 			</section>
 
 			{/* Data Section */}
 			<section id="data" className="data">
 				<div className="section-container">
-					<small className="flex justify-center mb-3">"Greetings! Ah-ah-ah!" lol</small>
+					<p className="flex justify-center m-0 reveal reveal-slide" data-reveal-delay="0.1">"Greetings! Ah-ah-ah!" lol</p>
 					<h2 className="heading-section section-title-dark">
-						<img src="/images/img-character-count.svg" alt="Count von Count" className="character"/>
-						Let's <span className="text-brand-primary">Count!</span>
+						<img src="/images/img-character-count.svg" alt="Count von Count" className="character reveal reveal-slide" data-reveal-delay="0.2" />
+						<span className="reveal reveal-slide" data-reveal-delay="0.3">Let's </span><span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.4">Count!</span>
 					</h2>
 
 					{/* Data Cards */}
 					<div className="cards-grid-container">
 
-						<div className="data-card red">
+						<div className="data-card red reveal reveal-slide" data-reveal-delay="0.1">
 							<h3>{new Date().getFullYear() - 2000}+</h3>
 							<p>Years of Experience</p>
 						</div>
 
-						<div className="data-card red">
+						<div className="data-card blue reveal reveal-slide" data-reveal-delay="0.2">
 							<h3>{new Date().getFullYear() - 2009}+</h3>
 							<p>Years Teaching/Mentoring</p>
 						</div>
 
-						<div className="data-card red">
+						<div className="data-card red reveal reveal-slide" data-reveal-delay="0.3">
 							<h3>6.3k+</h3>
 							<p>Likes for a Sass article</p>
 						</div>
 
-						<div className="data-card red">
+						<div className="data-card blue reveal reveal-slide" data-reveal-delay="0.1">
 							<h3>300+</h3>
 							<p>Technical Design Interviews</p>
 						</div>
 
-						<div className="data-card blue">
+						<div className="data-card red reveal reveal-slide" data-reveal-delay="0.2">
 							<h3>150+</h3>
 							<p>Designers & Devs Taught</p>
 						</div>
 
-						<div className="data-card blue">
+						<div className="data-card blue reveal reveal-slide" data-reveal-delay="0.3">
 							<h3>120+</h3>
 							<p>Overall Designed Websites/Pages</p>
 						</div>
 
-						<div className="data-card blue">
+						<div className="data-card red reveal reveal-slide" data-reveal-delay="0.1">
 							<h3>2</h3>
 							<p>Published Web Design Books</p>
 						</div>
 
-						<div className="data-card blue">
+						<div className="data-card blue reveal reveal-slide" data-reveal-delay="0.2">
 							<h3>2</h3>
 							<p>Languages (<abbr title="English - Fluent">EN</abbr> & <abbr title="Spanish - Native">ES</abbr>)</p>
 						</div>
 
-						<div className="data-card red centered">
+						<div className="data-card red reveal reveal-slide" data-reveal-delay="0.3">
 							<h3>0%</h3>
 							<p>Dependency on Adobe 💪🏽</p>
 						</div>
@@ -541,14 +550,14 @@ export default function Home() {
 			<section id="testimonials" className="testimonials">
 				<div className="section-container">
 					<h2 className="heading-section section-title-light">
-						He <span className="text-accent-blue-persistent">Said</span> She <span className="text-accent-red-persistent">Said</span>
+						<span className="reveal reveal-slide" data-reveal-delay="0.1">He</span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.2">Said</span> <span className="reveal reveal-slide" data-reveal-delay="0.3">She</span> <span className="text-accent-red-persistent reveal reveal-slide" data-reveal-delay="0.4">Said</span>
 					</h2>
 
 					{/* Testimonials Cards */}
 					<div className="cards-grid-container">
 
 						{/* Testimonial Card 1 */}
-						<div className="testimonial-card">
+						<div className="testimonial-card reveal reveal-slide" data-reveal-delay="0.1">
 							{/* Quote Icon */}
 							<div className="testimonial-quote-icon">
 								<Quotes className="red-quote-icon" size={60} weight="fill" />
@@ -581,7 +590,7 @@ export default function Home() {
 						</div>
 
 						{/* Testimonial Card 2 */}
-						<div className="testimonial-card">
+						<div className="testimonial-card reveal reveal-slide" data-reveal-delay="0.2">
 							{/* Quote Icon */}
 							<div className="testimonial-quote-icon">
 								<Quotes className="blue-quote-icon" size={60} weight="fill" />
@@ -614,7 +623,7 @@ export default function Home() {
 						</div>
 
 						{/* Testimonial Card 3 */}
-						<div className="testimonial-card">
+						<div className="testimonial-card reveal reveal-slide" data-reveal-delay="0.3">
 							{/* Quote Icon */}
 							<div className="testimonial-quote-icon">
 								<Quotes className="red-quote-icon" size={60} weight="fill" />
@@ -646,7 +655,7 @@ export default function Home() {
 							</ExternalLink>
 						</div>
 						{/* Testimonial Card 4 */}
-						<div className="testimonial-card">
+						<div className="testimonial-card reveal reveal-slide" data-reveal-delay="0.1">
 							{/* Quote Icon */}
 							<div className="testimonial-quote-icon">
 								<Quotes className="blue-quote-icon" size={60} weight="fill" />
@@ -678,7 +687,7 @@ export default function Home() {
 						</div>
 
 						{/* Testimonial Card 5 */}
-						<div className="testimonial-card">
+						<div className="testimonial-card reveal reveal-slide" data-reveal-delay="0.2">
 							{/* Quote Icon */}
 							<div className="testimonial-quote-icon">
 								<Quotes className="red-quote-icon" size={60} weight="fill" />
@@ -711,7 +720,7 @@ export default function Home() {
 						</div>
 
 						{/* Testimonial Card 6 */}
-						<div className="testimonial-card">
+						<div className="testimonial-card reveal reveal-slide" data-reveal-delay="0.3">
 							{/* Quote Icon */}
 							<div className="testimonial-quote-icon">
 								<Quotes className="blue-quote-icon" size={60} weight="fill" />
@@ -750,13 +759,13 @@ export default function Home() {
 			<section id="about" className="about">
 				<div className="section-container">
 					<h2 className="heading-section section-title-dark">
-						About <span className="text-brand-primary">Ricardo</span> <span className="text-brand-secondary">Zea</span>
+						<span className="reveal reveal-slide" data-reveal-delay="0.1">About</span> <span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.2">Ricardo</span> <span className="text-brand-secondary reveal reveal-slide" data-reveal-delay="0.3">Zea</span>
 					</h2>
 
 					<div className="about-content grid grid-cols-1 md:grid-cols-2 gap-10 max-w-[1400px] mx-auto">
 						{/* Left Column - Image */}
 						<div className="about-image-container">
-							<div className="about-image-wrapper relative overflow-hidden">
+							<div className="about-image-wrapper relative overflow-hidden reveal reveal-slide">
 								<AboutImageTransitionTolexia className="about-image" />
 							</div>
 
@@ -765,9 +774,9 @@ export default function Home() {
 
 								{/* Experience Column */}
 								<div className="about-experience">
-									<h3>Latest Experience</h3>
+									<h3 className="reveal reveal-slide">Latest Experience</h3>
 
-									<div className="credential-item mt-4">
+									<div className="credential-item mt-4 reveal reveal-slide">
 										<div className="credential-icon-wrapper">
 											<MouseMiddleClick size={32} weight="light" />
 										</div>
@@ -777,7 +786,7 @@ export default function Home() {
 										</div>
 									</div>
 
-									<div className="credential-item mt-6">
+									<div className="credential-item mt-6 reveal reveal-slide">
 										<div className="credential-icon-wrapper">
 											<Pen size={32} weight="light" className="rotate-y-180" />
 										</div>
@@ -790,9 +799,9 @@ export default function Home() {
 
 								{/* Education Column */}
 								<div className="about-education">
-									<h3>Education</h3>
+									<h3 className="reveal reveal-slide">Education</h3>
 
-									<div className="credential-item mt-4">
+									<div className="credential-item mt-4 reveal reveal-slide">
 										<div className="credential-icon-wrapper">
 											<GraduationCap size={32} weight="light" />
 										</div>
@@ -828,7 +837,7 @@ export default function Home() {
 										</div>
 									</div>
 
-									<div className="credential-item mt-6">
+									<div className="credential-item mt-6 reveal reveal-slide">
 										<div className="credential-icon-wrapper">
 											<Certificate size={32} weight="light" />
 										</div>
@@ -846,18 +855,22 @@ export default function Home() {
 
 							{/* CTA Buttons */}
 							<div className="about-cta flex flex-wrap gap-4 mt-8">
-								<span className="glow-button-wrap">
-									<a href="/images/Resume-Ricardo-Zea.pdf" target="_blank" rel="noopener noreferrer" className="cta-button button-primary flex items-center gap-2 new-tab hide-new-tab-icon glow-button" title="PDF opens in a new tab">
-										Download Resume (PDF{resumeSizeMb === null ? '' : ` - ${resumeSizeMb} MB`})
-										<DownloadSimple size={20} weight="regular" />
-									</a>
+								<span className="reveal reveal-slide" data-reveal-delay="0.1">
+									<span className="glow-button-wrap">
+										<a href="/images/Resume-Ricardo-Zea.pdf" target="_blank" rel="noopener noreferrer" className="cta-button button-primary flex items-center gap-2 new-tab hide-new-tab-icon glow-button" title="PDF opens in a new tab">
+											Download Resume (PDF{resumeSizeMb === null ? '' : ` - ${resumeSizeMb} MB`})
+											<DownloadSimple size={20} weight="regular" />
+										</a>
+									</span>
 								</span>
 
-								<span className="glow-button-wrap">
+								<span className="reveal reveal-slide" data-reveal-delay="0.2">
+									<span className="glow-button-wrap">
 									<a href="#contact" className="cta-button button-secondary flex items-center gap-2 glow-button">
 										Get In Touch
 										<Envelope size={20} weight="regular" />
 									</a>
+								</span>
 								</span>
 							</div>
 						</div>
@@ -866,9 +879,9 @@ export default function Home() {
 						<div className="about-text-container flex flex-col">
 
 							<div className="about-bio">
-								<p>Hey there!</p>
-								<p>I'm Ricardo. I'm a Sr. Web & Product Designer. I've been in the design industry for more than 20 years.</p>
-								<div className="stage-container stage-card stage-card-red">
+								<p className="reveal reveal-slide">Hey there!</p>
+								<p className="reveal reveal-slide">I'm Ricardo. I'm a Sr. Web & Product Designer. I've been in the design industry for more than 20 years.</p>
+								<div className="stage-container stage-card stage-card-red reveal reveal-slide">
 									<div className="stage-card-header">
 										<div className="stage-version">Stage 1 // Origins</div>
 									</div>
@@ -877,7 +890,7 @@ export default function Home() {
 										<p>It was a great technical and business learning experience, but I quickly realized that designing for print friggin' sucked, lol.</p>
 									</div>
 								</div>
-								<div className="stage-container stage-card stage-card-blue">
+								<div className="stage-container stage-card stage-card-blue reveal reveal-slide">
 									<div className="stage-card-header">
 										<div className="stage-version">Stage 2 // Print</div>
 									</div>
@@ -887,9 +900,9 @@ export default function Home() {
 										<p>However, I quickly confirmed that designing for print really, truly sucked, haha.</p>
 									</div>
 								</div>
-								<p>Regardless of how much desiging for print sucked, I was actually very good at it.</p>
-								<p>I became an expert in file extensions, image resolution, CMYK techniques, drum scanners, print production, special inks, types of paper and finishes, print formats of all sizes (from flyers to billboards), etc.</p>
-								<div className="stage-container stage-card stage-card-green">
+								<p className="reveal reveal-slide">Regardless of how much desiging for print sucked, I was actually very good at it.</p>
+								<p className="reveal reveal-slide">I became an expert in file extensions, image resolution, CMYK techniques, drum scanners, print production, special inks, types of paper and finishes, print formats of all sizes (from flyers to billboards), etc.</p>
+								<div className="stage-container stage-card stage-card-green reveal reveal-slide">
 									<div className="stage-card-header">
 										<div className="stage-version">Stage 3 // Web</div>
 									</div>
@@ -898,11 +911,11 @@ export default function Home() {
 										<p>And that's how my Web Design career got going.</p>
 									</div>
 								</div>
-								<p>One major difference between myself and other designers, was that I was very technically knowledgeable.</p>
-								<p>So I became very good at understanding the conditions, limitations, and powers of the web. I got really good at HTML and CSS, including Sass. Some people think I'm a developer, but I'm not.</p>
-								<p>But I do know how to work closely with developers to ensure that high-quality products are built efficiently.</p>
-								<p>Also, accessibility is a subject I care about. So I built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS.</p>
-								<p>I also co-created <ExternalLink href="https://aspiremap.ai">AspireMap.ai</ExternalLink>, a B2C platform that helps students and career-changers find career paths aligned with their values, personality, aptitudes, and skills.</p>
+								<p className="reveal reveal-slide">One major difference between myself and other designers, was that I was very technically knowledgeable.</p>
+								<p className="reveal reveal-slide">So I became very good at understanding the conditions, limitations, and powers of the web. I got really good at HTML and CSS, including Sass. Some people think I'm a developer, but I'm not.</p>
+								<p className="reveal reveal-slide">But I do know how to work closely with developers to ensure that high-quality products are built efficiently.</p>
+								<p className="reveal reveal-slide">Also, accessibility is a subject I care about. So I built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS.</p>
+								<p className="reveal reveal-slide">I also co-created <ExternalLink href="https://aspiremap.ai">AspireMap.ai</ExternalLink>, a B2C platform that helps students and career-changers find career paths aligned with their values, personality, aptitudes, and skills.</p>
 							</div>
 						</div>
 					</div>
@@ -913,13 +926,13 @@ export default function Home() {
 			<section id="authoring" className="authoring">
 				<div className="section-container">
 					<h2 className="heading-section section-title-light">
-						Books & <span className="text-accent-blue-persistent">Guides</span>
+						<span className="reveal reveal-slide" data-reveal-delay="0.1">Books & </span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.2">Guides</span>
 					</h2>
 
 					{/* Authoring Cards */}
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 max-w-[1400px] mx-auto">
 						{/* Authoring Card 1 */}
-						<div className="authoring-card flex flex-col rounded-lg overflow-hidden">
+						<div className="authoring-card flex flex-col rounded-lg overflow-hidden reveal reveal-slide" data-reveal-delay="0.1">
 							{/* Card Image */}
 							<div className="authoring-card-image">
 								<Image
@@ -987,14 +1000,14 @@ export default function Home() {
 									</div>
 								</div>
 								{/* CTA Link */}
-								<ExternalLink href="https://www.packtpub.com/en-us/product/mastering-responsive-web-design-9781783550234"  title='Link opens in a new tab'>
+								<ExternalLink href="https://www.packtpub.com/en-us/product/mastering-responsive-web-design-9781783550234" title='Link opens in a new tab'>
 									View Book
 								</ExternalLink>
 							</div>
 						</div>
 
 						{/* Authoring Card 2 */}
-						<div className="authoring-card flex flex-col rounded-lg overflow-hidden">
+						<div className="authoring-card flex flex-col rounded-lg overflow-hidden reveal reveal-slide" data-reveal-delay="0.2">
 							{/* Card Image */}
 							<div className="authoring-card-image">
 								<Image
@@ -1048,7 +1061,7 @@ export default function Home() {
 						</div>
 
 						{/* Authoring Card 3 */}
-						<div className="authoring-card flex flex-col rounded-lg overflow-hidden md:col-span-2 md:w-[calc(50%_-_0.75rem)] md:mx-auto lg:col-span-1 lg:w-auto lg:mx-0">
+						<div className="authoring-card flex flex-col rounded-lg overflow-hidden reveal reveal-slide" data-reveal-delay="0.3">
 							{/* Card Image */}
 							<div className="authoring-card-image">
 								<Image
@@ -1133,12 +1146,12 @@ export default function Home() {
 						{/* Left Column - Contact Info */}
 						<div className="contact-info">
 							<h2 className="heading-section section-title-dark !m-0 !text-left">
-								Get In <span className="text-brand-primary">Touch</span>
+								<span className="reveal reveal-slide" data-reveal-delay="0.1">Get In </span> <span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.2">Touch</span>
 							</h2>
-							<p className="text-description">You know what to do.</p>
+							<p className="text-description reveal reveal-slide">You know what to do.</p>
 
 							{/* Email */}
-							<div className="contact-email">
+							<div className="contact-email reveal reveal-slide">
 								<div className="contact-email-content">
 									<p>Email:</p>
 									<p><a href="mailto:ricardozea@gmail.com">ricardozea@gmail.com</a></p>
@@ -1146,12 +1159,12 @@ export default function Home() {
 							</div>
 
 							{/* Social Icons */}
-							<p className="!m-0">Find me on:</p>
-							<SocialIcons />
+							<p className="!m-0 reveal reveal-slide">Find me on:</p>
+							<SocialIcons className="reveal reveal-slide"/>
 						</div>
 
 						{/* Right Column - Contact Form */}
-						<div className="contact-form-container">
+						<div className="contact-form-container reveal reveal-slide">
 							<ContactForm />
 						</div>
 					</div>

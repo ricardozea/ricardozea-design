@@ -8,35 +8,28 @@ export default function Footer() {
 				{/* Top Section */}
 				<div className="logo-nav-container">
 					{/* Logo */}
-					<div className="footer-logo">
+					<div className="footer-logo reveal reveal-fade">
 						<img
 							src="/images/logo-ricardo-zea-full.svg"
 							alt="Ricardo Zea Logo"
 							className="footer-logo-image"
 						/>
 					</div>
-
-					{/* Navigation */}
-					<nav className="footer-nav">
-						<a href="#home">Home</a>
-						<a href="#about">About</a>
-						<a href="#contact">Contact</a>
-					</nav>
 				</div>
 
 				{/* Bottom Section */}
 				<div className="credits-container">
 					{/* Credits */}
 					<div className="footer-credits">
-						<p className="footer-credits-text">
-							2006 | {new Date().getFullYear().toString()} - v6.0 - Designed and coded by me. After all, I claim I know HTML and CSS, the proof is all around ☝🏽☝🏽👇🏽👇🏽👈🏽👉🏽👈🏽👉🏽🅱️🅰️💥🤌🏽 lol.
+						<p className="footer-credits-text reveal reveal-fade">
+							2006 | {new Date().getFullYear().toString()} - v6.0 - Designed and coded by me. After all, I claim I know HTML and CSS, the proof is all around <span className="reveal reveal-slide" data-reveal-delay="0.1">☝🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.2">☝🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.3">👇🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.4">👇🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.5">👈🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.6">👉🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.7">👈🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.8">👉🏽</span><span className="reveal reveal-slide" data-reveal-delay="0.9">🅱️</span><span className="reveal reveal-slide" data-reveal-delay="1.0">🅰️</span><span className="reveal reveal-slide" data-reveal-delay="1.1">💥</span><span className="reveal reveal-slide" data-reveal-delay="1.2">🤌🏽</span> <span className="reveal reveal-slide" data-reveal-delay="1.3">lol.</span>
 						</p>
 						<div className="tech-stack-container">
-							<p>This is what I used to build this thing:</p>
+							<p className="reveal reveal-line">This is what I used to build this thing:</p>
 							<div className="tech-stack-container">
 
 								{/* Web Section */}
-								<div className="tech-section-container">
+								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.1">
 									<span className="tech-title">Web:</span>
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="HTML5">
@@ -59,7 +52,7 @@ export default function Footer() {
 								</div>
 
 								{/* Development Section */}
-								<div className="tech-section-container">
+								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.3">
 									<span className="tech-title">Development:</span>
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="Windsurf">
@@ -98,7 +91,7 @@ export default function Footer() {
 								</div>
 
 								{/* Design Section */}
-								<div className="tech-section-container">
+								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.5">
 									<span className="tech-title">Design:</span>
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="Figma">
@@ -121,7 +114,7 @@ export default function Footer() {
 								</div>
 
 								{/* AI Section */}
-								<div className="tech-section-container">
+								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.7">
 									<span className="tech-title">AI:</span>
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="Figma">
@@ -157,7 +150,7 @@ export default function Footer() {
 					{/* Social Icons */}
 					<SocialIcons className="footer-social-icons" />
 				</div>
-				<div className="footer-disclaimer">
+				<div className="footer-disclaimer reveal reveal-fade">
 					<p className="disclaimer">All logos, characters, and brand names blah, blah, blah are the property of their respective owners. Their use does not imply endorsement. Their use does not imply endorsement.</p>
 				</div>
 			</div>
