@@ -1,18 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
 import HeroLogo from "../components/HeroLogo";
 import SocialIcons from '../components/SocialIcons';
 import ContactForm from '../components/ContactForm';
-import { MotionBurst } from "../components/MotionBurst";
 import { Tooltip } from "../components/Tooltip";
 import { ExternalLink } from "../components/ExternalLink";
-import AboutImageTransitionTolexia from "../components/AboutImageTransitionTolexia";
 
-import Modal from "../components/Modal";
+const MotionBurst = dynamic(
+	() => import("../components/MotionBurst").then((mod) => mod.MotionBurst || mod.default),
+	{ ssr: false, loading: () => null }
+);
+
+const AboutImageTransitionTolexia = dynamic(
+	() => import("../components/AboutImageTransitionTolexia"),
+	{ ssr: false, loading: () => null }
+);
+
+const Modal = dynamic(() => import("../components/Modal"), { ssr: false });
 
 import {
 	ArrowLineDown,
@@ -26,6 +35,7 @@ import {
 	Pen,
 	DownloadSimple,
 	Envelope,
+	Book,
 } from '@phosphor-icons/react/ssr';
 
 export default function Home() {

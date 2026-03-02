@@ -10,8 +10,6 @@ const nextConfig = {
     // Disable automatic optimization for problematic images
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // For Next.js 16, quality is set per image in the component
-    // Format selection is automatic based on browser support
   },
 };
 
