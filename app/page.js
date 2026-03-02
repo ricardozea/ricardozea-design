@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from "next/image";
 import { ThemeToggle } from "../components/ThemeSwitcher";
 import Footer from "../components/Footer";
@@ -8,12 +9,12 @@ import Navigation from "../components/Navigation";
 import HeroLogo from "../components/HeroLogo";
 import SocialIcons from '../components/SocialIcons';
 import ContactForm from '../components/ContactForm';
-import { MotionBurst } from "../components/MotionBurst";
 import { Tooltip } from "../components/Tooltip";
 import { ExternalLink } from "../components/ExternalLink";
-import AboutImageTransitionTolexia from "../components/AboutImageTransitionTolexia";
 
-import Modal from "../components/Modal";
+const MotionBurst = dynamic(() => import('../components/MotionBurst').then((m) => m.MotionBurst), { ssr: false });
+const AboutImageTransitionTolexia = dynamic(() => import('../components/AboutImageTransitionTolexia'), { ssr: false });
+const Modal = dynamic(() => import('../components/Modal').then((m) => m.default), { ssr: false });
 
 import {
 	ArrowLineDown,
