@@ -16,31 +16,40 @@ This repository contains the source code for **ricardozea.design**
 ## Technical Information
 
 ### Technologies
-- HTML5
+- Autoprefixer
 - CSS3
-- TailwindCSS
-- JavaScript (ES6+)
-- Node.js
-- Next.js
-- React
-- npm / yarn
+- Drei
+- ESLint
 - Git
 - GitHub
+- GSAP
+- HTML5
+- JavaScript (ES6+)
+- Motion (a.k.a. Framer Motion)
+- Next.js
+- Node.js
+- npm / yarn
+- PostCSS
+- React
+- React Three Fiber
+- Tailwind CSS
+- Three.js
+- Turbopack
 - Vercel
-- Motion
+- Vercel Analytics & Speed Insights
 
 ### Tools / Platforms
-- Figma
-- Windsurf
 - Antigravity
 - Color-Ramp.com
+- Figma
 - Google Fonts
 - Phosphor Icons
+- Windsurf
 
 ### AI / Generative
-- UX Pilot
-- ChatGPT
-- Gemini
-- Dora AI
 - Banani
+- ChatGPT
+- Dora AI
+- Gemini
 - Midjourney
+- UX Pilot
