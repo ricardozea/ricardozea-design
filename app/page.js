@@ -17,6 +17,11 @@ const MotionBurst = dynamic(
 	{ ssr: false, loading: () => null }
 );
 
+const HeroBeams = dynamic(() => import("../components/HeroBeams"), {
+	ssr: false,
+	loading: () => null,
+});
+
 const AboutImageTransitionTolexia = dynamic(
 	() => import("../components/AboutImageTransitionTolexia"),
 	{ ssr: false, loading: () => null }
@@ -116,6 +121,7 @@ export default function Home() {
 					className="hero-bg"
 					placeholder="empty"
 				/>
+				<HeroBeams />
 				<div id="start-content" className="hero-content flex flex-col max-w-[1440px] mx-auto relative z-2 p-6 pt-20 md:p-14 md:pt-20">
 
 					{/* Main Content */}

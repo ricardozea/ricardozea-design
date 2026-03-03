@@ -6,6 +6,19 @@
 		0 4px 6px 2px rgba(0, 0, 0, 0.1);
 	--filter-drop-shadow-card: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.2)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 
+	/* Hero Beams Controls (tweak here) */
+	--hero-beams-offset-x: -6; /* px shift left/right */
+	--hero-beams-speed-multiplier: 2; /* 1 = default speed */
+	--hero-beams-segment-factor: 0.12; /* % of path length */
+	--hero-beams-segment-min: 30; /* px */
+	--hero-beams-segment-max: 30; /* px */
+	--hero-beams-gap-factor: 1.6; /* keep >1 for single segment */
+	--hero-beams-opacity-core: 0.5;
+	--hero-beams-opacity-glow: 0.3;
+	--hero-beams-stroke-core: 1; /* px */
+	--hero-beams-stroke-glow: 10; /* px */
+	--hero-beams-blur-glow: 10; /* px */
+
 	/* Space - Size */
 	--space-xxl: 40px;
 	--space-xl: 32px;
@@ -814,6 +827,64 @@ p.text-description:first-of-type {
 	z-index: 0;
 	object-fit: cover;
 	object-position: center;
+}
+
+/* Hero Beams */
+.hero-beams {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	pointer-events: none;
+	overflow: visible;
+}
+
+.hero-beams .beam-path {
+	fill: none;
+	stroke: rgba(255, 255, 255, var(--beam-opacity, 0.5));
+	stroke-width: 1px;
+	stroke-linecap: round;
+	stroke-dasharray: var(--dash-array, 180px 1200px);
+	stroke-dashoffset: var(--path-len, 1000px);
+	animation: beam-trace var(--beam-duration, 10s) ease-in-out infinite;
+	animation-delay: var(--beam-delay, 0s);
+	opacity: 0;
+	filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
+}
+
+.hero-beams .beam-glow {
+	stroke-width: 10px;
+	opacity: 0;
+	filter: blur(10px);
+}
+
+@keyframes beam-trace {
+	0% {
+		opacity: 0;
+		stroke-dashoffset: var(--path-len, 1000px);
+	}
+	8% {
+		opacity: var(--beam-opacity, 0.5);
+	}
+	40% {
+		opacity: var(--beam-opacity, 0.5);
+	}
+	60% {
+		opacity: var(--beam-opacity, 0.35);
+	}
+	80% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+		stroke-dashoffset: calc(var(--path-len, 1000px) * -1);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hero-beams .beam-path {
+		animation: none;
+		opacity: 0;
+	}
 }
 
 /* Navigation */
