@@ -24,7 +24,7 @@ export default function ProjectDetail() {
 					<div className="project-hero-container max-w-[1200px] mx-auto">
 						{/* Project Title */}
 						<h1 className="heading-hero project-title mb-12">
-							Project <span className="text-brand-primary">Name</span>
+							Project <span className="text-brand-primary">AspireMap</span>
 						</h1>
 
 						<div className="meta-data-container">
