@@ -603,7 +603,8 @@ a.new-tab.hide-new-tab-icon::after {
 
 	/* Banana GIF: keep animated even if reduced motion (handled below for coarse) */
 	.banana-gif {
-		animation: none;
+		animation: initial !important;
+		animation-play-state: running !important;
 	}
 }
 
