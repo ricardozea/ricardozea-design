@@ -602,6 +602,13 @@ a.new-tab.hide-new-tab-icon::after {
 	}
 }
 
+/* Allow rotating glow on mobile even if reduced motion is set */
+@media (prefers-reduced-motion: reduce) and (pointer: coarse) {
+	.glow-button-wrap {
+		animation: glow-border-rotate 7s linear infinite;
+	}
+}
+
 /* ============================================
    Guess Button
    ============================================ */
