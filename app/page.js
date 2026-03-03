@@ -196,7 +196,7 @@ export default function Home() {
 										<img
 											src="/images/banana-cheerer.gif"
 											alt="Cheering banana"
-											className="w-full h-full object-contain"
+											className="w-full h-full object-contain banana-gif"
 										/>
 									</span>
 								</Tooltip>

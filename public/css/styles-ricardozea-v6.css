@@ -600,12 +600,23 @@ a.new-tab.hide-new-tab-icon::after {
 	.glow-button::after {
 		animation: none;
 	}
+
+	/* Banana GIF: keep animated even if reduced motion (handled below for coarse) */
+	.banana-gif {
+		animation: none;
+	}
 }
 
 /* Allow rotating glow on mobile even if reduced motion is set */
 @media (prefers-reduced-motion: reduce) and (pointer: coarse) {
 	.glow-button-wrap {
 		animation: glow-border-rotate 7s linear infinite;
+	}
+
+	/* Banana GIF exception for coarse pointers */
+	.banana-gif {
+		animation: initial !important;
+		animation-play-state: running !important;
 	}
 }
 
