@@ -9,6 +9,7 @@
 	/* Hero Beams Controls (tweak here) */
 	--hero-beams-offset-x: -6; /* px shift left/right */
 	--hero-beams-speed-multiplier: 2; /* 1 = default speed */
+	--hero-beams-base-duration: 14; /* seconds baseline before multipliers */
 	--hero-beams-segment-factor: 0.12; /* % of path length */
 	--hero-beams-segment-min: 30; /* px */
 	--hero-beams-segment-max: 30; /* px */
@@ -18,6 +19,8 @@
 	--hero-beams-stroke-core: 1; /* px */
 	--hero-beams-stroke-glow: 10; /* px */
 	--hero-beams-blur-glow: 10; /* px */
+	--hero-beams-constant-speed: 1; /* multiplier for linear traversal speed */
+	--hero-beams-timing: linear; /* keep traversal at constant speed */
 
 	/* Space - Size */
 	--space-xxl: 40px;
@@ -603,8 +606,7 @@ a.new-tab.hide-new-tab-icon::after {
 
 	/* Banana GIF: keep animated even if reduced motion (handled below for coarse) */
 	.banana-gif {
-		animation: initial !important;
-		animation-play-state: running !important;
+		animation: none;
 	}
 }
 
@@ -864,7 +866,7 @@ p.text-description:first-of-type {
 	stroke-linecap: round;
 	stroke-dasharray: var(--dash-array, 180px 1200px);
 	stroke-dashoffset: var(--path-len, 1000px);
-	animation: beam-trace var(--beam-duration, 10s) ease-in-out infinite;
+	animation: beam-trace calc(var(--beam-duration, 10s) / var(--hero-beams-constant-speed, 1)) var(--hero-beams-timing, linear) infinite;
 	animation-delay: var(--beam-delay, 0s);
 	opacity: 0;
 	filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
