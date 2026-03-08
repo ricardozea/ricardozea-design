@@ -945,6 +945,30 @@ p.text-description:first-of-type {
 	position: fixed;
 }
 
+@keyframes nav-item-slide-down {
+	from {
+		opacity: 0;
+		transform: translateY(-18px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes nav-item-slide-in {
+	from {
+		opacity: 0;
+		transform: translateX(48px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
 .main-nav-container {
 	width: 100%;
 	margin: 0 auto;
@@ -1184,6 +1208,18 @@ p.text-description:first-of-type {
 		transition: transform 0.3s ease, visibility 0s 0.3s;
 		visibility: hidden;
 
+		[data-nav-item] {
+			opacity: 1;
+			transform: translateX(0);
+		}
+
+		&.nav-animate-mobile [data-nav-item] {
+			opacity: 0;
+			transform: translateX(48px);
+			animation: nav-item-slide-in 300ms ease-out forwards;
+			animation-delay: calc(var(--nav-item-index, 0) * 60ms);
+		}
+
 		html.light & {
 			background: rgba(255, 255, 255, 0);
 		}
@@ -1201,6 +1237,16 @@ p.text-description:first-of-type {
 			transform: none;
 			visibility: visible;
 			transition: none;
+
+			[data-nav-item] {
+				opacity: 0;
+				transform: translateY(-18px);
+			}
+
+			&.nav-mounted [data-nav-item] {
+				animation: nav-item-slide-down 300ms ease-out forwards;
+				animation-delay: calc(var(--nav-item-index, 0) * 60ms);
+			}
 
 			.nav-hover-indicator {
 				display: block;

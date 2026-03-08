@@ -10,6 +10,8 @@ export default function Navigation() {
 	const isHomePage = pathname === "/";
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [showHomeLogo, setShowHomeLogo] = useState(false);
+	const [hasMountedNav, setHasMountedNav] = useState(false);
+	const [animateMobileNav, setAnimateMobileNav] = useState(false);
 	const { theme, mounted } = useContext(ThemeContext);
 
 	const navLinksContainerRef = useRef(null);
@@ -30,10 +32,30 @@ export default function Navigation() {
 		: "/images/logo-ricardo-zea-for-dark.svg";
 	// Prevent body scroll when menu is open
 	const scrollYRef = useRef(0);
+	const navItems = [
+		{ href: '#projects', label: 'Projects', targetId: 'projects' },
+		{ href: '#skills', label: 'Skills', targetId: 'skills' },
+		{ href: '#data', label: 'Data', targetId: 'data' },
+		{ href: '#testimonials', label: 'Testimonials', targetId: 'testimonials' },
+		{ href: '#about', label: 'About', targetId: 'about' },
+		{ href: '#authoring', label: 'Writing', targetId: 'authoring' },
+		{ href: '#contact', label: 'Contact', targetId: 'contact' },
+	];
+	const mobileNavAnimationDuration = ((navItems.length + 1) * 60) + 300;
 
 	useEffect(() => {
 		indicatorVisibleRef.current = navIndicator.visible;
 	}, [navIndicator.visible]);
+
+	useEffect(() => {
+		const animationFrame = window.requestAnimationFrame(() => {
+			setHasMountedNav(true);
+		});
+
+		return () => {
+			window.cancelAnimationFrame(animationFrame);
+		};
+	}, []);
 
 	useEffect(() => {
 		if (isMenuOpen) {
@@ -185,6 +207,20 @@ export default function Navigation() {
 	}, [isMenuOpen]);
 
 	useEffect(() => {
+		if (!isMenuOpen) return;
+
+		setAnimateMobileNav(true);
+
+		const timeoutId = window.setTimeout(() => {
+			setAnimateMobileNav(false);
+		}, mobileNavAnimationDuration);
+
+		return () => {
+			window.clearTimeout(timeoutId);
+		};
+	}, [isMenuOpen, mobileNavAnimationDuration]);
+
+	useEffect(() => {
 		const onResize = () => {
 			if (isMenuOpen) return;
 			if (!navIndicator.visible) return;
@@ -321,7 +357,7 @@ export default function Navigation() {
 					</button>
 
 					<div
-						className="nav-links-container"
+						className={`nav-links-container${hasMountedNav ? ' nav-mounted' : ''}${animateMobileNav ? ' nav-animate-mobile' : ''}`}
 						ref={navLinksContainerRef}
 						onMouseMove={handleNavLinksMouseMove}
 						onMouseLeave={hideNavIndicator}
@@ -335,91 +371,26 @@ export default function Navigation() {
 								opacity: navIndicator.visible ? 1 : 0,
 							}}
 						/>
-						<a
-							href="#projects"
-							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
-							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
-							onClick={(e) => {
-								e.preventDefault();
-								handleNavClick("projects");
-							}}
-						>
-							Projects
-						</a>
-						<a
-							href="#skills"
-							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
-							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
-							onClick={(e) => {
-								e.preventDefault();
-								handleNavClick("skills");
-							}}
-						>
-							Skills
-						</a>
-						<a
-							href="#data"
-							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
-							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
-							onClick={(e) => {
-								e.preventDefault();
-								handleNavClick("data");
-							}}
-						>
-							Data
-						</a>
-						<a
-							href="#testimonials"
-							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
-							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
-							onClick={(e) => {
-								e.preventDefault();
-								handleNavClick("testimonials");
-							}}
-						>
-							Testimonials
-						</a>
-						<a
-							href="#about"
-							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
-							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
-							onClick={(e) => {
-								e.preventDefault();
-								handleNavClick("about");
-							}}
-						>
-							About
-						</a>
-						<a
-							href="#authoring"
-							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
-							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
-							onClick={(e) => {
-								e.preventDefault();
-								handleNavClick("authoring");
-							}}
-						>
-							Writing
-						</a>
-						<a
-							href="#contact"
-							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
-							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
-							onClick={(e) => {
-								e.preventDefault();
-								handleNavClick("contact");
-							}}
-						>
-							Contact
-						</a>
+						{navItems.map((item, index) => (
+							<a
+								key={item.targetId}
+								href={item.href}
+								data-nav-item
+								style={{ '--nav-item-index': index }}
+								onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
+								onFocus={(e) => updateNavIndicator(e.currentTarget)}
+								onBlur={hideNavIndicator}
+								onClick={(e) => {
+									e.preventDefault();
+									handleNavClick(item.targetId);
+								}}
+							>
+								{item.label}
+							</a>
+						))}
 						<ThemeToggle
+							data-nav-item
+							style={{ '--nav-item-index': navItems.length }}
 							onToggle={() => setIsMenuOpen(false)}
 							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
 							onFocus={(e) => updateNavIndicator(e.currentTarget)}
