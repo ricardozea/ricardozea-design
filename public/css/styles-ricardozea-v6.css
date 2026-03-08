@@ -11,8 +11,8 @@
 	--hero-beams-speed-multiplier: 2; /* 1 = default speed */
 	--hero-beams-base-duration: 14; /* seconds baseline before multipliers */
 	--hero-beams-segment-factor: 0.12; /* % of path length */
-	--hero-beams-segment-min: 30; /* px */
-	--hero-beams-segment-max: 30; /* px */
+	--hero-beams-segment-min: 80; /* px */
+	--hero-beams-segment-max: 80; /* px */
 	--hero-beams-gap-factor: 1.6; /* keep >1 for single segment */
 	--hero-beams-opacity-core: 0.5;
 	--hero-beams-opacity-glow: 0.3;
@@ -1241,12 +1241,27 @@ p.text-description:first-of-type {
 				animation-delay: calc(var(--nav-item-index, 0) * 60ms);
 			}
 
+			&.home:not(.show-home-logo) .nav-logo {
+				transform: translateY(-150%);
+				opacity: 0;
+				pointer-events: none;
+				transition: transform 0.25s ease, opacity 0.25s ease;
+			}
+
+			&.home.show-home-logo .nav-logo {
+				transform: translateY(0);
+				opacity: 1;
+				pointer-events: auto;
+				transition: transform 0.25s ease, opacity 0.25s ease;
+			}
+
 			.nav-hover-indicator {
 				display: block;
 				position: absolute;
 				left: 0;
 				top: 50%;
-				transform: translateX(var(--nav-indicator-x, 0px)) translateY(-50%);
+				transform: translateX(var(--nav-indicator-x, 0px)) translateY(-50%) scale(var(--nav-indicator-scale-x, 0.03125), var(--nav-indicator-scale-y, 0.03125));
+				transform-origin: center center;
 				width: var(--nav-indicator-w, 0px);
 				height: 2rem;
 				background: var(--bg-transparent-12);

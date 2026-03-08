@@ -15,7 +15,7 @@ export default function Navigation() {
 
 	const navLinksContainerRef = useRef(null);
 	const activeNavLinkRef = useRef(null);
-	const [navIndicator, setNavIndicator] = useState({ x: 0, w: 0, visible: false });
+	const [navIndicator, setNavIndicator] = useState({ x: 0, w: 0, visible: false, scaleX: 0.03125, scaleY: 0.03125 });
 	const indicatorSwapTimeoutRef = useRef(null);
 	const [allowIndicatorMotion, setAllowIndicatorMotion] = useState(false);
 	const indicatorEnableMotionRafRef = useRef(null);
@@ -147,7 +147,22 @@ export default function Navigation() {
 		const linkRect = el.getBoundingClientRect();
 
 		if (activeNavLinkRef.current === el) {
-			setNavIndicator((prev) => (prev.visible ? prev : { ...prev, visible: true }));
+			setNavIndicator((prev) => (prev.visible ? prev : {
+				...prev,
+				x: linkRect.left - containerRect.left,
+				w: linkRect.width,
+				visible: true,
+				scaleX: 0.03125,
+				scaleY: 0.03125,
+			}));
+			if (!indicatorVisibleRef.current) {
+				setAllowIndicatorMotion(false);
+				indicatorEnableMotionRafRef.current = requestAnimationFrame(() => {
+					indicatorEnableMotionRafRef.current = null;
+					setNavIndicator((prev) => ({ ...prev, scaleX: 1, scaleY: 1 }));
+					setAllowIndicatorMotion(true);
+				});
+			}
 			return;
 		}
 
@@ -173,16 +188,17 @@ export default function Navigation() {
 
 		if (!indicatorVisibleRef.current) {
 			setAllowIndicatorMotion(false);
-			setNavIndicator({ x: nextX, w: nextW, visible: true });
+			setNavIndicator({ x: nextX, w: nextW, visible: true, scaleX: 0.03125, scaleY: 0.03125 });
 			indicatorEnableMotionRafRef.current = requestAnimationFrame(() => {
 				indicatorEnableMotionRafRef.current = null;
+				setNavIndicator((prev) => ({ ...prev, scaleX: 1, scaleY: 1 }));
 				setAllowIndicatorMotion(true);
 			});
 			return;
 		}
 
 		setAllowIndicatorMotion(true);
-		setNavIndicator({ x: nextX, w: nextW, visible: true });
+		setNavIndicator({ x: nextX, w: nextW, visible: true, scaleX: 1, scaleY: 1 });
 	};
 
 	useEffect(() => {
@@ -230,11 +246,19 @@ export default function Navigation() {
 			indicatorHideTimeoutRef.current = null;
 		}
 
+		setAllowIndicatorMotion(true);
+		setNavIndicator((prev) => ({
+			...prev,
+			scaleX: 0.03125,
+			scaleY: 0.03125,
+		}));
+
 		indicatorHideTimeoutRef.current = setTimeout(() => {
 			indicatorHideTimeoutRef.current = null;
+			activeNavLinkRef.current = null;
 			setAllowIndicatorMotion(false);
-			setNavIndicator((prev) => ({ ...prev, visible: false }));
-		}, 60);
+			setNavIndicator((prev) => ({ ...prev, visible: false, scaleX: 0.03125, scaleY: 0.03125 }));
+		}, 250);
 	};
 
 	const handleNavLinksMouseMove = (e) => {
@@ -352,6 +376,8 @@ export default function Navigation() {
 							style={{
 								'--nav-indicator-x': `${navIndicator.x}px`,
 								'--nav-indicator-w': `${navIndicator.w}px`,
+								'--nav-indicator-scale-x': navIndicator.visible ? navIndicator.scaleX : 0.03125,
+								'--nav-indicator-scale-y': navIndicator.visible ? navIndicator.scaleY : 0.03125,
 								opacity: navIndicator.visible ? 1 : 0,
 							}}
 						/>

@@ -87,6 +87,7 @@ function useControls() {
 export default function HeroBeams() {
   const [paths, setPaths] = useState([]);
   const [pathLengths, setPathLengths] = useState([]);
+  const [pathGradientPoints, setPathGradientPoints] = useState([]);
   const pathRefs = useRef([]);
   const controls = useControls();
 
@@ -119,15 +120,38 @@ export default function HeroBeams() {
   // Measure path lengths once rendered.
   useLayoutEffect(() => {
     if (!paths.length) return;
-    const lengths = pathRefs.current.slice(0, paths.length).map((p) => {
-      if (!p) return 0;
+    const lengths = [];
+    const gradientPoints = [];
+
+    pathRefs.current.slice(0, paths.length).forEach((p) => {
+      if (!p) {
+        lengths.push(0);
+        gradientPoints.push({ x1: 0, y1: 0, x2: 1, y2: 0 });
+        return;
+      }
+
       try {
-        return p.getTotalLength();
+        const length = p.getTotalLength();
+        const box = p.getBBox();
+        const isWider = box.width >= box.height;
+        const paddingX = Math.max(box.width * 0.08, 1);
+        const paddingY = Math.max(box.height * 0.08, 1);
+
+        lengths.push(length);
+        gradientPoints.push({
+          x1: isWider ? box.x - paddingX : box.x + (box.width / 2),
+          y1: isWider ? box.y + (box.height / 2) : box.y - paddingY,
+          x2: isWider ? box.x + box.width + paddingX : box.x + (box.width / 2),
+          y2: isWider ? box.y + (box.height / 2) : box.y + box.height + paddingY,
+        });
       } catch (e) {
-        return 0;
+        lengths.push(0);
+        gradientPoints.push({ x1: 0, y1: 0, x2: 1, y2: 0 });
       }
     });
+
     setPathLengths(lengths);
+    setPathGradientPoints(gradientPoints);
   }, [paths]);
 
   // Respect reduced motion.
@@ -150,6 +174,48 @@ export default function HeroBeams() {
       role="presentation"
       aria-hidden="true"
     >
+      <defs>
+        {paths.map((_, idx) => {
+          const points = pathGradientPoints[idx] || { x1: 0, y1: 0, x2: 1, y2: 0 };
+          return (
+            <linearGradient
+              key={`beam-gradient-core-${idx}`}
+              id={`beam-gradient-core-${idx}`}
+              gradientUnits="userSpaceOnUse"
+              x1={points.x1}
+              y1={points.y1}
+              x2={points.x2}
+              y2={points.y2}
+            >
+              <stop offset="0%" stopColor="white" stopOpacity="0" />
+              <stop offset="22%" stopColor="white" stopOpacity="0.18" />
+              <stop offset="50%" stopColor="white" stopOpacity="1" />
+              <stop offset="78%" stopColor="white" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </linearGradient>
+          );
+        })}
+        {paths.map((_, idx) => {
+          const points = pathGradientPoints[idx] || { x1: 0, y1: 0, x2: 1, y2: 0 };
+          return (
+            <linearGradient
+              key={`beam-gradient-glow-${idx}`}
+              id={`beam-gradient-glow-${idx}`}
+              gradientUnits="userSpaceOnUse"
+              x1={points.x1}
+              y1={points.y1}
+              x2={points.x2}
+              y2={points.y2}
+            >
+              <stop offset="0%" stopColor="white" stopOpacity="0" />
+              <stop offset="18%" stopColor="white" stopOpacity="0.08" />
+              <stop offset="50%" stopColor="white" stopOpacity="0.5" />
+              <stop offset="82%" stopColor="white" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </linearGradient>
+          );
+        })}
+      </defs>
       {paths.map((d, idx) => {
         const len = pathLengths[idx] || 1000;
         const duration = `${BASE_DURATIONS[idx % BASE_DURATIONS.length] * controls.speedMultiplier}s`;
@@ -172,6 +238,7 @@ export default function HeroBeams() {
                 "--beam-opacity": controls.opacityGlow,
                 "--beam-stroke": controls.strokeGlow,
                 "--beam-blur": controls.blurGlow,
+                stroke: `url(#beam-gradient-glow-${idx})`,
               }}
             />
             <path
@@ -184,6 +251,7 @@ export default function HeroBeams() {
                 "--dash-array": `${segment}px ${gap}px`,
                 "--beam-opacity": controls.opacityCore,
                 "--beam-stroke": controls.strokeCore,
+                stroke: `url(#beam-gradient-core-${idx})`,
               }}
             />
           </g>
