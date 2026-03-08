@@ -11,7 +11,6 @@ export default function Navigation() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [showHomeLogo, setShowHomeLogo] = useState(false);
 	const [hasMountedNav, setHasMountedNav] = useState(false);
-	const [animateMobileNav, setAnimateMobileNav] = useState(false);
 	const { theme, mounted } = useContext(ThemeContext);
 
 	const navLinksContainerRef = useRef(null);
@@ -41,7 +40,6 @@ export default function Navigation() {
 		{ href: '#authoring', label: 'Writing', targetId: 'authoring' },
 		{ href: '#contact', label: 'Contact', targetId: 'contact' },
 	];
-	const mobileNavAnimationDuration = ((navItems.length + 1) * 60) + 300;
 
 	useEffect(() => {
 		indicatorVisibleRef.current = navIndicator.visible;
@@ -207,20 +205,6 @@ export default function Navigation() {
 	}, [isMenuOpen]);
 
 	useEffect(() => {
-		if (!isMenuOpen) return;
-
-		setAnimateMobileNav(true);
-
-		const timeoutId = window.setTimeout(() => {
-			setAnimateMobileNav(false);
-		}, mobileNavAnimationDuration);
-
-		return () => {
-			window.clearTimeout(timeoutId);
-		};
-	}, [isMenuOpen, mobileNavAnimationDuration]);
-
-	useEffect(() => {
 		const onResize = () => {
 			if (isMenuOpen) return;
 			if (!navIndicator.visible) return;
@@ -357,7 +341,7 @@ export default function Navigation() {
 					</button>
 
 					<div
-						className={`nav-links-container${hasMountedNav ? ' nav-mounted' : ''}${animateMobileNav ? ' nav-animate-mobile' : ''}`}
+						className={`nav-links-container${hasMountedNav ? ' nav-mounted' : ''}`}
 						ref={navLinksContainerRef}
 						onMouseMove={handleNavLinksMouseMove}
 						onMouseLeave={hideNavIndicator}

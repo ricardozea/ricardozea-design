@@ -1209,15 +1209,8 @@ p.text-description:first-of-type {
 		visibility: hidden;
 
 		[data-nav-item] {
-			opacity: 1;
-			transform: translateX(0);
-		}
-
-		&.nav-animate-mobile [data-nav-item] {
 			opacity: 0;
 			transform: translateX(48px);
-			animation: nav-item-slide-in 300ms ease-out forwards;
-			animation-delay: calc(var(--nav-item-index, 0) * 60ms);
 		}
 
 		html.light & {
@@ -1292,6 +1285,17 @@ p.text-description:first-of-type {
 		visibility: visible;
 		transition: transform 0.3s ease, visibility 0s 0s;
 		margin-top: 0;
+	}
+
+	&.menu-open .nav-links-container [data-nav-item] {
+		animation: nav-item-slide-in 300ms ease-out forwards;
+		animation-delay: calc(var(--nav-item-index, 0) * 60ms);
+	}
+
+	@media (min-width: 768px) {
+		&.menu-open .nav-links-container [data-nav-item] {
+			animation: none;
+		}
 	}
 
 	a {
