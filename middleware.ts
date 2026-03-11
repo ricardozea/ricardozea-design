@@ -1,46 +1,64 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const UNFINISHED = new Set([
-  "/projects",
-  "/projects/aspiremap",
-  "/projects/checkngo",
-  "/projects/color-ramp",
-  "/projects/lexisnexis",
-  "/projects/logos",
-  "/projects/pearlmax",
-  "/projects/thegymofwestmilton",
-  "/aspiremap",
-  "/checkngo",
-  "/color-ramp",
-  "/lexisnexis",
-  "/logos",
-  "/pearlmax",
-  "/thegymofwestmilton",
-]);
+// Whitelisted project slugs: add future projects here to allow them.
+const PROJECT_WHITELIST = new Set(["nodesource", "nestlepurina"]);
+
+// Paths that should always bypass redirects.
+const ALWAYS_ALLOW_PREFIXES = ["/_next", "/api", "/favicon.ico", "/robots.txt", "/sitemap.xml", "/apple-icon.png", "/icon.png", "/android-chrome-192x192.png", "/android-chrome-512x512.png", "/manifest.json"];
+
+function normalize(pathname: string) {
+  if (pathname === "/") return "/";
+  return pathname.endsWith("/") ? pathname.slice(0, -1).toLowerCase() : pathname.toLowerCase();
+}
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const normalized = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+  const normalized = normalize(pathname);
 
-  if (UNFINISHED.has(normalized.toLowerCase())) {
+  // Always allow known system/asset prefixes.
+  if (ALWAYS_ALLOW_PREFIXES.some((prefix) => normalized.startsWith(prefix))) {
+    return NextResponse.next();
+  }
+
+  // Allow file requests (assets with extensions), e.g. /images/foo.png
+  if (normalized.includes(".")) {
+    return NextResponse.next();
+  }
+
+  // Allow root.
+  if (normalized === "/") {
+    return NextResponse.next();
+  }
+
+  // Handle /projects/*
+  if (normalized === "/projects") {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
 
+  if (normalized.startsWith("/projects/")) {
+    const [, , slug] = normalized.split("/"); // ['', 'projects', 'slug', ...]
+    const isAllowed = slug && PROJECT_WHITELIST.has(slug);
+
+    if (!isAllowed) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
+
+    return NextResponse.next();
+  }
+
+  // Everything else: redirect to home.
+  const url = request.nextUrl.clone();
+  url.pathname = "/";
+  return NextResponse.redirect(url);
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/projects/:path*",
-    "/aspiremap",
-    "/checkngo",
-    "/color-ramp",
-    "/lexisnexis",
-    "/logos",
-    "/pearlmax",
-    "/thegymofwestmilton",
-  ],
+  matcher: ["/:path*"],
 };
