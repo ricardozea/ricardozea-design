@@ -1,0 +1,11 @@
+# robots.txt for ricardozea.design
+# Purpose: allow normal crawling, keep sitemap discoverable, block obviously invalid project paths via middleware
+
+User-agent: *
+Allow: /
+
+# Optional: throttle aggressive scrapers by disallowing API brute-force; adjust if you want APIs indexed
+Disallow: /api/
+
+Sitemap: https://ricardozea.design/sitemap.xml
+Host: https://ricardozea.design

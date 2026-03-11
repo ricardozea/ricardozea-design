@@ -1,7 +1,11 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useId } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
+
+const FADE_ANIMATION = { opacity: 0 };
+const SHOW_ANIMATION = { opacity: 1 };
 
 export const Tooltip = React.forwardRef(({
   children,
@@ -11,7 +15,9 @@ export const Tooltip = React.forwardRef(({
   ...props
 }, ref) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [fixedPos, setFixedPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const lastTouchTimeRef = useRef(0);
+  const triggerRef = useRef(null);
   const tooltipRef = useRef(null);
   const tooltipId = useId();
 
@@ -38,37 +44,13 @@ export const Tooltip = React.forwardRef(({
     return window.matchMedia && window.matchMedia('(hover: hover)').matches;
   };
 
-  // Positioning classes for motion animation
-  const initialAnimation = {
-    top: { opacity: 0, y: 10, x: "-50%" },
-    bottom: { opacity: 0, y: -10, x: "-50%" },
-    left: { opacity: 0, x: 10, y: "-50%" },
-    right: { opacity: 0, x: -10, y: "-50%" },
-  };
-
-  const animateState = {
-    top: { opacity: 1, y: 0, x: "-50%" },
-    bottom: { opacity: 1, y: 0, x: "-50%" },
-    left: { opacity: 1, x: 0, y: "-50%" },
-    right: { opacity: 1, x: 0, y: "-50%" },
-  };
-
-  // Extract tooltip content from first child if it's a text element
-  const getTooltipContent = () => {
-    const childrenArray = React.Children.toArray(children);
-    const firstChild = childrenArray[0];
-
-    // If first child is a span with text content, use it as tooltip content
-    if (React.isValidElement(firstChild) && firstChild.type === 'span') {
-      return firstChild;
-    }
-
-    // Otherwise, return null (no tooltip content)
-    return null;
-  };
-
-  const tooltipContent = getTooltipContent();
-  const triggerElement = React.Children.toArray(children).slice(1);
+  // Extract tooltip content robustly even when JSX whitespace/text nodes are present.
+  const childrenArray = React.Children.toArray(children);
+  const tooltipContentIndex = childrenArray.findIndex(
+    (child) => React.isValidElement(child) && child.type === 'span'
+  );
+  const tooltipContent = tooltipContentIndex >= 0 ? childrenArray[tooltipContentIndex] : null;
+  const triggerElement = childrenArray.filter((_, index) => index !== tooltipContentIndex);
 
   const tooltipPositionClass = `tooltip-${position}`;
 
@@ -101,17 +83,11 @@ export const Tooltip = React.forwardRef(({
   };
 
   const handleMouseEnter = () => {
-    // Only allow hover to show tooltip on desktop
-    // This prevents 'mouseenter' from firing on mobile tap before 'click'
-    if (isDesktop()) {
-      setIsVisible(true);
-    }
+    setIsVisible(true);
   };
 
   const handleMouseLeave = () => {
-    if (isDesktop()) {
-      setIsVisible(false);
-    }
+    setIsVisible(false);
   };
 
   const handleFocus = () => {
@@ -122,9 +98,44 @@ export const Tooltip = React.forwardRef(({
     setIsVisible(false);
   };
 
+  // Update fixed position when shown
+  useEffect(() => {
+    if (!isVisible) return;
+    const target = triggerRef.current;
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    setFixedPos({ x: rect.left + rect.width / 2, y: rect.top, width: rect.width, height: rect.height });
+  }, [isVisible]);
+
+  const tooltipStyle = {
+    position: "fixed",
+    left: fixedPos.x,
+    top: position === "top" ? fixedPos.y - 12 : position === "bottom" ? fixedPos.y + fixedPos.height + 12 : fixedPos.y + (fixedPos.height / 2),
+    right: "auto",
+    bottom: "auto",
+    margin: 0,
+    zIndex: 9999,
+    pointerEvents: "none",
+    transform:
+      position === "top"
+        ? "translate(-50%, -100%)"
+        : position === "bottom"
+          ? "translate(-50%, 0)"
+          : position === "left"
+            ? "translate(-100%, -50%)"
+            : "translate(0, -50%)",
+  };
+
   return (
     <span
-      ref={ref}
+      ref={(node) => {
+        triggerRef.current = node;
+        if (typeof ref === "function") {
+          ref(node);
+        } else if (ref) {
+          ref.current = node;
+        }
+      }}
       className={`tooltip ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -137,23 +148,29 @@ export const Tooltip = React.forwardRef(({
     >
       {triggerElement}
 
-      <AnimatePresence>
-        {isVisible && tooltipContent && (
-          <motion.span
-            ref={tooltipRef}
-            id={tooltipId}
-            initial={initialAnimation[position]}
-            animate={animateState[position]}
-            exit={initialAnimation[position]}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className={`tooltip-content ${tooltipPositionClass}`}
-          >
-            {tooltipContent}
-            {/* Tiny arrow */}
-            <span className="tooltip-arrow" />
-          </motion.span>
-        )}
-      </AnimatePresence>
+      {typeof window !== "undefined"
+        ? createPortal(
+            <AnimatePresence>
+              {isVisible && tooltipContent && (
+                <motion.span
+                  ref={tooltipRef}
+                  id={tooltipId}
+                  initial={FADE_ANIMATION}
+                  animate={SHOW_ANIMATION}
+                  exit={FADE_ANIMATION}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className={`tooltip-content ${tooltipPositionClass} tooltip-fixed tooltip-fixed-${position}`}
+                  style={tooltipStyle}
+                >
+                  {tooltipContent}
+                  {/* Tiny arrow */}
+                  <span className="tooltip-arrow" />
+                </motion.span>
+              )}
+            </AnimatePresence>,
+            document.body
+          )
+        : null}
     </span>
   );
 });

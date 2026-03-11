@@ -1,0 +1,14 @@
+/* Team */
+Owner: Ricardo Zea
+Site: https://ricardozea.design
+Location: USA (UTC-05:00)
+Contact: ricardo@ricardozea.design
+
+/* Technology */
+Platform: Next.js, React, Node.js
+UI: HTML5, CSS3, JavaScript, Tailwind CSS, Motion
+Build/Deploy: Vercel, GitHub, Windsurf, Antigravity
+Design: Figma, Color-Ramp.com, Google Fonts, Phosphor Icons
+AI: UX Pilot, Banani, Dora AI, ChatGPT, Gemini, Grok, Magic Patterns, MidJourney
+
+

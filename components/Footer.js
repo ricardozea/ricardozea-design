@@ -151,7 +151,7 @@ export default function Footer() {
 					<SocialIcons className="footer-social-icons" />
 				</div>
 				<div className="footer-disclaimer reveal reveal-fade">
-					<p className="disclaimer">All logos, characters, and brand names blah, blah, blah are the property of their respective owners. Their use does not imply endorsement. Their use does not imply endorsement.</p>
+					<p className="disclaimer">All logos, characters, and brand names blah, blah, blah are the property of their respective owners. Their use does not imply endorsement. If anything, it's the other way around, lol.</p>
 				</div>
 			</div>
 		</footer>
