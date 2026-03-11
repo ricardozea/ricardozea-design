@@ -21,17 +21,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Allow file requests (assets with extensions), e.g. /images/foo.png
-  if (normalized.includes(".")) {
-    return NextResponse.next();
-  }
-
   // Allow root.
   if (normalized === "/") {
     return NextResponse.next();
   }
 
-  // Handle /projects/*
+  // Handle /projects/* before extension-based bypass so nested files are also checked.
   if (normalized === "/projects") {
     const url = request.nextUrl.clone();
     url.pathname = "/";
@@ -48,6 +43,11 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
+    return NextResponse.next();
+  }
+
+  // Allow file requests (assets with extensions), e.g. /images/foo.png
+  if (normalized.includes(".")) {
     return NextResponse.next();
   }
 
