@@ -4,9 +4,6 @@ import React, { useState, useRef, useEffect, useId } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 
-const FADE_ANIMATION = { opacity: 0 };
-const SHOW_ANIMATION = { opacity: 1 };
-
 export const Tooltip = React.forwardRef(({
   children,
   className = "",
@@ -15,7 +12,7 @@ export const Tooltip = React.forwardRef(({
   ...props
 }, ref) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [fixedPos, setFixedPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [fixedPos, setFixedPos] = useState(null);
   const lastTouchTimeRef = useRef(0);
   const triggerRef = useRef(null);
   const tooltipRef = useRef(null);
@@ -98,19 +95,37 @@ export const Tooltip = React.forwardRef(({
     setIsVisible(false);
   };
 
+  const measurePosition = () => {
+    const target = triggerRef.current;
+    if (!target) return null;
+    const rect = target.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2,
+      y: rect.top,
+      width: rect.width,
+      height: rect.height,
+    };
+  };
+
   // Update fixed position when shown
   useEffect(() => {
     if (!isVisible) return;
-    const target = triggerRef.current;
-    if (!target) return;
-    const rect = target.getBoundingClientRect();
-    setFixedPos({ x: rect.left + rect.width / 2, y: rect.top, width: rect.width, height: rect.height });
+    const next = measurePosition();
+    if (next) setFixedPos(next);
   }, [isVisible]);
+
+  const resolvedPos = fixedPos ?? measurePosition() ?? { x: 0, y: 0, width: 0, height: 0 };
+
+  const baseTop =
+    position === "top"
+      ? resolvedPos.y - 12
+      : position === "bottom"
+        ? resolvedPos.y + resolvedPos.height + 12
+        : resolvedPos.y + resolvedPos.height / 2;
 
   const tooltipStyle = {
     position: "fixed",
-    left: fixedPos.x,
-    top: position === "top" ? fixedPos.y - 12 : position === "bottom" ? fixedPos.y + fixedPos.height + 12 : fixedPos.y + (fixedPos.height / 2),
+    left: resolvedPos.x,
     right: "auto",
     bottom: "auto",
     margin: 0,
@@ -125,6 +140,11 @@ export const Tooltip = React.forwardRef(({
             ? "translate(-100%, -50%)"
             : "translate(0, -50%)",
   };
+
+  const SLIDE_OFFSET = 8;
+  const initialState = { opacity: 0, top: baseTop + SLIDE_OFFSET };
+  const animateState = { opacity: 1, top: baseTop };
+  const exitState = { opacity: 0, top: baseTop + SLIDE_OFFSET };
 
   return (
     <span
@@ -155,10 +175,10 @@ export const Tooltip = React.forwardRef(({
                 <motion.span
                   ref={tooltipRef}
                   id={tooltipId}
-                  initial={FADE_ANIMATION}
-                  animate={SHOW_ANIMATION}
-                  exit={FADE_ANIMATION}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  initial={initialState}
+                  animate={animateState}
+                  exit={exitState}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                   className={`tooltip-content ${tooltipPositionClass} tooltip-fixed tooltip-fixed-${position}`}
                   style={tooltipStyle}
                 >

@@ -40,38 +40,40 @@ export default function ProjectDetail() {
 						<div className="meta-data-container">
 							{/* Project Description */}
 							<div className="project-description">
+								<h2 className="reveal reveal-slide">Project Description</h2>
 								<p className="text-description reveal reveal-slide">
 									Design systems are all the rage. Practically every single post on LinkedIn is about these darn design systems. Eeeeeeveryone is making them. Well, here's mine, lol.
 								</p>
 								<p className="reveal reveal-slide">
 									In addition, when I inherited this project I was provided with files made in… Sketch 😒. I'm glad that's not a thing anymore, haha. So I imported a 💩-ton of files into Figma and today I have taken NodeSource's flagship product, N|Solid Console, their website, and other products to a whole new level 😁👍🏽.
 								</p>
-								<p className="reveal reveal-slide">
-									Quick note: I've been freelancing for NodeSource since 2020. What you'll see here is from 2024 until now.
+								<p className="info-text reveal reveal-slide">
+									<Info size={24} weight="regular" />Quick note: I've been freelancing for NodeSource since 2020. What you'll see here is from 2024 until now.
 								</p>
 							</div>
 
 							{/* Project Meta */}
-							<div className="project-meta-container flex flex-col gap-3">
+							<div className="project-description project-meta-container flex flex-col gap-3">
+								<h2 className="reveal reveal-slide">Project Metadata</h2>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.1">
+									<PencilLine size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
+									<div>
+										<span className="meta-label mr-1">Role:</span>
+										<span className="meta-value">Sr. Web & Product Designer</span>
+									</div>
+								</div>
+								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.2">
 									<CalendarStar size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
 									<div>
 										<span className="meta-label mr-1">Year:</span>
 										<span className="meta-value">2024 - Current</span>
 									</div>
 								</div>
-								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.2">
+								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.3">
 									<UsersThree size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
 									<div>
 										<span className="meta-label mr-1">Team Size:</span>
-										<span className="meta-value">CEO, CTO, Solutions Director, Project Manager, 8 Devs (Internal), Designer (Moi)</span>
-									</div>
-								</div>
-								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.4">
-									<PencilLine size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
-									<div>
-										<span className="meta-label mr-1">Role:</span>
-										<span className="meta-value">Sr. Web & Product Designer</span>
+										<span className="meta-value">CEO, CTO, Solutions Director, Project Manager, 8 Internal Devs, Designer (Moi✋🏽)</span>
 									</div>
 								</div>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.4">
@@ -588,7 +590,7 @@ export default function ProjectDetail() {
 									<h4 className="reveal reveal-slide">The 2020 and 2024 Websites</h4>
 									<p className="reveal reveal-slide">
 										I started working with NodeSource in 2020 and inherited an old website with serious accessibility and branding issues.
-										</p>
+									</p>
 									<p className="reveal reveal-slide">
 										In 2024, I was asked: "Hay amigo Ricardo, we need to redesign the website. Are you down for the job?" Well, DOH! 😒 lol
 									</p>
@@ -740,19 +742,19 @@ export default function ProjectDetail() {
 							<div className="project-image-description max-w-[1000px] mx-auto mb-8">
 								<h3 className="text-section-subtitle reveal reveal-slide">A few more notes about Color Accessibility and Branding ☝🏽</h3>
 								<div className="description-container">
-										<h4 className="reveal reveal-slide">Accessibility issues with the color off the bat! 🦇 (there is no baseball bat emoji, WTF, lol)</h4>
-										<p className="reveal reveal-slide">
-											The original green <code>#5AC878</code> the client provided was OK.
-										</p>
-										<p className="reveal reveal-slide">
-											The problem was that the prior designs had white text over that green which failed accessibility with a contrast ratio of <code>2.1:1</code> - Minimum contrast ratio should be <code>4.5:1</code> for Normal size text.
-										</p>
-										<p className="reveal reveal-slide">
-											I knew I needed to use black text over that green. But I went a step further and lightened up that green a little to make it "pop" (🤦🏽lol ) in Dark mode, and settled on <code>#71D08B</code>. The contrast ratio was excellent: <code>11.09:1</code> with dark text.
-										</p>
-										<p className="reveal reveal-slide">
-											This adjustment was ideal for Dark mode, which is NodeSource’s default theme.
-										</p>
+									<h4 className="reveal reveal-slide">Accessibility issues with the color off the bat! 🦇 (there is no baseball bat emoji, WTF, lol)</h4>
+									<p className="reveal reveal-slide">
+										The original green <code>#5AC878</code> the client provided was OK.
+									</p>
+									<p className="reveal reveal-slide">
+										The problem was that the prior designs had white text over that green which failed accessibility with a contrast ratio of <code>2.1:1</code> - Minimum contrast ratio should be <code>4.5:1</code> for Normal size text.
+									</p>
+									<p className="reveal reveal-slide">
+										I knew I needed to use black text over that green. But I went a step further and lightened up that green a little to make it "pop" (🤦🏽lol ) in Dark mode, and settled on <code>#71D08B</code>. The contrast ratio was excellent: <code>11.09:1</code> with dark text.
+									</p>
+									<p className="reveal reveal-slide">
+										This adjustment was ideal for Dark mode, which is NodeSource’s default theme.
+									</p>
 									<h4 className="reveal reveal-slide">Retaining branding identity</h4>
 									<p className="reveal reveal-slide">
 										To get to the new green <code>#71D08B</code>, I edited the Lightness in the HSL color space of the original green <code>#5AC878</code> from <code>57%</code> to <code>63%</code>. It was light enough while retaining the same Hue and Saturation of the original green 👍🏽.

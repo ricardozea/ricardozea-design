@@ -3119,42 +3119,6 @@ body {
 	z-index: 9999;
 }
 
-.tooltip-content.tooltip-fixed.tooltip-top,
-.tooltip-content.tooltip-fixed.tooltip-bottom,
-.tooltip-content.tooltip-fixed.tooltip-left,
-.tooltip-content.tooltip-fixed.tooltip-right {
-	left: auto;
-	right: auto;
-	top: auto;
-	bottom: auto;
-	margin: 0;
-}
-
-/* Position variants */
-.tooltip-content.tooltip-top {
-	bottom: 100%;
-	left: 50%;
-	margin-bottom: var(--tooltip-offset);
-}
-
-.tooltip-content.tooltip-bottom {
-	top: 100%;
-	left: 50%;
-	margin-top: var(--tooltip-offset);
-}
-
-.tooltip-content.tooltip-left {
-	right: 100%;
-	top: 50%;
-	margin-right: var(--tooltip-offset);
-}
-
-.tooltip-content.tooltip-right {
-	left: 100%;
-	top: 50%;
-	margin-left: var(--tooltip-offset);
-}
-
 /* Arrow */
 .tooltip-arrow {
 	position: absolute;

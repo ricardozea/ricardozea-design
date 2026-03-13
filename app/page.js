@@ -173,8 +173,8 @@ export default function Home() {
 			<section id="projects" className="projects">
 				<div className="section-container">
 					<h2 className="heading-section section-title-dark"><span className="reveal reveal-slide" data-reveal-delay="0.1">What</span> <span className="text-brand-secondary reveal reveal-slide" data-reveal-delay="0.2">You</span> <span className="text-brand-primary text-nowrap reveal reveal-slide" data-reveal-delay="0.3">Came Here</span> <span className="reveal reveal-slide" data-reveal-delay="0.4">For</span></h2>
-					<div className="max-w-[40rem] mx-auto">
-						<p className="text-description reveal reveal-slide">Ok, I'll <abbr title="Keep It Simple, Stupid">K.I.S.S.</abbr> 😁</p>
+					<div className="max-w-[60rem] mx-auto">
+						<p className="text-description reveal reveal-slide">Ok, I'll <abbr title="Keep It Simple, Stupid" className="no-underline md:underline decoration-2 underline-offset-5 cursor-default">K.I.S.S.</abbr> 😁</p>
 						<p className="text-description reveal reveal-slide clip-none">
 							In the following two projects I showcase most of my skills and design&nbsp;capabilities
 							<MotionBurst
@@ -203,7 +203,9 @@ export default function Home() {
 							</MotionBurst>.
 						</p>
 						<p className="reveal reveal-slide">You will see things about:</p>
-						<ol className="columns-2 gap-[2rem] reveal reveal-slide">
+					</div>
+
+						<ol className="max-w-[40rem] !m-auto columns-2 gap-[2rem] reveal reveal-slide">
 							<li>Web Design (doh!)</li>
 							<li>Product Design (really! lol)</li>
 							<li>Figma Designs</li>
@@ -223,6 +225,8 @@ export default function Home() {
 							<li>Before & After Designs</li>
 							<li>Unapologetic tone 😉</li>
 						</ol>
+
+					<div className="max-w-[60rem] mx-auto">
 						<p className="reveal reveal-slide">I know there is still a lot to learn, but there is also a lot to share. That's what this portfolio is for.</p>
 						<p className="reveal reveal-slide">Well, have at it! <span className="inline-flex transform-[rotateY(180deg)]">🏃🏽‍♂️💨</span></p>
 					</div>

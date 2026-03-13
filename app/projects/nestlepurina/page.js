@@ -2,7 +2,6 @@ import Footer from "@/components/Footer";
 import Navigation from '@/components/Navigation';
 import DynamicFrame from "@/components/DynamicFrame";
 import ProjectImage from "@/components/ProjectImage";
-import Image from "next/image";
 import { ExternalLink } from "@/components/ExternalLink";
 import {
 	ArrowLeft,
@@ -37,10 +36,10 @@ export default function ProjectDetail() {
 							<div className="project-description">
 								<h2 className="reveal reveal-slide">Project Description</h2>
 								<p className="text-description reveal reveal-slide">
-									I was the Lead Designer for their internal Checkmark team. I was assigned to work with their HubX group. All my design work affected Purina.com.
+									I was the Sr. Specialist UX/UI Designer for their internal Checkmark team. I assisted the HubX group. All my design work affected Purina.com.
 								</p>
-								<p className="reveal reveal-slide">
-									Due to my experience and knowledge, they created a "Lunch & Learn" session where I shared my knowledge about general design topics, HTML+CSS techniques, Responsive Design, UX and UI Design, etc. I even have some recordings of the sessions somewhere, lol.
+								<p className="reveal reveal-slide text-balance">
+									Due to my experience and knowledge, they created a "Lunch & Learn" session where I shared my knowledge about general design topics, HTML+CSS techniques, Responsive Design, UX and UI Design, etc. Here's a recording of one of the sessions: <ExternalLink href="https://youtu.be/xz-FQc8NZCA?si=EeSA1FUKTckgf2Uq">HubX Lunch-n-Learn with Ricardo Zea at Nestlé</ExternalLink>
 								</p>
 								<p className="reveal reveal-slide">
 									This is a long page where I elaborate on many of my design capabilities. Get ready to scroll! 😂
@@ -51,6 +50,19 @@ export default function ProjectDetail() {
 							<div className="project-description project-meta-container flex flex-col gap-3">
 								<h2 className="reveal reveal-slide">Project Metadata</h2>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.1">
+									<PencilLine
+										size={24}
+										weight="regular"
+										className="icon-accent-blue-subtle shrink-0"
+									/>
+									<div>
+										<span className="meta-label mr-1">Role:</span>
+										<span className="meta-value">
+											Sr. Specialist UX/UI Designer
+										</span>
+									</div>
+								</div>
+								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.2">
 									<CalendarStar
 										size={24}
 										weight="regular"
@@ -61,7 +73,7 @@ export default function ProjectDetail() {
 										<span className="meta-value">2021 - 2022</span>
 									</div>
 								</div>
-								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.2">
+								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.3">
 									<CalendarDots
 										size={24}
 										weight="regular"
@@ -72,7 +84,7 @@ export default function ProjectDetail() {
 										<span className="meta-value">1 year and 1 month</span>
 									</div>
 								</div>
-								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.3">
+								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.4">
 									<UsersThree
 										size={24}
 										weight="regular"
@@ -83,19 +95,6 @@ export default function ProjectDetail() {
 										<span className="meta-value">
 											Project Manager, Product Manager, 5 Devs (External team),
 											Designer (Moi)
-										</span>
-									</div>
-								</div>
-								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.4">
-									<PencilLine
-										size={24}
-										weight="regular"
-										className="icon-accent-blue-subtle shrink-0"
-									/>
-									<div>
-										<span className="meta-label mr-1">Role:</span>
-										<span className="meta-value">
-											Sr. Specialist UX/UI Designer
 										</span>
 									</div>
 								</div>

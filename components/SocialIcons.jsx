@@ -1,4 +1,4 @@
-import { LinkedinLogo, DribbbleLogo, StackOverflowLogo, XLogo } from '@phosphor-icons/react/ssr';
+import { LinkedinLogo, DribbbleLogo, StackOverflowLogo, XLogo, GithubLogoIcon } from '@phosphor-icons/react/ssr';
 import { Tooltip } from './Tooltip';
 
 /**
@@ -75,6 +75,14 @@ export default function SocialIcons({ className = '', withTooltips = false }) {
         'StackOverflow - Opens a new tab',
         <a href="https://stackoverflow.com/users/321555/ricardo-zea" target="_blank" rel="noopener noreferrer" title="StackOverflow - Opens a new tab" className="reveal reveal-line" data-reveal-delay="0.5">
           <StackOverflowLogo size={24} weight="regular" />
+        </a>
+      )}
+
+      {/* GitHub */}
+      {maybeWrap(
+        'GitHub - Opens a new tab',
+        <a href="https://github.com/ricardozea" target="_blank" rel="noopener noreferrer" title="GitHub - Opens a new tab" className="reveal reveal-line" data-reveal-delay="0.5">
+          <GithubLogoIcon size={24} weight="regular" />
         </a>
       )}
 
