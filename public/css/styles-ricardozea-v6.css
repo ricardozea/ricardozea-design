@@ -41,6 +41,9 @@
 	--corner-xs: 2px;
 	--corner-ring: 12px;
 	--corner-round: 100px;
+
+	/* Reflection */
+	--reflection: below -20px linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
 }
 
 *,
@@ -789,7 +792,7 @@ ol {
 	font-weight: 200;
 	text-align: center;
 	margin-bottom: 5rem;
-	-webkit-box-reflect: below -20px linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+	-webkit-box-reflect: var(--reflection);
 }
 
 .text-body {
@@ -1392,6 +1395,7 @@ p.text-description:first-of-type {
 	gap: 0 0.75rem;
 	color: var(--text-persistent-light);
 	font-weight: 200;
+	-webkit-box-reflect: var(--reflection);
 }
 
 .hero-title-brand {
