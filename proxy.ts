@@ -2,17 +2,28 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Whitelisted project slugs: add future projects here to allow them.
-const PROJECT_WHITELIST = new Set(["nodesource", "nestlepurina"]);
+const PROJECT_WHITELIST = new Set(["nodesource", "nestlepurina", "aspiremap"]);
 
 // Paths that should always bypass redirects.
-const ALWAYS_ALLOW_PREFIXES = ["/_next", "/api", "/favicon.ico", "/robots.txt", "/sitemap.xml", "/apple-icon.png", "/icon.png", "/android-chrome-192x192.png", "/android-chrome-512x512.png", "/manifest.json"];
+const ALWAYS_ALLOW_PREFIXES = [
+  "/_next",
+  "/api",
+  "/favicon.ico",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/apple-icon.png",
+  "/icon.png",
+  "/android-chrome-192x192.png",
+  "/android-chrome-512x512.png",
+  "/manifest.json",
+];
 
 function normalize(pathname: string) {
   if (pathname === "/") return "/";
   return pathname.endsWith("/") ? pathname.slice(0, -1).toLowerCase() : pathname.toLowerCase();
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const normalized = normalize(pathname);
 
@@ -55,8 +66,6 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = "/";
   return NextResponse.redirect(url);
-
-  return NextResponse.next();
 }
 
 export const config = {

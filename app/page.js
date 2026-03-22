@@ -973,7 +973,7 @@ export default function Home() {
 			<section id="authoring" className="authoring">
 				<div className="section-container">
 					<h2 className="heading-section section-title-light">
-						<span className="reveal reveal-slide" data-reveal-delay="0.1">Books & </span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.2">Guides</span>
+						<span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.1">Books </span> <span className="reveal reveal-slide" data-reveal-delay="0.2">&</span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.3">Guides</span>
 					</h2>
 
 					{/* Authoring Cards */}

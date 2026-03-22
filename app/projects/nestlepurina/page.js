@@ -174,6 +174,8 @@ export default function ProjectDetail() {
 				</div>
 			</section>
 
+			<hr className="reveal reveal-slide" />
+
 			{/* Project Images Section */}
 			<section className="project-images">
 				<div className="section-container">

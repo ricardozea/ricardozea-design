@@ -111,8 +111,6 @@ export default function ProjectDetail() {
 				</div>
 			</section>
 
-			<hr className="reveal reveal-slide" />
-
 			{/* Project Data Section */}
 			<section className="project-data">
 				<div className="section-container">
