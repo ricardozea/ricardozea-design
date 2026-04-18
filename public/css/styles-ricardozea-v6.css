@@ -1634,6 +1634,36 @@ html.light .skills .section-container {
 }
 
 /* ============================================
+   Logo Ticker
+   ============================================ */
+.logos-of-companies-ive-never-worked-for-lol {
+	overflow: hidden;
+	width: 100%;
+	mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+	padding-bottom: 0 !important;
+}
+
+.logo-ticker-track {
+	display: flex;
+	width: max-content;
+	animation: ticker 60s linear infinite;
+	opacity: 0.25;
+}
+
+.logo-ticker-track svg {
+	flex-shrink: 0;
+}
+
+@keyframes ticker {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+/* ============================================
    Skills Section
    ============================================ */
 .skills {

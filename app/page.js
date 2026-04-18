@@ -327,8 +327,28 @@ export default function Home() {
 								</div>
 							</div>
 						</article>
-
 					</div>
+
+					{/* Logos Section */}
+					<section className="logos-of-companies-ive-never-worked-for-lol">
+						<p className="revealx reveal-slide text-center" data-reveal-delay="0.1">Everybody has a friggin' logo ticker showing off the companies they've workded for 🙄. Here's mine…</p>
+						<div className="logo-ticker-track">
+							<img
+								src="/images/logos-companies-I-havent-worked-for-lol.svg"
+								alt="Company logos"
+								width="1692"
+								height="50"
+							/>
+							<img
+								src="/images/logos-companies-I-havent-worked-for-lol.svg"
+								alt="Company logos"
+								width="1692"
+								height="50"
+								aria-hidden="true"
+							/>
+						</div>
+						<p className="revealx reveal-slide text-center text-xs text-gray-400" data-reveal-delay="0.3">The difference is that this ticker shows the logos of companies I HAVE NOT worked for, lol.</p>
+					</section>
 				</div>
 			</section>
 
