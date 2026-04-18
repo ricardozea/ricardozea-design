@@ -41,7 +41,15 @@ import {
 	Pen,
 	DownloadSimple,
 	Envelope,
-	Book,
+	CursorClickIcon,
+	FigmaLogoIcon,
+	PersonSimpleCircleIcon,
+	SparkleIcon,
+	FadersIcon,
+	CodeIcon,
+	HandTapIcon,
+	TextAaIcon,
+	PaintBucketIcon,
 } from '@phosphor-icons/react/ssr';
 
 export default function Home() {
@@ -368,7 +376,7 @@ export default function Home() {
 						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<CursorClickIcon className="skill-icon rotate-y-180" size={24} weight="light" />
 								</div>
 								<h3>Web & Product Design</h3>
 							</div>
@@ -396,7 +404,7 @@ export default function Home() {
 						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<FigmaLogoIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Figma Expertise</h3>
 							</div>
@@ -410,7 +418,7 @@ export default function Home() {
 						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<PersonSimpleCircleIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Accessibility</h3>
 							</div>
@@ -433,7 +441,7 @@ export default function Home() {
 						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<SparkleIcon className="skill-icon rotate-y-180" size={24} weight="light" />
 								</div>
 								<h3><abbr title="Artificial Intelligence">AI</abbr> Expertise</h3>
 							</div>
@@ -457,7 +465,7 @@ export default function Home() {
 						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<FadersIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Design Systems</h3>
 							</div>
@@ -473,7 +481,7 @@ export default function Home() {
 						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<CodeIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>HTML & CSS</h3>
 							</div>
@@ -491,7 +499,7 @@ export default function Home() {
 						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<HandTapIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Prototyping</h3>
 							</div>
@@ -513,7 +521,7 @@ export default function Home() {
 						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<TextAaIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Typography</h3>
 							</div>
@@ -533,7 +541,7 @@ export default function Home() {
 						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
-									<PenNibIcon className="skill-icon rotate-y-180" size={24} weight="light" />
+									<PaintBucketIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Color Systems</h3>
 							</div>
