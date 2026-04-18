@@ -347,7 +347,7 @@ export default function Home() {
 								aria-hidden="true"
 							/>
 						</div>
-						<p className="revealx reveal-slide text-center text-xs text-gray-400" data-reveal-delay="0.3">The difference is that this ticker shows the logos of companies I HAVE NOT worked for, lol.</p>
+						<p className="revealx reveal-slide text-center text-xs text-gray-400" data-reveal-delay="0.3">The difference is that this ticker shows the logos of companies I HAVE NOT worked for, lol 😂.</p>
 					</section>
 				</div>
 			</section>

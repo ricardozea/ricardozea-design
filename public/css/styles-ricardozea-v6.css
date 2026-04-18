@@ -1646,6 +1646,7 @@ html.light .skills .section-container {
 .logo-ticker-track {
 	display: flex;
 	width: max-content;
+	margin: 3em 0;
 	animation: ticker 60s linear infinite;
 	opacity: 0.25;
 }
