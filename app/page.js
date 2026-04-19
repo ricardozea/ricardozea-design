@@ -49,7 +49,7 @@ import {
 	CodeIcon,
 	HandTapIcon,
 	TextAaIcon,
-	PaintBucketIcon,
+	UsersFourIcon,
 } from '@phosphor-icons/react/ssr';
 
 export default function Home() {
@@ -182,7 +182,7 @@ export default function Home() {
 				<div className="section-container">
 					<h2 className="heading-section section-title-dark"><span className="reveal reveal-slide" data-reveal-delay="0.1">What</span> <span className="text-brand-secondary reveal reveal-slide" data-reveal-delay="0.2">You</span> <span className="text-brand-primary text-nowrap reveal reveal-slide" data-reveal-delay="0.3">Came Here</span> <span className="reveal reveal-slide" data-reveal-delay="0.4">For</span></h2>
 					<div className="max-w-[60rem] mx-auto">
-						<p className="text-description reveal reveal-slide">Ok, I'll <abbr title="Keep It Simple, Stupid" className="no-underline md:underline decoration-2 underline-offset-5 cursor-default">K.I.S.S.</abbr> 😁</p>
+						<p className="text-description reveal reveal-slide">Ok, I’ll <abbr title="Keep It Simple, Stupid" className="no-underline md:underline decoration-2 underline-offset-5 cursor-default">K.I.S.S.</abbr> 😁</p>
 						<p className="text-description reveal reveal-slide clip-none">
 							In the following two projects I showcase most of my skills and design&nbsp;capabilities
 							<MotionBurst
@@ -235,7 +235,7 @@ export default function Home() {
 						</ol>
 
 					<div className="max-w-[60rem] mx-auto">
-						<p className="reveal reveal-slide">I know there is still a lot to learn, but there is also a lot to share. That's what this portfolio is for.</p>
+						<p className="reveal reveal-slide">I know there is still a lot to learn, but there is also a lot to share. That’s what this portfolio is for.</p>
 						<p className="reveal reveal-slide">Well, have at it! <span className="inline-flex transform-[rotateY(180deg)]">🏃🏽‍♂️💨</span></p>
 					</div>
 
@@ -339,7 +339,7 @@ export default function Home() {
 
 					{/* Logos Section */}
 					<section className="logos-of-companies-ive-never-worked-for-lol">
-						<p className="reveal reveal-slide text-center" data-reveal-delay="0.1">Everybody has a friggin' logo ticker showing off the companies they've workded for 🙄. Here's mine…</p>
+						<p className="reveal reveal-slide text-center" data-reveal-delay="0.1">Everybody has a friggin’ logo ticker showing off the companies they’ve workded for 🙄. Here’s mine…</p>
 						<div className="logo-ticker-track">
 							<img
 								src="/images/logos-companies-I-havent-worked-for-lol.svg"
@@ -372,15 +372,34 @@ export default function Home() {
 					{/* Skills Cards - First Row */}
 					<div className="cards-grid-container">
 
-						{/* Skill Card 1 */}
-						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.1">
+						{/* Skill Card */}
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.1">
+							<div className="flex items-center gap-2">
+								<div className="skill-icon-container blue">
+									<UsersFourIcon className="skill-icon" size={24} weight="light" />
+								</div>
+								<h3>Leadership</h3>
+							</div>
+							<p>In my career, I’ve led multiple design teams and initiatives. I’ve managed all kinds of design projects from concept to launch both as a freelancer and inside in-house teams.</p>
+							<p>But what I enjoy most is mentoring. I didn’t have a mentor when I started, so I make it a point to pay it forward and share what I’ve learned with others.</p>
+							<ul className="skill-tag-container">
+								<li>Team Management</li>
+								<li>Project Management</li>
+								<li>Team Mentoring</li>
+								<li>Design + Development Integration</li>
+								<li>Design Strategy</li>
+							</ul>
+						</div>
+
+						{/* Skill Card */}
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<CursorClickIcon className="skill-icon rotate-y-180" size={24} weight="light" />
 								</div>
 								<h3>Web & Product Design</h3>
 							</div>
-							<p>More than 20 years of experience in the industry. I don't play politics with managers or sugarcoat the truth for CEOs. I take your complex mess and turn it into a high-performance tool that hits every standard.</p>
+							<p>More than 20 years of experience in the industry. I don’t play politics with managers or sugarcoat the truth for CEOs. I take your complex mess and turn it into a high-performance tool that hits every standard.</p>
 							<p>You hire me for the results, not for my "yes". BTW, I will never call you "boss" or design your PowerPoint presentation 🫵🏽, lol.</p>
 							<ul className="skill-tag-container">
 								<li>Figma</li>
@@ -393,6 +412,7 @@ export default function Home() {
 								<li>ChatGPT</li>
 								<li>Gemini</li>
 								<li>Claude</li>
+								<li>Grok</li>
 								<li>Versive</li>
 								<li>Tailwind CSS</li>
 								<li>Sass</li>
@@ -400,22 +420,22 @@ export default function Home() {
 							</ul>
 						</div>
 
-						{/* Skill Card 2 */}
-						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.2">
+						{/* Skill Card */}
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<FigmaLogoIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Figma Expertise</h3>
 							</div>
-							<p>I've been using Figma since it was launched back in September 2016. Figma was a game-changer due to its OS-agnostic nature.</p>
+							<p>I’ve been using Figma since it was launched back in September 2016. Figma was a game-changer due to its OS-agnostic nature.</p>
 							<p>This was a blessing for me since I no longer had to deal with Mac-lovers and their dumbfounded belief that Macs were better than PCs, haha 🤣.</p>
 							<p>They ARE NOT, you dink.</p>
 							<p>In fact, Windows &gt; macOS 😂.</p>
 						</div>
 
-						{/* Skill Card 3 */}
-						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.3">
+						{/* Skill Card */}
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<PersonSimpleCircleIcon className="skill-icon" size={24} weight="light" />
@@ -437,8 +457,8 @@ export default function Home() {
 							</ul>
 						</div>
 
-						{/* Skill Card 4 */}
-						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.1">
+						{/* Skill Card */}
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<SparkleIcon className="skill-icon rotate-y-180" size={24} weight="light" />
@@ -461,15 +481,15 @@ export default function Home() {
 							</ul>
 						</div>
 
-						{/* Skill Card 5 */}
-						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.2">
+						{/* Skill Card */}
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<FadersIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Design Systems</h3>
 							</div>
-							<p>I've heard the term "Design System" many years ago, but after Figma introduced variables, the concept exploded. My flagship design system is the one I created for NodeSource, N|Core.</p>
+							<p>I’ve heard the term "Design System" many years ago, but after Figma introduced variables, the concept exploded. My flagship design system is the one I created for NodeSource, N|Core.</p>
 							<p>To level up my design system skills, I did a bootcamp specifically for that. <ExternalLink href="https://maven.com/certificate/sBHiXyRc" title="Design Systems Bootcamp Certificate">Check out my certificate</ExternalLink></p>
 							<ul className="skill-tag-container">
 								<li>Figma Variables</li>
@@ -477,16 +497,16 @@ export default function Home() {
 							</ul>
 						</div>
 
-						{/* Skill Card 6 */}
-						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.3">
+						{/* Skill Card */}
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<CodeIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>HTML & CSS</h3>
 							</div>
-							<p>I love HTML & CSS. I've even written two books about them bro! <ExternalLink href="https://masteringrwd.com/" title="Mastering Responsive Web Design">Mastering Responsive Web Design</ExternalLink> and <ExternalLink href="https://www.amazon.com/Developers-Reference-Guide-Joshua-Johanan/dp/1783552131" title="Web Developer's Reference Guide">Web Developer's Reference Guide</ExternalLink>.</p>
-							<p>All I've learned, I've learned on my own, building stuff in all my jobs, freelancing, and personal projects. But more importantly, mentoring others.</p>
+							<p>I love HTML & CSS. I’ve even written two books about them bro! <ExternalLink href="https://masteringrwd.com/" title="Mastering Responsive Web Design">Mastering Responsive Web Design</ExternalLink> and <ExternalLink href="https://www.amazon.com/Developers-Reference-Guide-Joshua-Johanan/dp/1783552131" title="Web Developer’s Reference Guide">Web Developer’s Reference Guide</ExternalLink>.</p>
+							<p>All I’ve learned, I’ve learned on my own, building stuff in all my jobs, freelancing, and personal projects. But more importantly, mentoring others.</p>
 							<ul className="skill-tag-container">
 								<li>Windsurf</li>
 								<li>Sublime Text</li>
@@ -495,16 +515,16 @@ export default function Home() {
 							</ul>
 						</div>
 
-						{/* Skill Card 7 */}
-						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.1">
+						{/* Skill Card */}
+						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.2">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container red">
 									<HandTapIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Prototyping</h3>
 							</div>
-							<p>Not all prototyping is created equal. I'm always careful with prototyping so I don't waste time in something temporary. When a prototype tries to replicate the browser's behavior, for example, that's when it's a waste of time.</p>
-							<p>But when it's about helping prove a concept, showcase a specific behavior/feature, or visualize content architecture, then it is worth prototyping.</p>
+							<p>Not all prototyping is created equal. I’m always careful with prototyping so I don’t waste time in something temporary. When a prototype tries to replicate the browser’s behavior, for example, that’s when it’s a waste of time.</p>
+							<p>But when it’s about helping prove a concept, showcase a specific behavior/feature, or visualize content architecture, then it is worth prototyping.</p>
 							<p>HTML+CSS+JS protyping is the best way to go, especially now with all the vibe coding apps out there these days.</p>
 							<ul className="skill-tag-container">
 								<li>Figma</li>
@@ -517,15 +537,15 @@ export default function Home() {
 							</ul>
 						</div>
 
-						{/* Skill Card 8 */}
-						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.2">
+						{/* Skill Card */}
+						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.3">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
 									<TextAaIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Typography</h3>
 							</div>
-							<p><span className="highlighted-text">The 2nd of the three things a designer must dominate.</span> I admit it: I have not designed a typeface (at least, not yet, lol). But I do understand the importance of dotting your i's and crossing your t's. No pun… actually, it was intended. </p>
+							<p><span className="highlighted-text">The 2nd of the three things a designer must dominate.</span> I admit it: I have not designed a typeface (at least, not yet, lol). But I do understand the importance of dotting your i’s and crossing your t’s. No pun… actually, it was intended. </p>
 							<p>Learning how to use and create a Modular Scale has taken my typography skills to 🚀.</p>
 							<ul className="skill-tag-container">
 								<li>Modular Scale</li>
@@ -537,26 +557,8 @@ export default function Home() {
 							</ul>
 						</div>
 
-						{/* Skill Card 9 */}
-						<div className="skill-card red reveal reveal-slide" data-reveal-delay="0.3">
-							<div className="flex items-center gap-2">
-								<div className="skill-icon-container red">
-									<PaintBucketIcon className="skill-icon" size={24} weight="light" />
-								</div>
-								<h3>Color Systems</h3>
-							</div>
-							<p><span className="highlighted-text">The 3rd of the three things a designer must dominate.</span> Color can get ugly quickly. Don't believe me? Look: <abbr title="Cyan, Magenta, Yellow, Key (Black)">CMYK</abbr>, <abbr title="Red, Green, Blue">RGB</abbr>, <abbr title="Hexadecimal">HEX</abbr>, <abbr title="Hue, Saturation, Lightness">HSL</abbr>, <abbr title="Hue, Saturation, Value">HSV</abbr>, <abbr title="Hue, Chroma, Luminance">HCL</abbr>, <abbr title="Lightness, Chroma, Hue">LCH</abbr>, <abbr title="OK Lightness, Chroma, Hue">OKLCH</abbr>, <abbr title="CIE Lightness, a, b">Lab</abbr>. And plenty more.</p>
-							<p>And that's not even mentioning the Alpha channel. </p>
-							<p>Told you it could get ugly, lol.</p>
-							<ul className="skill-tag-container">
-								<li>Color-Ramp.com</li>
-								<li>Coolors.co</li>
-								<li>Supa Palette</li>
-								<li>Supa Design Tokens</li>
-							</ul>
-						</div>
 					</div>
-					<p className="text-description personal-comment reveal reveal-slide">☝🏽It goes without saying that I'm still learning. I am open-minded and not set in my ways despite my experience. So… yeah.</p>
+					<p className="text-description personal-comment reveal reveal-slide">☝🏽It goes without saying that I’m still learning. I am open-minded and not set in my ways despite my experience. So… yeah.</p>
 					<p className="personal-comment reveal reveal-slide">Plus, I really like to <ExternalLink href="https://adplist.org/mentors/ricardo-zea" title="View ADPList profile">share my knowledge with others</ExternalLink>.</p>
 				</div>
 			</section>
@@ -567,7 +569,7 @@ export default function Home() {
 					<p className="flex justify-center m-0 reveal reveal-slide" data-reveal-delay="0.1">"Greetings! Ah-ah-ah!" lol</p>
 					<h2 className="heading-section section-title-dark">
 						<img src="/images/img-character-count.svg" alt="Count von Count" className="character reveal reveal-slide" data-reveal-delay="0.2" />
-						<span className="reveal reveal-slide" data-reveal-delay="0.3">Let's </span><span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.4">Count!</span>
+						<span className="reveal reveal-slide" data-reveal-delay="0.3">Let’s </span><span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.4">Count!</span>
 					</h2>
 
 					{/* Data Cards */}
@@ -688,7 +690,7 @@ export default function Home() {
 
 							{/* Content */}
 							<p>Ricardo is a meticulous web designer and manages to stay focused on the voice and needs of the client. He is an honest and hardworking team player - always willing to pitch in to help the team.</p>
-							<p>Ricardo's design skills, communication and openness to solving problems are all valuable traits. I really enjoyed working with him one-on-one or in a team.</p>
+							<p>Ricardo’s design skills, communication and openness to solving problems are all valuable traits. I really enjoyed working with him one-on-one or in a team.</p>
 							<p>Without hesitation, I highly recommend Ricardo for any design project.</p>
 
 							{/* CTA Button */}
@@ -721,8 +723,8 @@ export default function Home() {
 
 							{/* Content */}
 							<p>Ricardo is a pleasure to work with: prompt, consistently reliable, and just generally a nice guy.</p>
-							<p>He's able to provide both expert and well-researched UX guidance our team needs and designs unique and well-considered UI mocks. He's patient with our questions while walking us through the designs and happily responsive to collaborative design changes.</p>
-							<p>I don't see a reason that I'd look elsewhere.</p>
+							<p>He’s able to provide both expert and well-researched UX guidance our team needs and designs unique and well-considered UI mocks. He’s patient with our questions while walking us through the designs and happily responsive to collaborative design changes.</p>
+							<p>I don’t see a reason that I’d look elsewhere.</p>
 
 							{/* CTA Button */}
 							<ExternalLink href="https://www.linkedin.com/in/ricardozea/details/recommendations/ " className="review-link">
@@ -904,7 +906,7 @@ export default function Home() {
 														<h3>College Diploma</h3>
 														<h4>Fun Fact</h4>
 														<p>Yes, I used AI to partially create this image. However, the diploma IS REAL, lol.</p>
-														<p>I started with the original image of the diploma and used Figma's "Edit with prompt" to create the scene. I then used Affinity Photo to smack it over the frame.</p>
+														<p>I started with the original image of the diploma and used Figma’s "Edit with prompt" to create the scene. I then used Affinity Photo to smack it over the frame.</p>
 														<p>Why Affinity Photo you may ask? Remember I am 0% dependent on Adobe products? 😜</p>
 													</div>
 												</div>
@@ -955,14 +957,14 @@ export default function Home() {
 
 							<div className="about-bio">
 								<p className="reveal reveal-slide">Hey there!</p>
-								<p className="reveal reveal-slide">I'm Ricardo. I'm a Sr. Web & Product Designer. I've been in the design industry for more than 20 years.</p>
+								<p className="reveal reveal-slide">I’m Ricardo. I’m a Sr. Web & Product Designer. I’ve been in the design industry for more than 20 years.</p>
 								<div className="stage-container stage-card stage-card-red reveal reveal-slide">
 									<div className="stage-card-header">
 										<div className="stage-version">Stage 1 // Origins</div>
 									</div>
 									<div className="stage-card-body">
 										<p>Started my career in a small ad agency in Colombia called "Firma Publicitaria" doing print design.</p>
-										<p>It was a great technical and business learning experience, but I quickly realized that designing for print friggin' sucked, lol.</p>
+										<p>It was a great technical and business learning experience, but I quickly realized that designing for print friggin’ sucked, lol.</p>
 									</div>
 								</div>
 								<div className="stage-container stage-card stage-card-blue reveal reveal-slide">
@@ -983,11 +985,11 @@ export default function Home() {
 									</div>
 									<div className="stage-card-body">
 										<p>From the printing company, I went to software development company called "Netsac" as a web designer. On top of taking my first steps with HTML and CSS, I got really good at Flash and even became a teacher.</p>
-										<p>And that's how my Web Design career got going.</p>
+										<p>And that’s how my Web Design career got going.</p>
 									</div>
 								</div>
 								<p className="reveal reveal-slide">One major difference between myself and other designers, was that I was very technically knowledgeable.</p>
-								<p className="reveal reveal-slide">So I became very good at understanding the conditions, limitations, and powers of the web. I got really good at HTML and CSS, including Sass. Some people think I'm a developer, but I'm not.</p>
+								<p className="reveal reveal-slide">So I became very good at understanding the conditions, limitations, and powers of the web. I got really good at HTML and CSS, including Sass. Some people think I’m a developer, but I’m not.</p>
 								<p className="reveal reveal-slide">But I do know how to work closely with developers to ensure that high-quality products are built efficiently.</p>
 								<p className="reveal reveal-slide">Also, accessibility is a subject I care about. So I built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS.</p>
 								<p className="reveal reveal-slide">I also co-created <ExternalLink href="https://aspiremap.ai">AspireMap.ai</ExternalLink>, a B2C platform that helps students and career-changers find career paths aligned with their values, personality, aptitudes, and skills.</p>
@@ -1031,7 +1033,7 @@ export default function Home() {
 
 								{/* Description */}
 								<p>
-									In 2014 I got contacted by Packt Publishing to write a book for them. I said No, lol. In 2015 they contacted me again, and I was like <span className="personal-comment">"Damn, these guys are persistent! Hmmm, this is something I've never done before. Alright! F it! Let's do it!".</span> haha😂.
+									In 2014 I got contacted by Packt Publishing to write a book for them. I said No, lol. In 2015 they contacted me again, and I was like <span className="personal-comment">"Damn, these guys are persistent! Hmmm, this is something I’ve never done before. Alright! F it! Let’s do it!".</span> haha😂.
 								</p>
 								<p>Would I do it again? Nope!</p>
 
@@ -1087,7 +1089,7 @@ export default function Home() {
 							<div className="authoring-card-image">
 								<Image
 									src="/images/img-book-web-devs-ref-guide.png"
-									alt="Book: Web Developer's Reference Guide"
+									alt="Book: Web Developer’s Reference Guide"
 									width={392}
 									height={294}
 								/>
@@ -1096,7 +1098,7 @@ export default function Home() {
 							{/* Card Content */}
 							<div className="card-content">
 								<div className="flex flex-col gap-2">
-									<h3 className="mb-2">Web Developer's Reference Guide</h3>
+									<h3 className="mb-2">Web Developer’s Reference Guide</h3>
 
 									{/* Rating */}
 									<div className="rating-stars-container w-fit flex items-center gap-1 px-2">
@@ -1155,7 +1157,7 @@ export default function Home() {
 
 								{/* Description */}
 								<p>
-									…So I didn't want to let that ton of content sit in my drive, so I offered it to Smashing Magazine and Vitaly (Founder of SmashingMag) accepted it and published the chapter I wrote for the book as an article on Smashing Magazine.
+									…So I didn’t want to let that ton of content sit in my drive, so I offered it to Smashing Magazine and Vitaly (Founder of SmashingMag) accepted it and published the chapter I wrote for the book as an article on Smashing Magazine.
 								</p>
 
 								{/* Testimonial */}
@@ -1196,7 +1198,7 @@ export default function Home() {
 											height={40}
 										/> */}
 
-										<blockquote>"This is a superb article Ricardo, thank you for putting it together. I've been using a lot of these for a while but you've highlighted a few that are completely new to me."</blockquote>
+										<blockquote>"This is a superb article Ricardo, thank you for putting it together. I’ve been using a lot of these for a while but you’ve highlighted a few that are completely new to me."</blockquote>
 										{/* Quote Icon */}
 										<div className="quote-icon-container">
 											<Quotes className="red-quote-icon" size={32} weight="fill" />
