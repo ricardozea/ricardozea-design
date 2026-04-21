@@ -2548,6 +2548,8 @@ html.light .stage-card-header {
 		color: var(--text-brand-secondary);
 		font-size: var(--body-m);
 		text-align: center;
+		font-style: italic;
+		font-family: Calibri, sans-serif;
 	}
 }
 

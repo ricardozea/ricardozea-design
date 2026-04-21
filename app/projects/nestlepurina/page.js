@@ -302,10 +302,10 @@ export default function ProjectDetail() {
 								<div className="description-container">
 									<h4 className="reveal reveal-slide">Redesign</h4>
 									<p className="reveal reveal-slide">
-										I inherited this project from a prior designer. I then realized that there were multiple things I could do to make this map as good as possible:
+										I inherited this project. I immediately realized there were multiple things I could do to make this map WAY BETTER:
 									</p>
 									<ol className="reveal reveal-slide">
-										<li>Use the entire screen rather than a windowed map.</li>
+										<li>Use the entire viewport instead of a tiny area… it's a MAP bro!.</li>
 										<li>
 											Create a floating column to house all necessary filters.
 										</li>
