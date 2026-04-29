@@ -14,22 +14,18 @@ export default function Navigation() {
 
 	const navLinksContainerRef = useRef(null);
 	const activeNavLinkRef = useRef(null);
-	const [navIndicator, setNavIndicator] = useState({ x: 0, w: 0, visible: false, scaleX: 0.03125, scaleY: 0.03125 });
-	const indicatorSwapTimeoutRef = useRef(null);
+	const [navIndicator, setNavIndicator] = useState({ x: 0, w: 0, visible: false });
 	const [allowIndicatorMotion, setAllowIndicatorMotion] = useState(false);
-	const indicatorEnableMotionRafRef = useRef(null);
-	const indicatorHideTimeoutRef = useRef(null);
-	const indicatorVisibleRef = useRef(false);
 
 	const isAutoScrollingRef = useRef(false);
 	const scrollEndTimeoutRef = useRef(null);
 	const handleScrollRef = useRef(null);
+	const scrollYRef = useRef(0);
 
 	const logoSrc = (mounted && theme === 'light')
 		? "/images/logo-ricardo-zea-for-light.svg"
 		: "/images/logo-ricardo-zea-for-dark.svg";
-	// Prevent body scroll when menu is open
-	const scrollYRef = useRef(0);
+
 	const navItems = [
 		{ href: '#projects', label: 'Projects', targetId: 'projects' },
 		{ href: '#skills', label: 'Skills', targetId: 'skills' },
@@ -39,10 +35,6 @@ export default function Navigation() {
 		{ href: '#authoring', label: 'Writing', targetId: 'authoring' },
 		{ href: '#contact', label: 'Contact', targetId: 'contact' },
 	];
-
-	useEffect(() => {
-		indicatorVisibleRef.current = navIndicator.visible;
-	}, [navIndicator.visible]);
 
 	useEffect(() => {
 		const animationFrame = window.requestAnimationFrame(() => {
@@ -93,23 +85,29 @@ export default function Navigation() {
 			return;
 		}
 
-		const handleScroll = () => {
-			if (isAutoScrollingRef.current) return;
-
+		let cachedThreshold = 0;
+		const updateThreshold = () => {
 			const heroHeading = document.querySelector('h1.heading-hero.hero-title');
-			const threshold = heroHeading
+			cachedThreshold = heroHeading
 				? heroHeading.getBoundingClientRect().bottom + window.scrollY
 				: hero.offsetHeight;
-			setShowHomeLogo(window.scrollY >= threshold);
+		};
+
+		const handleScroll = () => {
+			if (isAutoScrollingRef.current) return;
+			setShowHomeLogo(window.scrollY >= cachedThreshold);
 		};
 
 		handleScrollRef.current = handleScroll;
 
+		updateThreshold();
 		handleScroll();
 		window.addEventListener('scroll', handleScroll, { passive: true });
+		window.addEventListener('resize', updateThreshold, { passive: true });
 
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', updateThreshold);
 			handleScrollRef.current = null;
 		};
 	}, [isHomePage]);
@@ -140,64 +138,58 @@ export default function Navigation() {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (!isHomePage || isMenuOpen) return;
+
+		const updateIndicatorOnScroll = () => {
+			if (isAutoScrollingRef.current) return;
+			if (window.__scrollingToTop) {
+				activeNavLinkRef.current = null;
+				setNavIndicator((prev) => ({ ...prev, visible: false }));
+				return;
+			}
+
+			if (window.scrollY < 100) {
+				activeNavLinkRef.current = null;
+				setNavIndicator((prev) => ({ ...prev, visible: false }));
+				return;
+			}
+
+			const scrollPos = window.scrollY + 150;
+
+			for (const item of navItems) {
+				const section = document.getElementById(item.targetId);
+				if (!section) continue;
+
+				const sectionTop = section.offsetTop;
+				const sectionBottom = sectionTop + section.offsetHeight;
+
+				if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+					const navLink = navLinksContainerRef.current?.querySelector(`a[href="#${item.targetId}"]`);
+					if (navLink && activeNavLinkRef.current !== navLink) {
+						activeNavLinkRef.current = navLink;
+						updateNavIndicator(navLink);
+					}
+					return;
+				}
+			}
+		};
+
+		window.addEventListener('scroll', updateIndicatorOnScroll, { passive: true });
+		return () => window.removeEventListener('scroll', updateIndicatorOnScroll);
+	}, [isHomePage, isMenuOpen]);
+
 	const updateNavIndicator = (el) => {
 		if (!navLinksContainerRef.current || !el) return;
+		activeNavLinkRef.current = el;
 		const containerRect = navLinksContainerRef.current.getBoundingClientRect();
 		const linkRect = el.getBoundingClientRect();
-
-		if (activeNavLinkRef.current === el) {
-			setNavIndicator((prev) => (prev.visible ? prev : {
-				...prev,
-				x: linkRect.left - containerRect.left,
-				w: linkRect.width,
-				visible: true,
-				scaleX: 0.03125,
-				scaleY: 0.03125,
-			}));
-			if (!indicatorVisibleRef.current) {
-				setAllowIndicatorMotion(false);
-				indicatorEnableMotionRafRef.current = requestAnimationFrame(() => {
-					indicatorEnableMotionRafRef.current = null;
-					setNavIndicator((prev) => ({ ...prev, scaleX: 1, scaleY: 1 }));
-					setAllowIndicatorMotion(true);
-				});
-			}
-			return;
-		}
-
-		const nextX = linkRect.left - containerRect.left;
-		const nextW = linkRect.width;
-
-		if (indicatorSwapTimeoutRef.current) {
-			clearTimeout(indicatorSwapTimeoutRef.current);
-			indicatorSwapTimeoutRef.current = null;
-		}
-
-		if (indicatorEnableMotionRafRef.current) {
-			cancelAnimationFrame(indicatorEnableMotionRafRef.current);
-			indicatorEnableMotionRafRef.current = null;
-		}
-
-		if (indicatorHideTimeoutRef.current) {
-			clearTimeout(indicatorHideTimeoutRef.current);
-			indicatorHideTimeoutRef.current = null;
-		}
-
-		activeNavLinkRef.current = el;
-
-		if (!indicatorVisibleRef.current) {
-			setAllowIndicatorMotion(false);
-			setNavIndicator({ x: nextX, w: nextW, visible: true, scaleX: 0.03125, scaleY: 0.03125 });
-			indicatorEnableMotionRafRef.current = requestAnimationFrame(() => {
-				indicatorEnableMotionRafRef.current = null;
-				setNavIndicator((prev) => ({ ...prev, scaleX: 1, scaleY: 1 }));
-				setAllowIndicatorMotion(true);
-			});
-			return;
-		}
-
+		setNavIndicator({
+			x: linkRect.left - containerRect.left,
+			w: linkRect.width,
+			visible: true,
+		});
 		setAllowIndicatorMotion(true);
-		setNavIndicator({ x: nextX, w: nextW, visible: true, scaleX: 1, scaleY: 1 });
 	};
 
 	useEffect(() => {
@@ -205,18 +197,6 @@ export default function Navigation() {
 		activeNavLinkRef.current = null;
 		setNavIndicator((prev) => ({ ...prev, visible: false }));
 		setAllowIndicatorMotion(false);
-		if (indicatorSwapTimeoutRef.current) {
-			clearTimeout(indicatorSwapTimeoutRef.current);
-			indicatorSwapTimeoutRef.current = null;
-		}
-		if (indicatorEnableMotionRafRef.current) {
-			cancelAnimationFrame(indicatorEnableMotionRafRef.current);
-			indicatorEnableMotionRafRef.current = null;
-		}
-		if (indicatorHideTimeoutRef.current) {
-			clearTimeout(indicatorHideTimeoutRef.current);
-			indicatorHideTimeoutRef.current = null;
-		}
 	}, [isMenuOpen]);
 
 	useEffect(() => {
@@ -231,51 +211,14 @@ export default function Navigation() {
 		return () => window.removeEventListener('resize', onResize);
 	}, [isMenuOpen, navIndicator.visible]);
 
-	const hideNavIndicator = () => {
-		if (indicatorSwapTimeoutRef.current) {
-			clearTimeout(indicatorSwapTimeoutRef.current);
-			indicatorSwapTimeoutRef.current = null;
-		}
-		if (indicatorEnableMotionRafRef.current) {
-			cancelAnimationFrame(indicatorEnableMotionRafRef.current);
-			indicatorEnableMotionRafRef.current = null;
-		}
-		if (indicatorHideTimeoutRef.current) {
-			clearTimeout(indicatorHideTimeoutRef.current);
-			indicatorHideTimeoutRef.current = null;
-		}
-
-		setAllowIndicatorMotion(true);
-		setNavIndicator((prev) => ({
-			...prev,
-			scaleX: 0.03125,
-			scaleY: 0.03125,
-		}));
-
-		indicatorHideTimeoutRef.current = setTimeout(() => {
-			indicatorHideTimeoutRef.current = null;
-			activeNavLinkRef.current = null;
-			setAllowIndicatorMotion(false);
-			setNavIndicator((prev) => ({ ...prev, visible: false, scaleX: 0.03125, scaleY: 0.03125 }));
-		}, 250);
-	};
-
-	const handleNavLinksMouseMove = (e) => {
-		const item = e.target?.closest?.('a, .theme-switcher');
-		if (item && navLinksContainerRef.current?.contains(item)) {
-			updateNavIndicator(item);
-			return;
-		}
-		hideNavIndicator();
-	};
 
 	const handleNavClick = (targetId) => {
-		setIsMenuOpen(false);
-
 		if (targetId !== 'home') {
 			isAutoScrollingRef.current = true;
 			setShowHomeLogo(true);
 		}
+
+		setIsMenuOpen(false);
 
 		// If not on homepage, navigate to homepage with hash
 		if (!isHomePage) {
@@ -316,6 +259,10 @@ export default function Navigation() {
 		e.preventDefault();
 		scrollYRef.current = 0;
 		setIsMenuOpen(false);
+		activeNavLinkRef.current = null;
+		setNavIndicator({ x: 0, w: 0, visible: false });
+		setAllowIndicatorMotion(false);
+		isAutoScrollingRef.current = true;
 		window.history.pushState(null, '', '/');
 		setTimeout(() => {
 			window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -329,8 +276,7 @@ export default function Navigation() {
 	return (
 		<div className="navbar-wrapper">
 			<nav
-				className={`main-nav-container ${isHomePage ? "home" : ""} ${isHomePage && showHomeLogo ? "show-home-logo" : ""
-					} ${isMenuOpen ? "menu-open" : ""}`}
+				className={`main-nav-container ${isHomePage ? "home" : ""} ${isHomePage && showHomeLogo ? "show-home-logo" : ""} ${isMenuOpen ? "menu-open" : ""}`}
 			>
 				<div className="nav-inner-container">
 					<a
@@ -347,7 +293,6 @@ export default function Navigation() {
 						/>
 					</a>
 
-					{/* Hamburger Menu Button */}
 					<button
 						className="hamburger-btn"
 						onClick={toggleMenu}
@@ -362,8 +307,6 @@ export default function Navigation() {
 					<div
 						className={`nav-links-container${hasMountedNav ? ' nav-mounted' : ''}`}
 						ref={navLinksContainerRef}
-						onMouseMove={handleNavLinksMouseMove}
-						onMouseLeave={hideNavIndicator}
 					>
 						<span
 							className={`nav-hover-indicator${allowIndicatorMotion ? ' is-motion' : ''}`}
@@ -371,9 +314,11 @@ export default function Navigation() {
 							style={{
 								'--nav-indicator-x': `${navIndicator.x}px`,
 								'--nav-indicator-w': `${navIndicator.w}px`,
-								'--nav-indicator-scale-x': navIndicator.visible ? navIndicator.scaleX : 0.03125,
-								'--nav-indicator-scale-y': navIndicator.visible ? navIndicator.scaleY : 0.03125,
+								'--nav-indicator-scale-x': 1,
+								'--nav-indicator-scale-y': 1,
 								opacity: navIndicator.visible ? 1 : 0,
+								pointerEvents: navIndicator.visible ? 'auto' : 'none',
+								display: navIndicator.visible ? 'block' : 'none',
 							}}
 						/>
 						{navItems.map((item, index) => (
@@ -384,7 +329,6 @@ export default function Navigation() {
 								style={{ '--nav-item-index': index }}
 								onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
 								onFocus={(e) => updateNavIndicator(e.currentTarget)}
-								onBlur={hideNavIndicator}
 								onClick={(e) => {
 									e.preventDefault();
 									handleNavClick(item.targetId);
@@ -399,7 +343,6 @@ export default function Navigation() {
 							onToggle={() => setIsMenuOpen(false)}
 							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
 							onFocus={(e) => updateNavIndicator(e.currentTarget)}
-							onBlur={hideNavIndicator}
 						/>
 					</div>
 				</div>

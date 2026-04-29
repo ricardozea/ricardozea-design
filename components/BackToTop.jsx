@@ -44,8 +44,9 @@ export default function BackToTop() {
     path.style.transition = path.style.WebkitTransition = 'none';
     path.style.strokeDasharray = `${pathLength} ${pathLength}`;
     path.style.strokeDashoffset = pathLength;
-    path.getBoundingClientRect();
-    path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
+    requestAnimationFrame(() => {
+      path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
+    });
 
     const update = () => {
       const scroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -77,7 +78,11 @@ export default function BackToTop() {
 
   const handleClick = (e) => {
     e.preventDefault();
+    window.__scrollingToTop = true;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.__scrollingToTop = false;
+    }, 1000);
   };
 
   return (
