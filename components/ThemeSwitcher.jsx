@@ -51,14 +51,27 @@ export function ThemeProvider({ children }) {
 export function ThemeStylesheet() {
 	const { theme, mounted } = useContext(ThemeContext);
 
-	return (
-		<link
-			rel="stylesheet"
-			href={`/css/color-tokens-${mounted ? theme : 'dark'}-mode.css`}
-			data-theme={mounted ? theme : 'dark'}
-			suppressHydrationWarning
-		/>
-	);
+	useEffect(() => {
+		// Load theme CSS dynamically to avoid blocking render
+		const themeToLoad = mounted ? theme : 'dark';
+		const link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = `/css/color-tokens-${themeToLoad}-mode.css`;
+		link.dataset.theme = themeToLoad;
+		document.head.appendChild(link);
+
+		return () => {
+			// Clean up old theme stylesheet when theme changes
+			const oldLinks = document.querySelectorAll('link[data-theme]');
+			oldLinks.forEach(oldLink => {
+				if (oldLink.dataset.theme !== themeToLoad) {
+					oldLink.remove();
+				}
+			});
+		};
+	}, [theme, mounted]);
+
+	return null;
 }
 
 // Component for theme toggle button - to be used in body
