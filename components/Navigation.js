@@ -343,6 +343,7 @@ export default function Navigation() {
 							src={logoSrc}
 							alt="Ricardo Zea Logo"
 							className="object-contain drop-shadow-lg"
+							fetchPriority="high"
 						/>
 					</a>
 
