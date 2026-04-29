@@ -9,7 +9,7 @@ import {
 	CodeIcon,
 	PencilRuler,
 	PencilLine,
-	Tag,
+	MagicWandIcon,
 	UsersThree,
 } from "@phosphor-icons/react/ssr";
 
@@ -44,7 +44,7 @@ export default function ProjectDetail() {
 
 							{/* Project Meta */}
 							<div className="project-description project-meta-container flex flex-col gap-3">
-								<h2 className="">Project Metadata</h2>
+								<h2 className="">Project at a glance</h2>
 								<div className="meta-item">
 									<CalendarStar
 										size={24}
@@ -87,7 +87,7 @@ export default function ProjectDetail() {
 										className="icon-accent-blue-subtle shrink-0"
 									/>
 									<div>
-										<span className="meta-label mr-1">Role:</span>
+										<span className="meta-label mr-1">My Role:</span>
 										<span className="meta-value">Lead Designer</span>
 									</div>
 								</div>
@@ -98,7 +98,7 @@ export default function ProjectDetail() {
 										className="icon-accent-blue-subtle shrink-0"
 									/>
 									<div>
-										<span className="meta-label mr-1">Tools:</span>
+										<span className="meta-label mr-1">Skills & Tools:</span>
 										<span className="meta-value">Figma</span>
 									</div>
 								</div>

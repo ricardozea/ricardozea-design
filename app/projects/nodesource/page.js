@@ -6,6 +6,7 @@ import DynamicFrame from "@/components/DynamicFrame";
 import ProjectImage from "@/components/ProjectImage";
 import { useState } from 'react';
 import { ExternalLink } from "@/components/ExternalLink";
+import ColoredParticles from "@/components/ColoredParticles";
 import {
 	ArrowLeft,
 	ArrowRight,
@@ -14,7 +15,7 @@ import {
 	Info,
 	PencilLine,
 	PencilRuler,
-	Tag,
+	MagicWandIcon,
 	UsersThree,
 } from '@phosphor-icons/react/ssr';
 
@@ -54,11 +55,11 @@ export default function ProjectDetail() {
 
 							{/* Project Meta */}
 							<div className="project-description project-meta-container flex flex-col gap-3">
-								<h2 className="reveal reveal-slide">Project Metadata</h2>
+								<h2 className="reveal reveal-slide">Project at a glance</h2>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.1">
 									<PencilLine size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
 									<div>
-										<span className="meta-label mr-1">Role:</span>
+										<span className="meta-label mr-1">My Role:</span>
 										<span className="meta-value">Sr. Web & Product Designer</span>
 									</div>
 								</div>
@@ -95,14 +96,14 @@ export default function ProjectDetail() {
 									</div>
 								</div>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.6">
-									<Tag
+									<MagicWandIcon
 										size={24}
 										weight="regular"
 										className="icon-accent-blue-subtle shrink-0 rotate-y-180"
 									/>
 									<div>
-										<span className="meta-label mr-1">Tags:</span>
-										<span className="meta-value">Design Systems, Product Design, Accessibility, Figma, AI (Midjourney), CodePen (HTML + CSS), Prototyping, Frontend</span>
+										<span className="meta-label mr-1">Skills:</span>
+										<span className="meta-value">Design Systems, Product Design, Accessibility, Prototyping, Frontend Design</span>
 									</div>
 								</div>
 							</div>
@@ -279,7 +280,7 @@ export default function ProjectDetail() {
 									</p>
 
 									<p className="reveal reveal-slide">
-										When I inherited the NodeSource project, I was given the "Source Sans Pro" typeface. RED FLAG! 🚩. Why?
+										When I inherited the NodeSource project, I was given the <span className="highlighted-text">Source Sans Pro</span> typeface. RED FLAG! 🚩. Why?
 									</p>
 									<ol className="reveal reveal-slide">
 										<li>Performance:
@@ -295,7 +296,7 @@ export default function ProjectDetail() {
 										What a P.I.A. 🫏
 									</p>
 									<p className="reveal reveal-slide">
-										So, guess what I did? Went to Google Fonts! And lo and behold, there was the almighty "Source Sans 3" 🥳. All kinds of "wins":
+										So, I went to Google Fonts and lo and behold, there was the almighty <span className="highlighted-text">Source Sans 3</span> 🥳.
 									</p>
 									<ol className="reveal reveal-slide">
 										<li>Performance:
@@ -307,12 +308,18 @@ export default function ProjectDetail() {
 										<li>No headaches: Didn't have to deal with TTF, OTF, and WOFF files.</li>
 									</ol>
 									<p className="reveal reveal-slide">
-										And for the monospaced font, NodeSource was already using "Source Code Pro" which is also on Google Fonts, lol. 👍🏽
+										And for the monospaced font, NodeSource was already using <span className="highlighted-text">Source Code Pro</span> which is also on Google Fonts, lol. 👍🏽
 									</p>
-									<h4 className="reveal reveal-slide">Fun fact</h4>
-									<p className="reveal reveal-slide">
-										All fonts, Source Sans Pro, Source Sans 3, and Source Code Pro are created by the same designer, Paul D. Hunt. HA! (that sounded funny in my head, not so much here, lol).
-									</p>
+									<div className="fun-fact-container reveal reveal-slide">
+										<h4 className="reveal reveal-slide">Fun fact 🤡</h4>
+										<p className="reveal reveal-slide">
+											All fonts, <span className="underline">Source Sans Pro</span>, <span className="underline">Source Sans 3</span>, and <span className="underline">Source Code Pro</span> were created by the same designer, Paul D. Hunt.
+										</p>
+										<p>
+											…🤔 That sounded cool in my head, not so much here, lol.
+										</p>
+										<ColoredParticles />
+									</div>
 									<h4 className="reveal reveal-slide">Modular Scale, WTF is that?</h4>
 									<p className="reveal reveal-slide">
 										A modular scale is a bunch of numbers/values that are harmonious with each other. These numbers can be used for typography, spacing, margins, line-heights, etc.
@@ -323,9 +330,10 @@ export default function ProjectDetail() {
 									<h4 className="reveal reveal-slide">Bro, why didn't you use the 8pt grid system?</h4>
 									<p className="reveal reveal-slide"> Because:</p>
 									<ol className="reveal reveal-slide">
-										<li>Every single designer in the planet uses that damn 8pt grid system, lol.</li>
+										<li>Every single designer on the planet uses that damn 8pt grid system. It makes them feel warm inside and look cool in front of their bosses. That's stupid… even though, I admitedly, also feel warm inside when using it 😁.</li>
 										<li>The Modular Scale app provides all font sizes in <code>em</code>, which is much more useful for developers.</li>
 									</ol>
+									<p className="reveal reveal-slide">Or are you on the <code>rem</code> team? 😒… Bah, you don't even know what you're talking about, lol.</p>
 									<hr className="reveal reveal-slide" />
 									<p className="reveal reveal-slide">
 										Aaaaaaaaaanyway, check out the screenshot for the Typography System from Figma below 👇🏽:

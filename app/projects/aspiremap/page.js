@@ -24,27 +24,35 @@ export default function ProjectDetail() {
 					<div className="project-hero-container max-w-[1200px] mx-auto">
 						{/* Project Title */}
 						<h1 className="heading-hero project-title mb-12">
-							Project <span className="text-brand-primary">AspireMap</span>
+							<span className="text-brand-primary inline-block reveal reveal-slide" data-reveal-delay="0">UX</span> <span className="inline-block reveal reveal-slide" data-reveal-delay="0.1">and</span> <span className="text-brand-secondary inline-block reveal reveal-slide" data-reveal-delay="0.2">AI</span> <span className="inline-block reveal reveal-slide" data-reveal-delay="0.3">Skills</span>
 						</h1>
 
 						<div className="meta-data-container">
 							{/* Project Description */}
 							<div className="project-description">
-								<h2>Project Description</h2>
-								<p className="text-description">
-									This is where you'll describe the project in detail. Explain
-									the challenge, the solution, and the impact.
+								<h2 className="reveal reveal-slide">Project Description</h2>
+								<p className="text-description reveal reveal-slide">
+									AspireMap is a personal project. With the help of AI, this product helps students and career changers find their career path.
 								</p>
-								<ul className="text-description">
-									<li>Key Feature 1.</li>
-									<li>Key Feature 2.</li>
-									<li>Key Feature 3.</li>
-								</ul>
+								<p className="reveal reveal-slide">
+									In a world where everyone has made some kind of AI-powered product, this one is mine 😁. The technical and psychology sides are handled by two great friends, a dev and a psychologist. I am in charge of all design aspects including UX, interaction design, video, branding, etc.
+								</p>
 							</div>
 
 							{/* Project Meta */}
 							<div className="project-description project-meta-container flex flex-col gap-3">
-								<h2 className="">Project Metadata</h2>
+								<h2 className="reveal reveal-slide">Project at a glance</h2>
+								<div className="meta-item">
+									<PencilLine
+										size={24}
+										weight="regular"
+										className="icon-accent-blue-subtle shrink-0"
+									/>
+									<div>
+										<span className="meta-label mr-1">My Role:</span>
+										<span className="meta-value">Lead Product Designer</span>
+									</div>
+								</div>
 								<div className="meta-item">
 									<CalendarStar
 										size={24}
@@ -53,7 +61,7 @@ export default function ProjectDetail() {
 									/>
 									<div>
 										<span className="meta-label mr-1">Year:</span>
-										<span className="meta-value">2024</span>
+										<span className="meta-value">2024 - Current</span>
 									</div>
 								</div>
 								<div className="meta-item">
@@ -63,8 +71,8 @@ export default function ProjectDetail() {
 										className="icon-accent-blue-subtle shrink-0"
 									/>
 									<div>
-										<span className="meta-label mr-1">Duration:</span>
-										<span className="meta-value">X months</span>
+										<span className="meta-label mr-1">Launched:</span>
+										<span className="meta-value">Dec. 2024</span>
 									</div>
 								</div>
 								<div className="meta-item">
@@ -76,19 +84,8 @@ export default function ProjectDetail() {
 									<div>
 										<span className="meta-label mr-1">Team Size:</span>
 										<span className="meta-value">
-											1 Designer, Developers, PM
+											1 Designer, 1 Developer, 1 Psychologist
 										</span>
-									</div>
-								</div>
-								<div className="meta-item">
-									<PencilLine
-										size={24}
-										weight="regular"
-										className="icon-accent-blue-subtle shrink-0"
-									/>
-									<div>
-										<span className="meta-label mr-1">Role:</span>
-										<span className="meta-value">Lead Designer</span>
 									</div>
 								</div>
 								<div className="meta-item">
@@ -99,18 +96,18 @@ export default function ProjectDetail() {
 									/>
 									<div>
 										<span className="meta-label mr-1">Tools:</span>
-										<span className="meta-value">Figma</span>
+										<span className="meta-value">Figma, Canva, Gemini, ChatGPT, Midjourney, Dora AI, UXPressia, Versive, Lovable, Magic Patterns, Windsurf</span>
 									</div>
 								</div>
-								<div className="meta-item">
-									<CodeIcon
+								<div className="meta-item xreveal xreveal-slide" data-reveal-delay="0.6">
+									<Tag
 										size={24}
 										weight="regular"
-										className="icon-accent-blue-subtle shrink-0"
+										className="icon-accent-blue-subtle shrink-0 rotate-y-180"
 									/>
 									<div>
-										<span className="meta-label mr-1">Technologies:</span>
-										<span className="meta-value">HTML and CSS</span>
+										<span className="meta-label mr-1">Skills:</span>
+										<span className="meta-value">Product Design, UX Design, Personas, Accessibility</span>
 									</div>
 								</div>
 							</div>

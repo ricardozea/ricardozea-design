@@ -6,6 +6,7 @@ import RevealController from "../components/RevealController";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import BackToTop from "../components/BackToTop";
+import ProjectPageBodyClass from "../components/ProjectPageBodyClass";
 
 const robotoFlex = Roboto_Flex({
 	subsets: ["latin"],
@@ -137,6 +138,7 @@ export default function RootLayout({ children }) {
 					className={`${robotoFlex.variable} ${alanSans.variable} antialiased homepage`}
 					suppressHydrationWarning
 				>
+					<ProjectPageBodyClass />
 					<a
 						href="#start-content"
 						className="skip-to-content"

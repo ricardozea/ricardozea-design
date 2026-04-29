@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { useState, useContext, useEffect, useRef } from "react";
 import { ThemeToggle, ThemeContext } from "./ThemeSwitcher";
 
@@ -340,16 +339,11 @@ export default function Navigation() {
 						onClick={handleHomeClick}
 						tabIndex={-1}
 					>
-						<div className="relative w-full h-full">
-							<Image
-								src={logoSrc}
-								alt="Ricardo Zea Logo"
-								fill
-								sizes="(max-width: 768px) 40px, 50px"
-								className="object-contain drop-shadow-lg"
-								priority
-							/>
-						</div>
+						<img
+							src={logoSrc}
+							alt="Ricardo Zea Logo"
+							className="object-contain drop-shadow-lg"
+						/>
 					</a>
 
 					{/* Hamburger Menu Button */}

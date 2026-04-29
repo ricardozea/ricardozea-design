@@ -4,6 +4,9 @@
     --body-bg: var(--bg-persistent-secondary-brand);
     --body-color: var(--text-persistent-light);
 
+    /* Project Page Styles */
+    --project-page-bg: var(--dark-gray-50);
+
     /* Background Variables */
     --bg-accent-blue: var(--dark-blue-400);
     --bg-accent-blue-active-persistent: var(--dark-blue-600);

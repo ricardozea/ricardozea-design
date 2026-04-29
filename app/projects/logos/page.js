@@ -61,7 +61,7 @@ export default function ProjectDetail() {
                 <div className="meta-item">
                   <PencilLine size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
                   <div>
-                    <span className="meta-label mr-1">Role:</span>
+                    <span className="meta-label mr-1">My Role:</span>
                     <span className="meta-value">Lead Designer</span>
                   </div>
                 </div>

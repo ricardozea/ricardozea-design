@@ -4,8 +4,6 @@ import DynamicFrame from "@/components/DynamicFrame";
 import ProjectImage from "@/components/ProjectImage";
 import { ExternalLink } from "@/components/ExternalLink";
 import {
-	ArrowLeft,
-	ArrowRight,
 	CalendarDots,
 	CalendarStar,
 	Check,
@@ -13,7 +11,7 @@ import {
 	HandsPraying,
 	PencilLine,
 	PencilRuler,
-	Tag,
+	MagicWandIcon,
 	UsersThree,
 } from "@phosphor-icons/react/ssr";
 
@@ -48,7 +46,7 @@ export default function ProjectDetail() {
 
 							{/* Project Meta */}
 							<div className="project-description project-meta-container flex flex-col gap-3">
-								<h2 className="reveal reveal-slide">Project Metadata</h2>
+								<h2 className="reveal reveal-slide">Project at a glance</h2>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.1">
 									<PencilLine
 										size={24}
@@ -56,7 +54,7 @@ export default function ProjectDetail() {
 										className="icon-accent-blue-subtle shrink-0"
 									/>
 									<div>
-										<span className="meta-label mr-1">Role:</span>
+										<span className="meta-label mr-1">My Role:</span>
 										<span className="meta-value">
 											Sr. Specialist UX/UI Designer
 										</span>
@@ -123,14 +121,14 @@ export default function ProjectDetail() {
 									</div>
 								</div>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.7">
-									<Tag
+									<MagicWandIcon
 										size={24}
 										weight="regular"
 										className="icon-accent-blue-subtle shrink-0 rotate-y-180"
 									/>
 									<div>
-										<span className="meta-label mr-1">Tags:</span>
-										<span className="meta-value">Figma, UX/UI Design, HTML & CSS, CodePen (HTML + CSS), Prototyping, Branding, Information Architecture, <abbr title="Responsive Web Design">RWD</abbr>, Interaction Design, Usability</span>
+										<span className="meta-label mr-1">Skills:</span>
+										<span className="meta-value">UX/UI Design, HTML & CSS, Prototyping, Branding, Information Architecture, <abbr title="Responsive Web Design">RWD</abbr>, Interaction Design, Usability</span>
 									</div>
 								</div>
 							</div>

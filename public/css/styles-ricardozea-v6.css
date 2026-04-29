@@ -83,6 +83,10 @@ body {
 	overflow-x: hidden;
 }
 
+body.project-page {
+	background-color: var(--project-page-bg);
+}
+
 hr {
 	max-width: 1400px;
 	margin: 2rem auto;
@@ -1429,9 +1433,9 @@ p.text-description:first-of-type {
 	font-weight: 200;
 }
 
-.section-title-light {
+/* .section-title-light {
 	color: var(--text-persistent-light);
-}
+} */
 
 .text-brand-primary {
 	color: var(--text-brand-primary);
@@ -2474,6 +2478,79 @@ html.light .stage-card-header {
 	color: var(--text-subtle);
 	text-align: center;
 	margin: 0;
+}
+
+@keyframes cycleBorderColors {
+	0% {
+		border-image-source: linear-gradient(
+			135deg,
+			var(--dark-red-500) 0%,
+			var(--dark-blue-500) 33%,
+			var(--dark-green-500) 66%,
+			var(--dark-yellow-500) 100%
+		);
+	}
+	25% {
+		border-image-source: linear-gradient(
+			135deg,
+			var(--dark-blue-500) 0%,
+			var(--dark-green-500) 33%,
+			var(--dark-yellow-500) 66%,
+			var(--dark-red-500) 100%
+		);
+	}
+	50% {
+		border-image-source: linear-gradient(
+			135deg,
+			var(--dark-green-500) 0%,
+			var(--dark-yellow-500) 33%,
+			var(--dark-red-500) 66%,
+			var(--dark-blue-500) 100%
+		);
+	}
+	75% {
+		border-image-source: linear-gradient(
+			135deg,
+			var(--dark-yellow-500) 0%,
+			var(--dark-red-500) 33%,
+			var(--dark-blue-500) 66%,
+			var(--dark-green-500) 100%
+		);
+	}
+	100% {
+		border-image-source: linear-gradient(
+			135deg,
+			var(--dark-red-500) 0%,
+			var(--dark-blue-500) 33%,
+			var(--dark-green-500) 66%,
+			var(--dark-yellow-500) 100%
+		);
+	}
+}
+
+.fun-fact-container {
+	position: relative;
+	padding: 5rem;
+	margin-bottom: 1rem;
+	border-radius: var(--corner-m);
+	overflow: hidden;
+	mask-image: radial-gradient(ellipse at center, black 30%, transparent 100%);
+	border: 1px solid;
+	border-image: linear-gradient(
+		135deg,
+		var(--dark-red-500) 0%,
+		var(--dark-blue-500) 33%,
+		var(--dark-green-500) 66%,
+		var(--dark-yellow-500) 100%
+	) 1;
+	animation: cycleBorderColors 6s linear infinite;
+
+	h4, p {
+		pointer-events: none;
+		position: relative;
+		z-index: 1;
+		font-weight: 400;
+	}
 }
 
 /* Project Images */
