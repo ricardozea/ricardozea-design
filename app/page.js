@@ -988,10 +988,12 @@ export default function Home() {
 										<p>And that’s how my Web Design career got going.</p>
 									</div>
 								</div>
-								<p className="reveal reveal-slide">One major difference between myself and other designers, was that I was very technically knowledgeable.</p>
-								<p className="reveal reveal-slide">So I became very good at understanding the conditions, limitations, and powers of the web. I got really good at HTML and CSS, including Sass. Some people think I’m a developer, but I’m not.</p>
-								<p className="reveal reveal-slide">But I do know how to work closely with developers to ensure that high-quality products are built efficiently.</p>
-								<p className="reveal reveal-slide">Also, accessibility is a subject I care about. So I built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS.</p>
+								<h3 className="reveal reveal-slide text-brand-primary">What made me different from all other designers?</h3>
+								<p className="reveal reveal-slide">My superb technical knowledge. This applied to print and web design.</p>
+								<p className="reveal reveal-slide">I became very good at understanding the conditions, limitations, and powers of the web and print. In the web design front, I got really good at HTML and CSS, including Sass. To the point that some people have thought, and still think, I’m a developer, lol. But I’m not. I am first and foremost, a Designer.</p>
+								<p className="reveal reveal-slide">Devs enjoy working with me because I give them designs and builds that actually make damn sense, hehe.</p>
+								<h3 className="reveal reveal-slide text-brand-secondary">Other noticeable projects</h3>
+								<p className="reveal reveal-slide">Accessibility is a subject I care a lot about. So I built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS. Not even Claude can do it this fast! 😎 </p>
 								<p className="reveal reveal-slide">I also co-created <ExternalLink href="https://aspiremap.ai">AspireMap.ai</ExternalLink>, a B2C platform that helps students and career-changers find career paths aligned with their values, personality, aptitudes, and skills.</p>
 							</div>
 						</div>
