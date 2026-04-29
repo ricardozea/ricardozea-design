@@ -316,7 +316,7 @@ export default function ProjectDetail() {
 											All fonts, <span className="underline">Source Sans Pro</span>, <span className="underline">Source Sans 3</span>, and <span className="underline">Source Code Pro</span> were created by the same designer, Paul D. Hunt.
 										</p>
 										<p>
-											…🤔 That sounded cool in my head, not so much here, lol.
+											…🤔 Hmm… That sounded cool in my head, not so much here, lol.
 										</p>
 										<ColoredParticles />
 									</div>
