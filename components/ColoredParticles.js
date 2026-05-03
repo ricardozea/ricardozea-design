@@ -221,13 +221,33 @@ function Lines({ mouseRef }) {
 export default function ColoredLinesAnimation() {
 	const containerRef = useRef(null);
 	const mouseRef = useRef({ x: 9999, y: 9999 });
+	const containerRectRef = useRef(null);
 
 	useEffect(() => {
 		const container = containerRef.current;
 		if (!container) return;
 
+		const updateContainerRect = () => {
+			containerRectRef.current = container.getBoundingClientRect();
+			return containerRectRef.current;
+		};
+
 		const handleMouseMove = (e) => {
-			const rect = container.getBoundingClientRect();
+			const rect = containerRectRef.current ?? updateContainerRect();
+			if (!rect) return;
+			if (rect.width === 0 || rect.height === 0) {
+				const nextRect = updateContainerRect();
+				if (!nextRect || nextRect.width === 0 || nextRect.height === 0) return;
+				const x = e.clientX - nextRect.left;
+				const y = e.clientY - nextRect.top;
+
+				const normalizedX = (x / nextRect.width) * 2 - 1;
+				const normalizedY = -(y / nextRect.height) * 2 + 1;
+
+				mouseRef.current.x = normalizedX * SETTINGS.spreadRadius * 0.8;
+				mouseRef.current.y = normalizedY * SETTINGS.spreadRadius * 0.8;
+				return;
+			}
 			const x = e.clientX - rect.left;
 			const y = e.clientY - rect.top;
 
@@ -241,7 +261,7 @@ export default function ColoredLinesAnimation() {
 		};
 
 		const handleMouseEnter = () => {
-			// Mouse is inside - rotation will stop
+			updateContainerRect();
 		};
 
 		const handleMouseLeave = () => {
@@ -249,14 +269,17 @@ export default function ColoredLinesAnimation() {
 			mouseRef.current.y = 9999;
 		};
 
+		updateContainerRect();
 		container.addEventListener('mousemove', handleMouseMove);
 		container.addEventListener('mouseenter', handleMouseEnter);
 		container.addEventListener('mouseleave', handleMouseLeave);
+		window.addEventListener('resize', updateContainerRect, { passive: true });
 
 		return () => {
 			container.removeEventListener('mousemove', handleMouseMove);
 			container.removeEventListener('mouseenter', handleMouseEnter);
 			container.removeEventListener('mouseleave', handleMouseLeave);
+			window.removeEventListener('resize', updateContainerRect);
 		};
 	}, []);
 
