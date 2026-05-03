@@ -41,71 +41,45 @@ export default function RevealController() {
       });
     });
 
-    let ticking = false;
+    const nonHeroElements = elements.filter((el) => !heroElements.includes(el));
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+          const hasClipNone = el.classList.contains('clip-none');
 
-    const evalVisibility = () => {
-      const viewportH = window.innerHeight || 0;
-      const bottomTrigger = 100; // reveal/re-reveal when within 100px of bottom
-      const revealThreshold = Math.max(0, viewportH - bottomTrigger);
-      const hideThreshold = viewportH + bottomTrigger;
+          if (entry.isIntersecting) {
+            el.classList.add('is-revealed');
+            if (hasClipNone) el.style.clipPath = 'none';
+            return;
+          }
 
-      elements.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const hasClipNone = el.classList.contains('clip-none');
+          if (entry.boundingClientRect.bottom < 0) {
+            el.classList.add('is-revealed');
+            if (hasClipNone) el.style.clipPath = 'none';
+            return;
+          }
 
-        // Hero elements: keep revealed and skip state changes
-        if (heroElements.includes(el)) {
-          el.classList.add('is-revealed');
-          if (hasClipNone) el.style.clipPath = 'none';
-          return;
-        }
+          if (entry.boundingClientRect.top > (window.innerHeight || 0) + 100) {
+            el.classList.remove('is-revealed');
+            if (hasClipNone) el.style.clipPath = '';
+            return;
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px 0px 100px 0px',
+        threshold: 0,
+      }
+    );
 
-        if (rect.bottom < 0) {
-          // Above viewport: stay revealed
-          el.classList.add('is-revealed');
-          if (hasClipNone) el.style.clipPath = 'none';
-          return;
-        }
-
-        if (rect.top > hideThreshold) {
-          // Fully below past the buffer: hide until it approaches again
-          el.classList.remove('is-revealed');
-          if (hasClipNone) el.style.clipPath = '';
-          return;
-        }
-
-        if (rect.top <= revealThreshold) {
-          // At or near viewport (within 100px of bottom) or inside it: reveal
-          el.classList.add('is-revealed');
-          if (hasClipNone) el.style.clipPath = 'none';
-          return;
-        }
-        // Otherwise (far below but within buffer), hide explicitly
-        el.classList.remove('is-revealed');
-        if (hasClipNone) el.style.clipPath = '';
-      });
-    };
-
-    const requestEval = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        evalVisibility();
-        ticking = false;
-      });
-    };
-
-    // Initial evaluation
-    evalVisibility();
-
-    window.addEventListener('scroll', requestEval, { passive: true });
-    window.addEventListener('resize', requestEval, { passive: true });
-    window.addEventListener('orientationchange', requestEval, { passive: true });
+    nonHeroElements.forEach((el) => {
+      revealObserver.observe(el);
+    });
 
     return () => {
-      window.removeEventListener('scroll', requestEval);
-      window.removeEventListener('resize', requestEval);
-      window.removeEventListener('orientationchange', requestEval);
+      revealObserver.disconnect();
     };
   }, []);
 
