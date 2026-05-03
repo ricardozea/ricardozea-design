@@ -699,8 +699,21 @@ function AboutImageTransitionTolexiaInner({ className = "" }) {
 
 		if (containerRef.current) observer.observe(containerRef.current);
 
+		const syncVisibility = () => {
+			if (!containerRef.current) return;
+			const rect = containerRef.current.getBoundingClientRect();
+			const visible = rect.bottom > -200 && rect.top < window.innerHeight + 200;
+			setInView(visible);
+		};
+
+		window.addEventListener('scroll', syncVisibility, { passive: true });
+		window.addEventListener('resize', syncVisibility);
+		syncVisibility();
+
 		return () => {
 			observer.disconnect();
+			window.removeEventListener('scroll', syncVisibility);
+			window.removeEventListener('resize', syncVisibility);
 		};
 	}, []);
 

@@ -7,7 +7,6 @@ export default function DynamicFrame({ children, resizable = false }) {
 	const [width, setWidth] = useState(100); // percentage
 	const containerRef = useRef(null);
 	const isDragging = useRef(false);
-	const dragBoundsRef = useRef(null);
 	const [isInteractable, setIsInteractable] = useState(true); // To control iframe pointer-events
 
 	useEffect(() => {
@@ -19,8 +18,10 @@ export default function DynamicFrame({ children, resizable = false }) {
 			const container = containerRef.current;
 			if (!container) return;
 
-			const parentRect = dragBoundsRef.current;
-			if (!parentRect) return;
+			const parent = container.parentElement;
+			if (!parent) return;
+
+			const parentRect = parent.getBoundingClientRect();
 
 			// Calculate width based on center alignment since we're using margin: auto
 			// Distance from center of parent to mouse position * 2
@@ -41,7 +42,6 @@ export default function DynamicFrame({ children, resizable = false }) {
 		const handleMouseUp = () => {
 			if (isDragging.current) {
 				isDragging.current = false;
-				dragBoundsRef.current = null;
 				setIsInteractable(true); // Re-enable iframe interaction
 				document.body.style.cursor = 'default';
 				document.body.style.userSelect = 'auto';
@@ -59,10 +59,6 @@ export default function DynamicFrame({ children, resizable = false }) {
 
 	const handleMouseDown = (e) => {
 		e.preventDefault();
-		const container = containerRef.current;
-		const parent = container?.parentElement;
-		if (!parent) return;
-		dragBoundsRef.current = parent.getBoundingClientRect();
 		isDragging.current = true;
 		setIsInteractable(false); // Disable iframe interaction to prevent event capturing
 		document.body.style.cursor = 'ew-resize';
