@@ -10,6 +10,7 @@ export default function RevealController() {
   useLayoutEffect(() => {
     const root = document.documentElement;
     const elements = Array.from(document.querySelectorAll('.reveal'));
+    const heroElements = elements.filter((el) => el.closest('[class*="hero"]'));
     if (!elements.length) return;
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -32,18 +33,6 @@ export default function RevealController() {
 
     root.classList.add('reveal-init');
 
-    const heroElements = [];
-    const nonHeroElements = [];
-
-    elements.forEach((el) => {
-      if (el.closest('[class*="hero"]')) {
-        heroElements.push(el);
-        return;
-      }
-
-      nonHeroElements.push(el);
-    });
-
     // Hero sections should reveal on load and never hide/replay
     // Use double rAF so first paint uses hidden state, then reveal next frame
     requestAnimationFrame(() => {
@@ -52,24 +41,35 @@ export default function RevealController() {
       });
     });
 
+    const nonHeroElements = elements.filter((el) => !heroElements.includes(el));
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
           const el = entry.target;
           const hasClipNone = el.classList.contains('clip-none');
 
-          el.classList.add('is-revealed');
-          if (hasClipNone) el.style.clipPath = 'none';
-          revealObserver.unobserve(el);
+          if (entry.isIntersecting) {
+            el.classList.add('is-revealed');
+            if (hasClipNone) el.style.clipPath = 'none';
+            return;
+          }
+
+          if (entry.boundingClientRect.bottom < 0) {
+            el.classList.add('is-revealed');
+            if (hasClipNone) el.style.clipPath = 'none';
+            return;
+          }
+
+          if (entry.boundingClientRect.top > (window.innerHeight || 0) + 100) {
+            el.classList.remove('is-revealed');
+            if (hasClipNone) el.style.clipPath = '';
+            return;
+          }
         });
       },
       {
         root: null,
-        rootMargin: '0px 0px 120px 0px',
+        rootMargin: '0px 0px 100px 0px',
         threshold: 0,
       }
     );
