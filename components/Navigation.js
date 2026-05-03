@@ -86,6 +86,7 @@ export default function Navigation() {
 		}
 
 		let cachedThreshold = 0;
+		let lastShowLogo = false;
 		const updateThreshold = () => {
 			const heroHeading = document.querySelector('h1.heading-hero.hero-title');
 			cachedThreshold = heroHeading
@@ -95,7 +96,11 @@ export default function Navigation() {
 
 		const handleScroll = () => {
 			if (isAutoScrollingRef.current) return;
-			setShowHomeLogo(window.scrollY >= cachedThreshold);
+			const shouldShow = window.scrollY >= cachedThreshold;
+			if (shouldShow !== lastShowLogo) {
+				lastShowLogo = shouldShow;
+				setShowHomeLogo(shouldShow);
+			}
 		};
 
 		handleScrollRef.current = handleScroll;
@@ -141,6 +146,19 @@ export default function Navigation() {
 	useEffect(() => {
 		if (!isHomePage || isMenuOpen) return;
 
+		let sectionCache = [];
+		const updateSectionCache = () => {
+			sectionCache = navItems.map((item) => {
+				const section = document.getElementById(item.targetId);
+				if (!section) return null;
+				return {
+					targetId: item.targetId,
+					top: section.offsetTop,
+					bottom: section.offsetTop + section.offsetHeight,
+				};
+			}).filter(Boolean);
+		};
+
 		const updateIndicatorOnScroll = () => {
 			if (isAutoScrollingRef.current) return;
 			if (window.__scrollingToTop) {
@@ -157,15 +175,9 @@ export default function Navigation() {
 
 			const scrollPos = window.scrollY + 150;
 
-			for (const item of navItems) {
-				const section = document.getElementById(item.targetId);
-				if (!section) continue;
-
-				const sectionTop = section.offsetTop;
-				const sectionBottom = sectionTop + section.offsetHeight;
-
-				if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
-					const navLink = navLinksContainerRef.current?.querySelector(`a[href="#${item.targetId}"]`);
+			for (const cached of sectionCache) {
+				if (scrollPos >= cached.top && scrollPos < cached.bottom) {
+					const navLink = navLinksContainerRef.current?.querySelector(`a[href="#${cached.targetId}"]`);
 					if (navLink && activeNavLinkRef.current !== navLink) {
 						activeNavLinkRef.current = navLink;
 						updateNavIndicator(navLink);
@@ -175,8 +187,13 @@ export default function Navigation() {
 			}
 		};
 
+		updateSectionCache();
 		window.addEventListener('scroll', updateIndicatorOnScroll, { passive: true });
-		return () => window.removeEventListener('scroll', updateIndicatorOnScroll);
+		window.addEventListener('resize', updateSectionCache, { passive: true });
+		return () => {
+			window.removeEventListener('scroll', updateIndicatorOnScroll);
+			window.removeEventListener('resize', updateSectionCache);
+		};
 	}, [isHomePage, isMenuOpen]);
 
 	const updateNavIndicator = (el) => {

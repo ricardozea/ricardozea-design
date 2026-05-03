@@ -48,11 +48,19 @@ export default function BackToTop() {
       path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
     });
 
+    let cachedHeight = 0;
+    let lastScroll = 0;
+    let lastActive = false;
+
+    const updateHeight = () => {
+      cachedHeight = document.documentElement.scrollHeight - window.innerHeight;
+    };
+
     const update = () => {
       const scroll = window.pageYOffset || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = height > 0 ? pathLength - (scroll * pathLength) / height : pathLength;
-      const pct = height > 0 ? Math.min(Math.max(scroll / height, 0), 1) : 0;
+      lastScroll = scroll;
+      const progress = cachedHeight > 0 ? pathLength - (scroll * pathLength) / cachedHeight : pathLength;
+      const pct = cachedHeight > 0 ? Math.min(Math.max(scroll / cachedHeight, 0), 1) : 0;
 
       if (pct <= 0.5) {
         const t = pct / 0.5;
@@ -62,18 +70,27 @@ export default function BackToTop() {
         path.style.stroke = lerpColor(colorBlue, colorGreen, t);
       }
       path.style.strokeDashoffset = progress;
-      if (scroll > SCROLL_OFFSET) {
-        wrap.classList.add('active-progress');
-        setIsActive(true);
-      } else {
-        wrap.classList.remove('active-progress');
-        setIsActive(false);
+      const isActive = scroll > SCROLL_OFFSET;
+      if (isActive !== lastActive) {
+        lastActive = isActive;
+        if (isActive) {
+          wrap.classList.add('active-progress');
+          setIsActive(true);
+        } else {
+          wrap.classList.remove('active-progress');
+          setIsActive(false);
+        }
       }
     };
 
+    updateHeight();
     update();
     window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
+    window.addEventListener('resize', updateHeight, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', updateHeight);
+    };
   }, []);
 
   const handleClick = (e) => {
