@@ -10,6 +10,7 @@ export default function BackToTop() {
   const wrapRef = useRef(null);
   const pathRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
+  const updateRef = useRef(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -49,8 +50,9 @@ export default function BackToTop() {
     });
 
     let cachedHeight = 0;
-    let lastScroll = 0;
     let lastActive = false;
+    let ticking = false;
+    let frameId = null;
 
     const updateHeight = () => {
       cachedHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -58,7 +60,6 @@ export default function BackToTop() {
 
     const update = () => {
       const scroll = window.pageYOffset || document.documentElement.scrollTop;
-      lastScroll = scroll;
       const progress = cachedHeight > 0 ? pathLength - (scroll * pathLength) / cachedHeight : pathLength;
       const pct = cachedHeight > 0 ? Math.min(Math.max(scroll / cachedHeight, 0), 1) : 0;
 
@@ -83,13 +84,25 @@ export default function BackToTop() {
       }
     };
 
+    const scheduleUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      frameId = window.requestAnimationFrame(() => {
+        ticking = false;
+        update();
+      });
+    };
+
     updateHeight();
     update();
-    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', updateHeight, { passive: true });
     return () => {
-      window.removeEventListener('scroll', update);
+      window.removeEventListener('scroll', scheduleUpdate);
       window.removeEventListener('resize', updateHeight);
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
     };
   }, []);
 

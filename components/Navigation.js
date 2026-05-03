@@ -14,6 +14,7 @@ export default function Navigation() {
 
 	const navLinksContainerRef = useRef(null);
 	const activeNavLinkRef = useRef(null);
+	const navItemMetricsRef = useRef(new Map());
 	const [navIndicator, setNavIndicator] = useState({ x: 0, w: 0, visible: false });
 	const [allowIndicatorMotion, setAllowIndicatorMotion] = useState(false);
 
@@ -35,6 +36,57 @@ export default function Navigation() {
 		{ href: '#authoring', label: 'Writing', targetId: 'authoring' },
 		{ href: '#contact', label: 'Contact', targetId: 'contact' },
 	];
+
+	const cacheNavItemMetrics = () => {
+		const container = navLinksContainerRef.current;
+		if (!container) return;
+
+		const containerRect = container.getBoundingClientRect();
+		const nextMetrics = new Map();
+		const navLinks = container.querySelectorAll('a[data-nav-item]');
+
+		navLinks.forEach((link) => {
+			const targetId = link.getAttribute('data-target-id');
+			if (!targetId) return;
+
+			const linkRect = link.getBoundingClientRect();
+			nextMetrics.set(targetId, {
+				x: linkRect.left - containerRect.left,
+				w: linkRect.width,
+			});
+		});
+
+		navItemMetricsRef.current = nextMetrics;
+	};
+
+	const updateNavIndicator = (el, targetId) => {
+		if (!navLinksContainerRef.current || !el) return;
+		activeNavLinkRef.current = el;
+
+		const resolvedTargetId = targetId || el.getAttribute('data-target-id');
+		const cachedMetrics = resolvedTargetId
+			? navItemMetricsRef.current.get(resolvedTargetId)
+			: null;
+
+		if (cachedMetrics) {
+			setNavIndicator({
+				x: cachedMetrics.x,
+				w: cachedMetrics.w,
+				visible: true,
+			});
+			setAllowIndicatorMotion(true);
+			return;
+		}
+
+		const containerRect = navLinksContainerRef.current.getBoundingClientRect();
+		const linkRect = el.getBoundingClientRect();
+		setNavIndicator({
+			x: linkRect.left - containerRect.left,
+			w: linkRect.width,
+			visible: true,
+		});
+		setAllowIndicatorMotion(true);
+	};
 
 	useEffect(() => {
 		const animationFrame = window.requestAnimationFrame(() => {
@@ -180,34 +232,24 @@ export default function Navigation() {
 					const navLink = navLinksContainerRef.current?.querySelector(`a[href="#${cached.targetId}"]`);
 					if (navLink && activeNavLinkRef.current !== navLink) {
 						activeNavLinkRef.current = navLink;
-						updateNavIndicator(navLink);
+						updateNavIndicator(navLink, cached.targetId);
 					}
 					return;
 				}
 			}
 		};
 
+		cacheNavItemMetrics();
 		updateSectionCache();
 		window.addEventListener('scroll', updateIndicatorOnScroll, { passive: true });
 		window.addEventListener('resize', updateSectionCache, { passive: true });
+		window.addEventListener('resize', cacheNavItemMetrics, { passive: true });
 		return () => {
 			window.removeEventListener('scroll', updateIndicatorOnScroll);
 			window.removeEventListener('resize', updateSectionCache);
+			window.removeEventListener('resize', cacheNavItemMetrics);
 		};
 	}, [isHomePage, isMenuOpen]);
-
-	const updateNavIndicator = (el) => {
-		if (!navLinksContainerRef.current || !el) return;
-		activeNavLinkRef.current = el;
-		const containerRect = navLinksContainerRef.current.getBoundingClientRect();
-		const linkRect = el.getBoundingClientRect();
-		setNavIndicator({
-			x: linkRect.left - containerRect.left,
-			w: linkRect.width,
-			visible: true,
-		});
-		setAllowIndicatorMotion(true);
-	};
 
 	useEffect(() => {
 		if (!isMenuOpen) return;
@@ -219,6 +261,7 @@ export default function Navigation() {
 	useEffect(() => {
 		const onResize = () => {
 			if (isMenuOpen) return;
+			cacheNavItemMetrics();
 			if (!navIndicator.visible) return;
 			if (!activeNavLinkRef.current) return;
 			updateNavIndicator(activeNavLinkRef.current);
@@ -228,6 +271,16 @@ export default function Navigation() {
 		return () => window.removeEventListener('resize', onResize);
 	}, [isMenuOpen, navIndicator.visible]);
 
+	useEffect(() => {
+		if (!hasMountedNav) return;
+		const animationFrame = window.requestAnimationFrame(() => {
+			cacheNavItemMetrics();
+		});
+
+		return () => {
+			window.cancelAnimationFrame(animationFrame);
+		};
+	}, [hasMountedNav, pathname]);
 
 	const handleNavClick = (targetId) => {
 		if (targetId !== 'home') {
@@ -343,6 +396,7 @@ export default function Navigation() {
 								key={item.targetId}
 								href={item.href}
 								data-nav-item
+								data-target-id={item.targetId}
 								style={{ '--nav-item-index': index }}
 								onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
 								onFocus={(e) => updateNavIndicator(e.currentTarget)}
