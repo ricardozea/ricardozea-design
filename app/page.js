@@ -3,14 +3,16 @@
 import { useEffect, useState, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
 import HeroLogo from "../components/HeroLogo";
-import SocialIcons from '../components/SocialIcons';
-import ContactForm from '../components/ContactForm';
 import { Tooltip } from "../components/Tooltip";
 import { ExternalLink } from "../components/ExternalLink";
 import heroBg from "../public/images/background-image-real.webp";
+
+// Defer below-the-fold components
+const Footer = dynamic(() => import("../components/Footer"), { ssr: true });
+const SocialIcons = dynamic(() => import('../components/SocialIcons'), { ssr: true });
+const ContactForm = dynamic(() => import('../components/ContactForm'), { ssr: true });
 
 const MotionBurst = dynamic(
 	() => import("../components/MotionBurst").then((mod) => mod.MotionBurst || mod.default),
