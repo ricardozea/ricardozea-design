@@ -31,11 +31,7 @@ export default function RevealController() {
     }
 
     root.classList.add('reveal-init');
-
-    // Defer CSS custom property setup to reduce initial reflow
-    setTimeout(() => {
-      elements.forEach(applyVars);
-    }, 0);
+    elements.forEach(applyVars);
 
     // Hero sections should reveal on load and never hide/replay
     // Use double rAF so first paint uses hidden state, then reveal next frame
