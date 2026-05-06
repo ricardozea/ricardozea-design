@@ -1,0 +1,9 @@
+# Modern browsers only - skip legacy polyfills
+# This eliminates 13 KB of unnecessary polyfills for Array.prototype.at, 
+# Object.fromEntries, String.trimEnd, etc.
+
+> 0.5%
+last 2 versions
+not dead
+not IE 11
+not op_mini all
