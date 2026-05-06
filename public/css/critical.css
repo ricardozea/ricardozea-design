@@ -1,0 +1,139 @@
+/* Critical Above-the-Fold CSS - Inline in <head> */
+/* Only essential styles for hero, nav, and initial render */
+
+:root {
+	--space-xxl: 40px;
+	--space-xl: 32px;
+	--space-l: 24px;
+	--space-m: 16px;
+	--space-s: 12px;
+	--space-xs: 8px;
+	--corner-l: 16px;
+	--corner-m: 8px;
+	--corner-s: 4px;
+	--corner-xs: 2px;
+	--hero-beams-offset-x: -6;
+	--hero-beams-speed-multiplier: 2;
+	--hero-beams-base-duration: 14;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+	letter-spacing: calc(progress(1em, 18px, 77px) * -0.05em);
+}
+
+html {
+	font-size: clamp(1rem, 0.5rem + 1vw, 1.125rem);
+	overflow-x: hidden;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 1rem;
+	font-family: var(--font-roboto-flex), sans-serif;
+	font-weight: 200;
+	text-wrap: pretty;
+	overflow-x: hidden;
+}
+
+/* Reveal initial state - critical to avoid FOUC */
+html.reveal-init .reveal {
+	opacity: 0;
+	transform: translateY(12px);
+	will-change: transform, opacity, clip-path;
+}
+
+/* Hero Section - Above the fold */
+.hero {
+	position: relative;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.hero-bg {
+	z-index: 0;
+	object-fit: cover;
+	object-position: center;
+}
+
+.hero-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	z-index: 2;
+}
+
+.hero-main {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1.5rem;
+}
+
+.heading-hero {
+	font-size: clamp(2.5rem, 5vw, 3.56rem);
+	line-height: 1.1;
+	font-weight: 200;
+	margin: 0;
+}
+
+.text-description {
+	font-size: clamp(1.125rem, 2vw, 1.44rem);
+	line-height: 1.6;
+}
+
+.hero-description {
+	color: var(--text-persistent-light);
+}
+
+.strikethrough {
+	text-decoration: line-through;
+}
+
+/* Navigation - Above the fold */
+.skip-to-content {
+	position: absolute;
+	top: -100px;
+	left: 0;
+	z-index: 100;
+	padding: 0.5rem 1rem;
+	background: var(--bg-surface);
+	color: var(--text-bold);
+}
+
+.skip-to-content:focus {
+	top: 0;
+}
+
+/* CTA Button - Above the fold */
+.cta-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem 2rem;
+	font-size: 1rem;
+	font-weight: 400;
+	text-decoration: none;
+	border-radius: var(--corner-m);
+	transition: all 0.3s ease;
+}
+
+.glow-button {
+	position: relative;
+	z-index: 1;
+	background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);
+	color: white;
+	border: none;
+	outline: 2px solid transparent;
+	outline-offset: 3px;
+}
+
+.glow-button-wrap {
+	position: relative;
+	display: inline-block;
+	border-radius: var(--corner-m);
+}
