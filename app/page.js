@@ -249,6 +249,8 @@ export default function Home() {
 								<img
 									src="/images/logo-nodesource-for-dark.svg"
 									alt="NodeSource Logo"
+									width="180"
+									height="40"
 								/>
 								<h3 className="project-card-title visually-hidden">NodeSource</h3>
 							</div>
@@ -297,6 +299,8 @@ export default function Home() {
 								<img
 									src="/images/logo-purina.svg"
 									alt="Purina Logo"
+									width="115"
+									height="25"
 								/>
 								<h3 className="project-card-title visually-hidden">Nestlé Purina</h3>
 							</div>
@@ -367,7 +371,7 @@ export default function Home() {
 				<div className="section-container">
 					<p className="flex justify-center m-0 reveal reveal-slide" data-reveal-delay="0.1">In the words of the almighty Scott Adams:</p>
 					<h2 className="heading-section section-title-light">
-						<img src="/images/img-character-dilbert.svg" alt="Dilbert" title="Dilbert by Scott Adams" className="character reveal reveal-slide" />
+						<img src="/images/img-character-dilbert.svg" alt="Dilbert" title="Dilbert by Scott Adams" className="character reveal reveal-slide" width="60" height="60" />
 						<span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.2">Talent</span> <span className="text-accent-red-persistent reveal reveal-slide" data-reveal-delay="0.3">Stack</span>
 					</h2>
 
@@ -570,7 +574,7 @@ export default function Home() {
 				<div className="section-container">
 					<p className="flex justify-center m-0 reveal reveal-slide" data-reveal-delay="0.1">"Greetings! Ah-ah-ah!" lol</p>
 					<h2 className="heading-section section-title-dark">
-						<img src="/images/img-character-count.svg" alt="Count von Count" className="character reveal reveal-slide" data-reveal-delay="0.2" />
+						<img src="/images/img-character-count.svg" alt="Count von Count" className="character reveal reveal-slide" data-reveal-delay="0.2" width="60" height="60" />
 						<span className="reveal reveal-slide" data-reveal-delay="0.3">Let’s </span><span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.4">Count!</span>
 					</h2>
 

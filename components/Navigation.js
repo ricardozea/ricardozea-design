@@ -360,6 +360,8 @@ export default function Navigation() {
 							alt="Ricardo Zea Logo"
 							className="object-contain drop-shadow-lg"
 							fetchPriority="high"
+							width="200"
+							height="60"
 						/>
 					</a>
 

@@ -13,6 +13,8 @@ export default function Footer() {
 							src="/images/logo-ricardo-zea-full.svg"
 							alt="Ricardo Zea Logo"
 							className="footer-logo-image"
+							width="240"
+							height="80"
 						/>
 					</div>
 				</div>
@@ -34,19 +36,19 @@ export default function Footer() {
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="HTML5">
 											<span>HTML5</span>
-											<img src="/images/logo-html5.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-html5.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="CSS3">
 											<span>CSS3</span>
-											<img src="/images/logo-css3.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-css3.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="JavaScript">
 											<span>JavaScript</span>
-											<img src="/images/logo-js.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-js.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="TailwindCSS">
 											<span>TailwindCSS</span>
-											<img src="/images/logo-tailwindcss.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-tailwindcss.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
@@ -57,35 +59,35 @@ export default function Footer() {
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="Windsurf">
 											<span>Windsurf</span>
-											<img src="/images/logo-windsurf.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-windsurf.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Antigravity">
 											<span>Antigravity</span>
-											<img src="/images/logo-antigravity.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-antigravity.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Next.js">
 											<span>Next.js</span>
-											<img src="/images/logo-nextjs.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-nextjs.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Node.js">
 											<span>Node.js</span>
-											<img src="/images/logo-nodejs.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-nodejs.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="React">
 											<span>React</span>
-											<img src="/images/logo-react.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-react.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="GitHub">
 											<span>GitHub</span>
-											<img src="/images/logo-github.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-github.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Vercel">
 											<span>Vercel</span>
-											<img src="/images/logo-vercel.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-vercel.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Motion">
 											<span>Motion</span>
-											<img src="/images/logo-motion.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-motion.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
@@ -96,19 +98,19 @@ export default function Footer() {
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="Figma">
 											<span>Figma</span>
-											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Color-Ramp.com">
 											<span>Color-Ramp.com</span>
-											<img src="/images/logo-color-ramp.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-color-ramp.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Google Fonts">
 											<span>Google Fonts</span>
-											<img src="/images/logo-google-fonts.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-google-fonts.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Phosphor Icons">
 											<span>Phosphor Icons</span>
-											<img src="/images/logo-phosphor.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-phosphor.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
@@ -119,27 +121,27 @@ export default function Footer() {
 									<div className="tech-logos">
 										<Tooltip tabIndex="0" aria-label="Figma">
 											<span>Figma</span>
-											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="UX Pilot">
 											<span>UX Pilot</span>
-											<img src="/images/logo-uxpilot.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-uxpilot.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Banani">
 											<span>Banani</span>
-											<img src="/images/logo-banani.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-banani.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Dora AI">
 											<span>Dora AI</span>
-											<img src="/images/logo-dora.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-dora.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="ChatGPT">
 											<span>ChatGPT</span>
-											<img src="/images/logo-openai.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-openai.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 										<Tooltip tabIndex="0" aria-label="Gemini">
 											<span>Gemini</span>
-											<img src="/images/logo-gemini.svg" alt="" aria-hidden="true" />
+											<img src="/images/logo-gemini.svg" alt="" aria-hidden="true" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
