@@ -1,4 +1,4 @@
-import { LinkedinLogo, DribbbleLogo, StackOverflowLogo, XLogo, GithubLogoIcon } from '@phosphor-icons/react/ssr';
+import { LinkedinLogo, DribbbleLogo, StackOverflowLogo, XLogo, GithubLogoIcon } from '@phosphor-icons/react';
 import { Tooltip } from './Tooltip';
 
 /**

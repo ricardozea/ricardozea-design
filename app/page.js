@@ -52,7 +52,7 @@ import {
 	HandTapIcon,
 	TextAaIcon,
 	UsersFourIcon,
-} from '@phosphor-icons/react/ssr';
+} from '@phosphor-icons/react';
 
 export default function Home() {
 	const [resumeSizeMb, setResumeSizeMb] = useState(null);
