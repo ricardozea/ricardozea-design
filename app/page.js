@@ -10,9 +10,9 @@ import { ExternalLink } from "../components/ExternalLink";
 import heroBg from "../public/images/background-image-real.webp";
 
 // Defer below-the-fold components
-const Footer = dynamic(() => import("../components/Footer"), { ssr: false });
-const SocialIcons = dynamic(() => import('../components/SocialIcons'), { ssr: false });
-const ContactForm = dynamic(() => import('../components/ContactForm'), { ssr: false });
+const Footer = dynamic(() => import("../components/Footer"), { ssr: true });
+const SocialIcons = dynamic(() => import('../components/SocialIcons'), { ssr: true });
+const ContactForm = dynamic(() => import('../components/ContactForm'), { ssr: true });
 
 const MotionBurst = dynamic(
 	() => import("../components/MotionBurst").then((mod) => mod.MotionBurst || mod.default),
