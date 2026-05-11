@@ -24,10 +24,9 @@ const HeroBeams = dynamic(() => import("../components/HeroBeams"), {
 	loading: () => null,
 });
 
-const AboutImageTransitionTolexia = dynamic(
-	() => import("../components/AboutImageTransitionTolexia"),
-	{ ssr: false, loading: () => null }
-);
+// Lazy load AboutImageTransitionTolexia only when user scrolls near it
+let AboutImageTransitionTolexia = null;
+const AboutImageTransitionTolexiaRef = { current: null };
 
 const Modal = dynamic(() => import("../components/Modal"), { ssr: false });
 
@@ -107,7 +106,15 @@ export default function Home() {
 		const observer = new IntersectionObserver(
 			([entry]) => {
 				if (entry.isIntersecting) {
-					setAboutVisible(true);
+					// Dynamically import the component only when user scrolls near it
+					if (!AboutImageTransitionTolexia) {
+						import("../components/AboutImageTransitionTolexia").then((mod) => {
+							AboutImageTransitionTolexia = dynamic(() => Promise.resolve(mod), { ssr: false });
+							setAboutVisible(true);
+						});
+					} else {
+						setAboutVisible(true);
+					}
 					observer.disconnect();
 				}
 			},
