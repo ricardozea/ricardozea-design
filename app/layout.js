@@ -3,10 +3,10 @@ import { Roboto_Flex } from "next/font/google";
 import { Alan_Sans } from "next/font/google";
 import { ThemeProvider, ThemeStylesheet, ThemeToggle } from "../components/ThemeSwitcher";
 import RevealController from "../components/RevealController";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import BackToTop from "../components/BackToTop";
 import ProjectPageBodyClass from "../components/ProjectPageBodyClass";
-import SpeedInsightsWrapper from "../components/SpeedInsightsWrapper";
 
 const robotoFlex = Roboto_Flex({
 	subsets: ["latin"],
@@ -150,7 +150,7 @@ export default function RootLayout({ children }) {
 					</main>
 					<RevealController />
 					<Analytics />
-					<SpeedInsightsWrapper />
+					<SpeedInsights />
 					<BackToTop />
 				</body>
 			</html>
