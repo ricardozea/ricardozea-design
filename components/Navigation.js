@@ -8,6 +8,7 @@ export default function Navigation() {
 	const pathname = usePathname();
 	const isHomePage = pathname === "/";
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isMenuClosing, setIsMenuClosing] = useState(false);
 	const [showHomeLogo, setShowHomeLogo] = useState(false);
 	const [hasMountedNav, setHasMountedNav] = useState(false);
 	const { theme, mounted } = useContext(ThemeContext);
@@ -22,6 +23,7 @@ export default function Navigation() {
 	const scrollEndTimeoutRef = useRef(null);
 	const handleScrollRef = useRef(null);
 	const scrollYRef = useRef(0);
+	const menuCloseTimeoutRef = useRef(null);
 
 	const logoSrc = (mounted && theme === 'light')
 		? "/images/logo-ricardo-zea-for-light.svg"
@@ -36,6 +38,61 @@ export default function Navigation() {
 		{ href: '#authoring', label: 'Writing', targetId: 'authoring' },
 		{ href: '#contact', label: 'Contact', targetId: 'contact' },
 	];
+
+	const navItemsCount = navItems.length;
+	const NAV_ITEM_ANIMATION_MS = 280;
+	const NAV_ITEM_CLOSE_STAGGER_MS = 20;
+	const MOBILE_MENU_INTERACTIVE_COUNT = navItemsCount + 1; // includes theme toggle
+	const MOBILE_MENU_CLOSE_DURATION = NAV_ITEM_ANIMATION_MS + ((MOBILE_MENU_INTERACTIVE_COUNT - 1) * NAV_ITEM_CLOSE_STAGGER_MS);
+	const navLinksStyles = {
+		'--nav-item-count': MOBILE_MENU_INTERACTIVE_COUNT,
+		'--nav-close-stagger-ms': `${NAV_ITEM_CLOSE_STAGGER_MS}ms`,
+	};
+
+	const clearMenuCloseTimer = () => {
+		if (menuCloseTimeoutRef.current) {
+			clearTimeout(menuCloseTimeoutRef.current);
+			menuCloseTimeoutRef.current = null;
+		}
+	};
+
+	const closeMenu = () => {
+		if (!isMenuOpen) return 0;
+		if (isMenuClosing) return MOBILE_MENU_CLOSE_DURATION;
+
+		setIsMenuClosing(true);
+		clearMenuCloseTimer();
+		menuCloseTimeoutRef.current = setTimeout(() => {
+			setIsMenuOpen(false);
+			setIsMenuClosing(false);
+			menuCloseTimeoutRef.current = null;
+		}, MOBILE_MENU_CLOSE_DURATION);
+
+		return MOBILE_MENU_CLOSE_DURATION;
+	};
+
+	const openMenu = () => {
+		clearMenuCloseTimer();
+		setIsMenuClosing(false);
+		setIsMenuOpen(true);
+	};
+
+	const toggleMenu = () => {
+		if (isMenuOpen) {
+			if (isMenuClosing) {
+				clearMenuCloseTimer();
+				setIsMenuClosing(false);
+				return;
+			}
+			closeMenu();
+			return;
+		}
+		openMenu();
+	};
+
+	const getPostCloseDelay = (closeDelay) => (closeDelay > 0 ? closeDelay + 50 : 50);
+
+	useEffect(() => () => clearMenuCloseTimer(), []);
 
 	const cacheNavItemMetrics = () => {
 		const container = navLinksContainerRef.current;
@@ -288,7 +345,8 @@ export default function Navigation() {
 			setShowHomeLogo(true);
 		}
 
-		setIsMenuOpen(false);
+		const closeDelay = closeMenu();
+		const scrollDelay = getPostCloseDelay(closeDelay);
 
 		// If not on homepage, navigate to homepage with hash
 		if (!isHomePage) {
@@ -304,7 +362,7 @@ export default function Navigation() {
 			// Use setTimeout to allow the menu close effect to run first (unlocking body)
 			setTimeout(() => {
 				element.scrollIntoView({ behavior: "smooth", block: "start" });
-			}, 50);
+			}, scrollDelay);
 		}
 	};
 
@@ -328,7 +386,8 @@ export default function Navigation() {
 		if (!isHomePage) return;
 		e.preventDefault();
 		scrollYRef.current = 0;
-		setIsMenuOpen(false);
+		const closeDelay = closeMenu();
+		const scrollDelay = getPostCloseDelay(closeDelay);
 		activeNavLinkRef.current = null;
 		setNavIndicator({ x: 0, w: 0, visible: false });
 		setAllowIndicatorMotion(false);
@@ -336,17 +395,13 @@ export default function Navigation() {
 		window.history.pushState(null, '', '/');
 		setTimeout(() => {
 			window.scrollTo({ top: 0, behavior: 'smooth' });
-		}, 50);
-	};
-
-	const toggleMenu = () => {
-		setIsMenuOpen(!isMenuOpen);
+		}, scrollDelay);
 	};
 
 	return (
 		<div className="navbar-wrapper">
 			<nav
-				className={`main-nav-container ${isHomePage ? "home" : ""} ${isHomePage && showHomeLogo ? "show-home-logo" : ""} ${isMenuOpen ? "menu-open" : ""}`}
+				className={`main-nav-container ${isHomePage ? "home" : ""} ${isHomePage && showHomeLogo ? "show-home-logo" : ""} ${isMenuOpen ? "menu-open" : ""} ${isMenuClosing ? "menu-closing" : ""}`}
 			>
 				<div className="nav-inner-container">
 					<a
@@ -379,6 +434,7 @@ export default function Navigation() {
 					<div
 						className={`nav-links-container${hasMountedNav ? ' nav-mounted' : ''}`}
 						ref={navLinksContainerRef}
+						style={navLinksStyles}
 					>
 						<span
 							className={`nav-hover-indicator${allowIndicatorMotion ? ' is-motion' : ''}`}
@@ -399,7 +455,9 @@ export default function Navigation() {
 								href={item.href}
 								data-nav-item
 								data-target-id={item.targetId}
-								style={{ '--nav-item-index': index }}
+								style={{
+							'--nav-item-index': index,
+						}}
 								onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
 								onFocus={(e) => updateNavIndicator(e.currentTarget)}
 								onClick={(e) => {
@@ -411,9 +469,11 @@ export default function Navigation() {
 							</a>
 						))}
 						<ThemeToggle
-							data-nav-item
-							style={{ '--nav-item-index': navItems.length }}
-							onToggle={() => setIsMenuOpen(false)}
+						data-nav-item
+						style={{
+							'--nav-item-index': navItems.length,
+						}}
+						onToggle={closeMenu}
 							onMouseEnter={(e) => updateNavIndicator(e.currentTarget)}
 							onFocus={(e) => updateNavIndicator(e.currentTarget)}
 						/>
