@@ -779,7 +779,7 @@ ol {
 /* h1 */
 .heading-hero {
 	font-size: var(--title-l);
-	line-height: 1.1;
+	line-height: 1;
 	font-weight: 200;
 	margin: 0;
 }
@@ -792,7 +792,7 @@ ol {
 	flex-wrap: wrap;
 	gap: .5rem;
 	font-size: var(--title-l);
-	line-height: 1.1;
+	line-height: 0.9;
 	font-weight: 200;
 	text-align: center;
 	margin-bottom: 5rem;
@@ -1797,11 +1797,14 @@ html.light .skills .section-container {
 	color: var(--text-brand-primary);
 }
 
-/* Skills Section Dilbert Image */
+/* Skills/Data Section Character Images */
 h2 .character {
-	max-height: 60px;
-	min-height: 40px;
-	height: clamp(40px, 10vw, 60px);
+	width: clamp(40px, 10vw, 60px);
+	max-width: 60px;
+	min-width: 40px;
+	height: auto;
+	flex: 0 0 auto;
+	object-fit: contain;
 }
 
 /* ============================================
