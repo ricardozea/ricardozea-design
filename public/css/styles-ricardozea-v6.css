@@ -1222,7 +1222,7 @@ p.text-description:first-of-type {
 		height: 100vh;
 		padding-top: 110px;
 		/* Space below header */
-		background: rgba(0, 29, 56, 0.8);
+		background: hsla(209, 100%, 5%, 0.8);
 		backdrop-filter: blur(10px);
 		transform: translateX(100%);
 		transition: transform 0.3s ease, visibility 0s 0.3s;
