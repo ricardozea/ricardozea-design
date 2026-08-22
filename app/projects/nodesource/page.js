@@ -333,7 +333,7 @@ export default function ProjectDetail() {
 										<li>Every. Single. Designer uses that damn <code>8pt</code> grid system. It makes them feel warm inside and look cool in front of their managers and other designers 🙄. The problem is that the <code>8pt</code> grid system IS NOT how the web works especially since EVERYTHING is now responsive: font sizes, line height, margins, paddings, strokes, etc., etc., etc.</li>
 										<li>The Modular Scale app provides all font sizes in <code>em</code>, which is much more useful for developers.</li>
 									</ol>
-									<p className="reveal reveal-slide">Or are you on the <code>rem</code> team? 😒… Bah, you don't even know what you're talking about, lol.</p>
+									<p className="reveal reveal-slide">Or are you on the <code>rem</code> team? 😒. You do know they are the same thing but different, right? Right? RIGHT?! lol</p>
 									<hr className="reveal reveal-slide" />
 									<p className="reveal reveal-slide">
 										Aaaaaaaaaanyway, check out the screenshot for the Typography System from Figma below 👇🏽:
