@@ -379,7 +379,7 @@ export default function ProjectDetail() {
 								</DynamicFrame>
 								<div className="image-footnote-container">
 									<p className="image-footnote">
-										Here's an example YOU can drop in your CSS: <code>font-size: clamp(12px, 4vw, 18px);</code>
+										Here's an example you CAN, right now, drop in your CSS: <code>font-size: clamp(12px, 4vw, 18px);</code>
 									</p>
 								</div>
 							</div>
