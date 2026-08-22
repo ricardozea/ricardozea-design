@@ -414,7 +414,7 @@ export default function ProjectDetail() {
 										Well, I went and built and designed the damn tool myself, lol.
 									</p>
 									<p className="reveal reveal-slide">
-										Create accessible color ramps in less than 5 seconds, no BS: <ExternalLink href="https://www.color-ramp.com/">Color-Ramp.com</ExternalLink>
+										Create accessible color ramps in less than 5 seconds, no BS. Not even Claude can do it that fast: <ExternalLink href="https://www.color-ramp.com/">Color-Ramp.com</ExternalLink>
 									</p>
 								</div>
 							</div>
