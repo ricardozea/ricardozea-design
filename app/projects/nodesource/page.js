@@ -330,7 +330,7 @@ export default function ProjectDetail() {
 									<h4 className="reveal reveal-slide">Bro, why didn't you use the 8pt grid system?</h4>
 									<p className="reveal reveal-slide"> Because:</p>
 									<ol className="reveal reveal-slide">
-										<li>Every single designer on the planet uses that damn 8pt grid system. It makes them feel warm inside and look cool in front of their bosses. That's stupid… even though, I admitedly, also feel warm inside when using it 😁.</li>
+										<li>Every. Single. Designer uses that damn <code>8pt</code> grid system. It makes them feel warm inside and look cool in front of their managers and other designers 🙄. The problem is that the <code>8pt</code> grid system IS NOT how the web works especially since EVERYTHING is now responsive: font sizes, line height, margins, paddings, strokes, etc., etc., etc.</li>
 										<li>The Modular Scale app provides all font sizes in <code>em</code>, which is much more useful for developers.</li>
 									</ol>
 									<p className="reveal reveal-slide">Or are you on the <code>rem</code> team? 😒… Bah, you don't even know what you're talking about, lol.</p>
