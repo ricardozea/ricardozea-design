@@ -361,7 +361,7 @@ export default function ProjectDetail() {
 										<li>As you shrink or enlarge the viewport, the font sizes change.</li>
 										<li>The font sizes are based on the Modular Scale, which keeps the harmony regardless of the viewport size.</li>
 										<li>This method uses the <code>calc()</code> function.</li>
-										<li className="info-text reveal reveal-slide"><Info size={24} weight="regular" />FYI, the <code>clamp()</code> function wasn't supported at the time. That doesn't make me old. It shows you how long I've doing responsive typography 🫵🏽</li>
+										<li className="info-text reveal reveal-slide"><Info size={24} weight="regular" />FYI, the <code>clamp()</code> function wasn't supported at the time. That doesn't make me old. It just shows you how long I've been doing responsive typography 🫵🏽.</li>
 									</ol>
 								</div>
 							</div>
