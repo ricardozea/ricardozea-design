@@ -34,21 +34,21 @@ export default function Footer() {
 								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.1">
 									<span className="tech-title">Web:</span>
 									<div className="tech-logos">
-										<Tooltip tabIndex="0" aria-label="HTML5">
+										<Tooltip tabIndex="0">
 											<span>HTML5</span>
-											<img src="/images/logo-html5.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-html5.svg" alt="HTML5 logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="CSS3">
+										<Tooltip tabIndex="0">
 											<span>CSS3</span>
-											<img src="/images/logo-css3.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-css3.svg" alt="CSS3 logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="JavaScript">
+										<Tooltip tabIndex="0">
 											<span>JavaScript</span>
-											<img src="/images/logo-js.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-js.svg" alt="JavaScript logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="TailwindCSS">
+										<Tooltip tabIndex="0">
 											<span>TailwindCSS</span>
-											<img src="/images/logo-tailwindcss.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-tailwindcss.svg" alt="Tailwind CSS logo" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
@@ -57,37 +57,37 @@ export default function Footer() {
 								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.3">
 									<span className="tech-title">Development:</span>
 									<div className="tech-logos">
-										<Tooltip tabIndex="0" aria-label="Windsurf">
-											<span>Windsurf</span>
-											<img src="/images/logo-windsurf.svg" alt="" aria-hidden="true" width="24" height="24" />
+										<Tooltip tabIndex="0">
+											<span>Devin</span>
+											<img src="/images/logo-devin.svg" alt="Devin logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Antigravity">
+										<Tooltip tabIndex="0">
 											<span>Antigravity</span>
-											<img src="/images/logo-antigravity.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-antigravity.svg" alt="Antigravity logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Next.js">
+										<Tooltip tabIndex="0">
 											<span>Next.js</span>
-											<img src="/images/logo-nextjs.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-nextjs.svg" alt="Next.js logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Node.js">
+										<Tooltip tabIndex="0">
 											<span>Node.js</span>
-											<img src="/images/logo-nodejs.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-nodejs.svg" alt="Node.js logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="React">
+										<Tooltip tabIndex="0">
 											<span>React</span>
-											<img src="/images/logo-react.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-react.svg" alt="React logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="GitHub">
+										<Tooltip tabIndex="0">
 											<span>GitHub</span>
-											<img src="/images/logo-github.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-github.svg" alt="GitHub logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Vercel">
+										<Tooltip tabIndex="0">
 											<span>Vercel</span>
-											<img src="/images/logo-vercel.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-vercel.svg" alt="Vercel logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Motion">
+										<Tooltip tabIndex="0">
 											<span>Motion</span>
-											<img src="/images/logo-motion.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-motion.svg" alt="Motion logo" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
@@ -96,21 +96,21 @@ export default function Footer() {
 								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.5">
 									<span className="tech-title">Design:</span>
 									<div className="tech-logos">
-										<Tooltip tabIndex="0" aria-label="Figma">
+										<Tooltip tabIndex="0">
 											<span>Figma</span>
-											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-figma.svg" alt="Figma logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Color-Ramp.com">
+										<Tooltip tabIndex="0">
 											<span>Color-Ramp.com</span>
-											<img src="/images/logo-color-ramp.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-color-ramp.svg" alt="Color-Ramp.com logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Google Fonts">
+										<Tooltip tabIndex="0">
 											<span>Google Fonts</span>
-											<img src="/images/logo-google-fonts.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-google-fonts.svg" alt="Google Fonts logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Phosphor Icons">
+										<Tooltip tabIndex="0">
 											<span>Phosphor Icons</span>
-											<img src="/images/logo-phosphor.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-phosphor.svg" alt="Phosphor Icons logo" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
@@ -119,29 +119,29 @@ export default function Footer() {
 								<div className="tech-section-container reveal reveal-line" data-reveal-delay="0.7">
 									<span className="tech-title">AI:</span>
 									<div className="tech-logos">
-										<Tooltip tabIndex="0" aria-label="Figma">
+										<Tooltip tabIndex="0">
 											<span>Figma</span>
-											<img src="/images/logo-figma.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-figma.svg" alt="Figma logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="UX Pilot">
+										<Tooltip tabIndex="0">
 											<span>UX Pilot</span>
-											<img src="/images/logo-uxpilot.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-uxpilot.svg" alt="UX Pilot logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Banani">
+										<Tooltip tabIndex="0">
 											<span>Banani</span>
-											<img src="/images/logo-banani.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-banani.svg" alt="Banani logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Dora AI">
+										<Tooltip tabIndex="0">
 											<span>Dora AI</span>
-											<img src="/images/logo-dora.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-dora.svg" alt="Dora AI logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="ChatGPT">
+										<Tooltip tabIndex="0">
 											<span>ChatGPT</span>
-											<img src="/images/logo-openai.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-openai.svg" alt="ChatGPT logo" width="24" height="24" />
 										</Tooltip>
-										<Tooltip tabIndex="0" aria-label="Gemini">
+										<Tooltip tabIndex="0">
 											<span>Gemini</span>
-											<img src="/images/logo-gemini.svg" alt="" aria-hidden="true" width="24" height="24" />
+											<img src="/images/logo-gemini.svg" alt="Gemini logo" width="24" height="24" />
 										</Tooltip>
 									</div>
 								</div>
