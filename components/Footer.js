@@ -143,6 +143,10 @@ export default function Footer() {
 											<span>Gemini</span>
 											<img src="/images/logo-gemini.svg" alt="Gemini logo" width="24" height="24" />
 										</Tooltip>
+										<Tooltip tabIndex="0">
+											<span>Grok</span>
+											<img src="/images/logo-grok.svg" alt="Grok logo" width="24" height="24" />
+										</Tooltip>
 									</div>
 								</div>
 							</div>
