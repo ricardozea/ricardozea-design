@@ -158,7 +158,7 @@ export default function Home() {
 							data-reveal-index="4"
 						>
 							<span className="strikethrough">Crafting digital experiences</span>
-							… Well, I've been doing this for 💩-load of time <span className="text-nowrap">¯\(ツ)/¯</span>
+							… Well, I've been doing this for a 💩-load of time <span className="text-nowrap">¯\(ツ)/¯</span>
 						</p>
 					</div>
 
@@ -184,10 +184,8 @@ export default function Home() {
 				<div className="section-container">
 					<h2 className="heading-section section-title-dark"><span className="reveal reveal-slide" data-reveal-delay="0.1">What</span> <span className="text-brand-secondary reveal reveal-slide" data-reveal-delay="0.2">You</span> <span className="text-brand-primary text-nowrap reveal reveal-slide" data-reveal-delay="0.3">Came Here</span> <span className="reveal reveal-slide" data-reveal-delay="0.4">For</span></h2>
 					<div className="max-w-[60rem] mx-auto">
-						<p className="text-description reveal reveal-slide">Ok, I’ll <abbr title="Keep It Simple, Stupid" className="no-underline md:underline decoration-2 underline-offset-5 cursor-default">K.I.S.S.</abbr> 😁</p>
-						<p className="text-description reveal reveal-slide clip-none">
-							In the following two projects I showcase most of my skills and design&nbsp;capabilities
-							<MotionBurst
+						<p className="text-description reveal reveal-slide">Ok, I’ll <abbr title="Keep It Simple, Stupid" className="no-underline md:underline decoration-2 underline-offset-5 cursor-default">K.I.S.S.</abbr>
+						<MotionBurst
 								data-motion-burst="true"
 								animationOptions={{
 									count: 20,
@@ -210,7 +208,11 @@ export default function Home() {
 										/>
 									</span>
 								</Tooltip>
-							</MotionBurst>.
+							</MotionBurst>
+						</p>
+						<p className="text-description reveal reveal-slide clip-none">
+							In the following two projects I showcase all kinds of skills and design capabilities. From design decisions, design thinking, technical knowledge, working and mentoring others, etc.
+
 						</p>
 						<p className="reveal reveal-slide">You will see things about:</p>
 					</div>
@@ -411,7 +413,7 @@ export default function Home() {
 								<li>Figma</li>
 								<li>HTML + CSS</li>
 								<li>CodePen</li>
-								<li>Windsurf</li>
+								<li>Devin</li>
 								<li>Midjourney</li>
 								<li>UX Pilot</li>
 								<li>Banani</li>
@@ -469,13 +471,14 @@ export default function Home() {
 								<div className="skill-icon-container blue">
 									<SparkleIcon className="skill-icon rotate-y-180" size={24} weight="light" />
 								</div>
-								<h3><abbr title="Artificial Intelligence">AI</abbr> Expertise</h3>
+								<h3><abbr title="Super Intelligence">SI</abbr> Knowledge</h3>
 							</div>
-							<p>Who can live their lives without AI these days anymore? 🤔. From removing backgrounds from images in Figma to developing entire applications with the help of AI, is the breath of my AI expertise.</p>
-							<p>Wireframing, design exploration, custom images, videos, marketing, etc. is where AI becomes part of how I operate.</p>
+							<p>Who can live their lives without SI these days anymore? 🤔. From removing backgrounds from images in Figma to developing entire applications with the help of SI, is the breath of my SI expertise.</p>
+							<p>Wireframing, design exploration, custom images, videos, marketing, etc. is where SI becomes part of how I operate.</p>
 							<ul className="skill-tag-container">
 								<li>Figma plugins</li>
-								<li>Windsurf</li>
+								<li>Devin</li>
+								<li>Claude Code</li>
 								<li>Midjourney</li>
 								<li>UX Pilot</li>
 								<li>Banani</li>
@@ -514,7 +517,7 @@ export default function Home() {
 							<p>I love HTML & CSS. I’ve even written two books about them bro! <ExternalLink href="https://masteringrwd.com/" title="Mastering Responsive Web Design">Mastering Responsive Web Design</ExternalLink> and <ExternalLink href="https://www.amazon.com/Developers-Reference-Guide-Joshua-Johanan/dp/1783552131" title="Web Developer’s Reference Guide">Web Developer’s Reference Guide</ExternalLink>.</p>
 							<p>All I’ve learned, I’ve learned on my own, building stuff in all my jobs, freelancing, and personal projects. But more importantly, mentoring others.</p>
 							<ul className="skill-tag-container">
-								<li>Windsurf</li>
+								<li>Devin</li>
 								<li>Sublime Text</li>
 								<li>CodePen</li>
 								<li>JSFiddle</li>
@@ -538,7 +541,7 @@ export default function Home() {
 								<li>CodePen</li>
 								<li>Lovable</li>
 								<li>Magic Patterns</li>
-								<li>Windsurf</li>
+								<li>Devin</li>
 								<li>Antigravity</li>
 							</ul>
 						</div>

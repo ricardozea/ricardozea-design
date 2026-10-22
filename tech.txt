@@ -14,7 +14,7 @@
 
 ## Tools
 - Figma
-- Windsurf
+- Devin
 - Color-Ramp.com
 - UX Pilot
 - Midjourney*

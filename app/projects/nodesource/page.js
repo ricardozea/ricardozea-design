@@ -81,7 +81,7 @@ export default function ProjectDetail() {
 									<PencilRuler size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
 									<div>
 										<span className="meta-label mr-1">Tools:</span>
-										<span className="meta-value">Figma, Midjourney, <ExternalLink href="https://color-ramp.com/">Color-Ramp</ExternalLink>, UX Pilot, Zeplin, Windsurf, CodePen, Slack</span>
+										<span className="meta-value">Figma, Midjourney, <ExternalLink href="https://color-ramp.com/">Color-Ramp</ExternalLink>, UX Pilot, Zeplin, Devin, CodePen, Slack</span>
 									</div>
 								</div>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.5">

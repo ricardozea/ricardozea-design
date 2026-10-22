@@ -44,7 +44,7 @@ This repository contains the source code for **ricardozea.design**
 - Figma
 - Google Fonts
 - Phosphor Icons
-- Windsurf
+- Devin
 
 ### AI / Generative
 - Banani

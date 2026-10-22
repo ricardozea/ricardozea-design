@@ -96,7 +96,7 @@ export default function ProjectDetail() {
 									/>
 									<div>
 										<span className="meta-label mr-1">Tools:</span>
-										<span className="meta-value">Figma, Canva, Gemini, ChatGPT, Midjourney, Dora AI, UXPressia, Versive, Lovable, Magic Patterns, Windsurf</span>
+										<span className="meta-value">Figma, Canva, Gemini, ChatGPT, Midjourney, Dora AI, UXPressia, Versive, Lovable, Magic Patterns, Devin</span>
 									</div>
 								</div>
 								<div className="meta-item xreveal xreveal-slide" data-reveal-delay="0.6">

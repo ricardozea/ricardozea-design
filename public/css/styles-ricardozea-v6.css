@@ -1634,7 +1634,7 @@ p.text-description:first-of-type {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	max-width: 54.22rem;
+	max-width: 55rem;
 }
 
 .hero-title {
