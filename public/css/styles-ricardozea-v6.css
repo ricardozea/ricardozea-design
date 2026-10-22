@@ -975,6 +975,7 @@ h3 {
 
 h4 {
 	font-size: var(--heading-s);
+	margin: 0 0 -.7rem;
 }
 
 p {
@@ -1691,6 +1692,11 @@ p.text-description:first-of-type {
 .text-brand-secondary {
 	color: var(--text-accent-blue-subtle);
 	font-weight: 600;
+}
+
+.text-brand-tertiary {
+	color: var(--text-accent-red-subtle);
+	font-weight: 400;
 }
 
 .text-accent-blue-persistent {

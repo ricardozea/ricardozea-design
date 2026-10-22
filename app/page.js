@@ -868,7 +868,7 @@ export default function Home() {
 										</div>
 										<div className="credential-content">
 											<h4>Sr. Web & Product Designer (freelance)</h4>
-											<p>NodeSource, LLC<br />December 2020 - Present</p>
+											<p>NodeSource, LLC<br />December 2020 - August 2026</p>
 										</div>
 									</div>
 
@@ -998,11 +998,14 @@ export default function Home() {
 									</div>
 								</div>
 								<h3 className="reveal reveal-slide text-brand-primary">What made me different from all other designers?</h3>
-								<p className="reveal reveal-slide">My superb technical knowledge. This applied to print and web design.</p>
-								<p className="reveal reveal-slide">I became very good at understanding the conditions, limitations, and powers of the web and print. In the web design front, I got really good at HTML and CSS, including Sass. To the point that some people have thought, and still think, I’m a developer, lol. But I’m not. I am first and foremost, a Designer.</p>
-								<p className="reveal reveal-slide">Devs enjoy working with me because I give them designs and builds that actually make damn sense, hehe.</p>
+								<p className="reveal reveal-slide">My deep and solid technical knowledge. This applied to print and web design.</p>
+								<p className="reveal reveal-slide">I became very good at understanding the conditions, limitations, and powers of the web and print. In web design specifically, I got really good at HTML and CSS, including Sass. To the point that some people have thought, and still think, I’m a developer, lol. But I’m not. I am first and foremost, a Designer.</p>
+								<p className="reveal reveal-slide">Devs enjoy working with me because I give them designs and builds that actually make friggin' sense, hehe.</p>
 								<h3 className="reveal reveal-slide text-brand-secondary">Other noticeable projects</h3>
-								<p className="reveal reveal-slide">Accessibility is a subject I care a lot about. So I built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS. Not even Claude can do it this fast! 😎 </p>
+								<h4 className="reveal reveal-slide text-brand-tertiary">Color-Ramp.com</h4>
+								<p className="reveal reveal-slide">Accessibility is a subject I care a lot about. So I designed and built <ExternalLink href="https://color-ramp.com">Color-Ramp.com</ExternalLink> so designers can create 100% accessible color ramps in less than 5 seconds, no BS. Not even Claude can do it this fast! 😎.</p>
+								<p className="reveal reveal-slide">I also designed and coded the <ExternalLink href="https://www.figma.com/community/plugin/1523173886699098356/color-ramp">Figma plugin</ExternalLink> for Color-Ramp.</p>
+								<h4 className="reveal reveal-slide text-brand-tertiary">AspireMap.ai</h4>
 								<p className="reveal reveal-slide">I also co-created <ExternalLink href="https://aspiremap.ai">AspireMap.ai</ExternalLink>, a B2C platform that helps students and career-changers find career paths aligned with their values, personality, aptitudes, and skills.</p>
 							</div>
 						</div>
