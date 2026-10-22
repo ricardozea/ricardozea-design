@@ -51,7 +51,7 @@ import {
 	CodeIcon,
 	HandTapIcon,
 	TextAaIcon,
-	UsersFourIcon,
+	RankingIcon
 } from '@phosphor-icons/react/ssr';
 
 export default function Home() {
@@ -384,7 +384,7 @@ export default function Home() {
 						<div className="skill-card blue reveal reveal-slide" data-reveal-delay="0.1">
 							<div className="flex items-center gap-2">
 								<div className="skill-icon-container blue">
-									<UsersFourIcon className="skill-icon" size={24} weight="light" />
+									<RankingIcon className="skill-icon" size={24} weight="light" />
 								</div>
 								<h3>Leadership</h3>
 							</div>
