@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import BackToTop from "../components/BackToTop";
 import ProjectPageBodyClass from "../components/ProjectPageBodyClass";
+import SmoothScroll from "../components/SmoothScroll";
 
 const robotoFlex = Roboto_Flex({
 	subsets: ["latin"],
@@ -27,11 +28,11 @@ const alanSans = Alan_Sans({
 export const metadata = {
 	metadataBase: new URL('https://ricardozea.design'),
 	title: {
-		default: 'Ricardo Zea - Sr. Web & Product Designer',
+		default: 'Ricardo Zea - Sr. Web & UI/UX Designer',
 		template: '%s | Ricardo Zea',
 	},
 	description:
-		'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
+		'Portfolio of Ricardo Zea, Sr. Web & UI/UX Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
 	keywords: [
 		'Ricardo Zea',
 		'Product Designer',
@@ -64,24 +65,24 @@ export const metadata = {
 		type: 'website',
 		url: '/',
 		siteName: 'Ricardo Zea',
-		title: 'Ricardo Zea - Sr. Web & Product Designer',
+		title: 'Ricardo Zea - Sr. Web & UI/UX Designer',
 		description:
-			'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
+			'Portfolio of Ricardo Zea, Sr. Web & UI/UX Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
 		images: [
 			{
 				url: '/og.png',
 				width: 1200,
 				height: 630,
-				alt: 'Ricardo Zea - Sr. Web & Product Designer',
+				alt: 'Ricardo Zea - Sr. Web & UI/UX Designer',
 				type: 'image/png',
 			},
 		],
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: 'Ricardo Zea - Sr. Web & Product Designer',
+		title: 'Ricardo Zea - Sr. Web & UI/UX Designer',
 		description:
-			'Portfolio of Ricardo Zea, Sr. Web & Product Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
+			'Portfolio of Ricardo Zea, Sr. Web & UI/UX Designer. 20+ years of experience in the industry. He will NOT design your PowerPoint template 😂.',
 		images: ['/og.png'],
 	},
 };
@@ -139,6 +140,7 @@ export default function RootLayout({ children }) {
 					suppressHydrationWarning
 				>
 					<ProjectPageBodyClass />
+					<SmoothScroll />
 					<a
 						href="#start-content"
 						className="skip-to-content"

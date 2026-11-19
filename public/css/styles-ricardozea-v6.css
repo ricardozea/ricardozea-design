@@ -1649,6 +1649,10 @@ p.text-description:first-of-type {
 	-webkit-box-reflect: var(--reflection);
 }
 
+.hero-title span {
+	letter-spacing: .001em;
+}
+
 .hero-title-brand {
 	color: var(--text-accent-red-persistent);
 	font-weight: 600;

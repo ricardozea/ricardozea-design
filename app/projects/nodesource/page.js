@@ -49,7 +49,7 @@ export default function ProjectDetail() {
 									In addition, when I inherited this project I was provided with files made in… Sketch 😒. I'm glad that's not a thing anymore, haha. So I imported a 💩-ton of files into Figma and today I have taken NodeSource's flagship product, N|Solid Console, their website, and other products to a whole new level 😁👍🏽.
 								</p>
 								<p className="info-text reveal reveal-slide">
-									<Info size={24} weight="regular" />Quick note: I've been freelancing for NodeSource since 2020. What you'll see here is from 2024 until now.
+									<Info size={24} weight="regular" />Quick note: I've been freelancing for NodeSource since 2020. What you'll see here is from 2024 until 2026.
 								</p>
 							</div>
 
@@ -67,7 +67,7 @@ export default function ProjectDetail() {
 									<CalendarStar size={24} weight="regular" className="icon-accent-blue-subtle shrink-0" />
 									<div>
 										<span className="meta-label mr-1">Year:</span>
-										<span className="meta-value">2024 - Current</span>
+										<span className="meta-value">2024 - 2026</span>
 									</div>
 								</div>
 								<div className="meta-item reveal reveal-slide" data-reveal-delay="0.3">

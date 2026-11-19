@@ -55,28 +55,8 @@ import {
 } from '@phosphor-icons/react/ssr';
 
 export default function Home() {
-	const [resumeSizeMb, setResumeSizeMb] = useState(null);
 	const [aboutVisible, setAboutVisible] = useState(false);
 	const aboutRef = useRef(null);
-
-	useEffect(() => {
-		let cancelled = false;
-		fetch('/api/resume-size', { cache: 'no-store' })
-			.then((res) => (res.ok ? res.json() : null))
-			.then((data) => {
-				if (cancelled) return;
-				if (data && typeof data.mb === 'number') {
-					setResumeSizeMb(data.mb);
-				}
-			})
-			.catch(() => {
-				// ignore
-			});
-
-		return () => {
-			cancelled = true;
-		};
-	}, []);
 
 	useEffect(() => {
 		const hash = window.location.hash;
@@ -143,11 +123,11 @@ export default function Home() {
 						</div>
 
 						{/* Hero Title */}
-						<h1 className="heading-hero hero-title" aria-label="Sr. Web & Product Designer">
+						<h1 className="heading-hero hero-title" aria-label="Sr. Web & UI/UX Designer">
 							<span className="inline-block reveal reveal-slide" data-reveal-delay="0" data-reveal-stagger="0.08" data-reveal-index="0">Sr.</span>
 							<span className="hero-title-brand inline-block reveal reveal-slide" data-reveal-delay="0.1" data-reveal-stagger="0.08" data-reveal-index="1">Web</span>
 							<span className="inline-block reveal reveal-slide" data-reveal-delay="0.2" data-reveal-stagger="0.08" data-reveal-index="2">&</span>
-							<span className="hero-title-info inline-block text-nowrap reveal reveal-slide" data-reveal-delay="0.3" data-reveal-stagger="0.08" data-reveal-index="3">Product Designer</span>
+							<span className="hero-title-info inline-block text-nowrap reveal reveal-slide" data-reveal-delay="0.3" data-reveal-stagger="0.08" data-reveal-index="3">UI/UX Designer</span>
 						</h1>
 
 						{/* Hero Description */}
@@ -388,14 +368,14 @@ export default function Home() {
 								</div>
 								<h3>Leadership</h3>
 							</div>
-							<p>In my career, I’ve led multiple design teams and initiatives. I’ve managed all kinds of design projects from concept to launch both as a freelancer and inside in-house teams.</p>
-							<p>But what I enjoy most is mentoring. I didn’t have a mentor when I started, so I make it a point to pay it forward and share what I’ve learned with others.</p>
+							<p>Leadership for me isn't about titles - it's about clarity, alignment, and helping others level up. I've guided cross-functional teams, co-managed offshore designers and developers, and driven stakeholder sign-offs on complex enterprise tools.</p>
+							<p>Outside of client work, I pay it forward through 1:1 mentorship (200+ sessions across ADPList and Codementor) and vetting design talent (300+ interviews at Arc.dev).</p>
 							<ul className="skill-tag-container">
-								<li>Team Management</li>
-								<li>Project Management</li>
-								<li>Team Mentoring</li>
-								<li>Design + Development Integration</li>
 								<li>Design Strategy</li>
+								<li>Cross-Functional Collaboration</li>
+								<li>Design-to-Dev Alignment</li>
+								<li>Technical Design Vetting</li>
+								<li>Mentorship</li>
 							</ul>
 						</div>
 
@@ -867,7 +847,7 @@ export default function Home() {
 											<MouseMiddleClick size={32} weight="light" />
 										</div>
 										<div className="credential-content">
-											<h4>Sr. Web & Product Designer (freelance)</h4>
+											<h4>Sr. Web & UI/UX Designer (freelance)</h4>
 											<p>NodeSource, LLC<br />December 2020 - August 2026</p>
 										</div>
 									</div>
@@ -943,8 +923,8 @@ export default function Home() {
 							<div className="about-cta flex flex-wrap gap-4 mt-8">
 								<span className="reveal reveal-slide" data-reveal-delay="0.1">
 									<span className="glow-button-wrap">
-										<a href="/images/Resume-Ricardo-Zea.pdf" target="_blank" rel="noopener noreferrer" className="cta-button button-primary flex items-center gap-2 new-tab hide-new-tab-icon glow-button" title="PDF opens in a new tab">
-											Download Resume (PDF{resumeSizeMb === null ? '' : ` - ${resumeSizeMb} MB`})
+										<a href="https://docs.google.com/document/d/1iUZAcr00TmtALHr1gbOhZkex9PA5GtAHmhF_v8DYHGU/export?format=pdf" target="_blank" rel="noopener noreferrer" className="cta-button button-primary flex items-center gap-2 new-tab hide-new-tab-icon glow-button" title="PDF opens in a new tab">
+											Download Resume (PDF)
 											<DownloadSimple size={20} weight="regular" />
 										</a>
 									</span>
@@ -966,7 +946,7 @@ export default function Home() {
 
 							<div className="about-bio">
 								<p className="reveal reveal-slide">Hey there!</p>
-								<p className="reveal reveal-slide">I’m Ricardo. I’m a Sr. Web & Product Designer. I’ve been in the design industry for more than 20 years.</p>
+								<p className="reveal reveal-slide">I’m Ricardo. I’m a Sr. Web & UI/UX Designer. I’ve been in the design industry for more than 20 years.</p>
 								<div className="stage-container stage-card stage-card-red reveal reveal-slide">
 									<div className="stage-card-header">
 										<div className="stage-version">Stage 1 // Origins</div>

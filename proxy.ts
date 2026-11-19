@@ -18,6 +18,11 @@ const ALWAYS_ALLOW_PREFIXES = [
   "/manifest.json",
 ];
 
+// Exact paths (non-project pages) that should be accessible directly.
+const ALWAYS_ALLOW_PATHS = new Set([
+  "/flag-demo",
+]);
+
 function normalize(pathname: string) {
   if (pathname === "/") return "/";
   return pathname.endsWith("/") ? pathname.slice(0, -1).toLowerCase() : pathname.toLowerCase();
@@ -34,6 +39,10 @@ export function proxy(request: NextRequest) {
 
   // Allow root.
   if (normalized === "/") {
+    return NextResponse.next();
+  }
+
+  if (ALWAYS_ALLOW_PATHS.has(normalized)) {
     return NextResponse.next();
   }
 
