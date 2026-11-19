@@ -32,7 +32,6 @@ const AboutImageTransitionTolexia = dynamic(
 const Modal = dynamic(() => import("../components/Modal"), { ssr: false });
 
 import {
-	ArrowLineDown,
 	ArrowRight,
 	Tag,
 	PenNibIcon,
@@ -151,8 +150,7 @@ export default function Home() {
 							data-reveal-index="5"
 						>
 							<a href="#projects" className="cta-button button-primary glow-button">
-								View My Work
-								<ArrowLineDown size={24} />
+								View Projects
 							</a>
 						</span>
 					</div>
