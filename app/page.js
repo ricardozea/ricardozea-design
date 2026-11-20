@@ -610,7 +610,7 @@ export default function Home() {
 			<section id="testimonials" className="testimonials">
 				<div className="section-container">
 					<h2 className="heading-section section-title-light">
-						<span className="reveal reveal-slide" data-reveal-delay="0.1">He</span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.2">Said</span> <span className="reveal reveal-slide" data-reveal-delay="0.3">She</span> <span className="text-accent-red-persistent reveal reveal-slide" data-reveal-delay="0.4">Said</span>
+						<span className="text-persistent-light reveal reveal-slide" data-reveal-delay="0.1">He</span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.2">Said</span> <span className="text-persistent-light reveal reveal-slide" data-reveal-delay="0.3">She</span> <span className="text-accent-red-persistent reveal reveal-slide" data-reveal-delay="0.4">Said</span>
 					</h2>
 
 					{/* Testimonials Cards */}
@@ -991,7 +991,7 @@ export default function Home() {
 			<section id="authoring" className="authoring">
 				<div className="section-container">
 					<h2 className="heading-section section-title-light">
-						<span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.1">Books </span> <span className="reveal reveal-slide" data-reveal-delay="0.2">&</span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.3">Guides</span>
+						<span className="text-brand-primary reveal reveal-slide" data-reveal-delay="0.1">Books </span> <span className="text-persistent-light reveal reveal-slide" data-reveal-delay="0.2">&</span> <span className="text-accent-blue-persistent reveal reveal-slide" data-reveal-delay="0.3">Guides</span>
 					</h2>
 
 					{/* Authoring Cards */}

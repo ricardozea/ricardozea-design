@@ -1032,7 +1032,6 @@ ol {
 	font-weight: 100;
 }
 
-
 p.text-description:first-of-type {
 	margin-top: 0.5rem;
 }
@@ -1042,6 +1041,10 @@ p.text-description:first-of-type {
 	line-height: 1.2;
 	font-weight: 500;
 	margin: 0;
+}
+
+.text-persistent-light {
+	color: var(--text-persistent-light);
 }
 
 /* Hero Section */
