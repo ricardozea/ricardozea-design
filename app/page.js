@@ -153,6 +153,15 @@ export default function Home() {
 								View Projects
 							</a>
 						</span>
+						<span
+							data-reveal-delay="0.5"
+							data-reveal-stagger="0.12"
+							data-reveal-index="6"
+						>
+							<a href="#contact" className="cta-button button-secondary glow-button">
+								Contact Me
+							</a>
+						</span>
 					</div>
 				</div>
 			</header>
@@ -197,14 +206,14 @@ export default function Home() {
 
 						<ol className="max-w-[40rem] !m-auto columns-2 gap-[2rem] reveal reveal-slide">
 							<li>Web Design (doh!)</li>
-							<li>Product Design (really! lol)</li>
+							<li>UI/UX Design (really! lol)</li>
 							<li>Figma Designs</li>
 							<li>Figma Variables</li>
 							<li>Figma Prototypes</li>
 							<li>Figma Components</li>
 							<li>Accessibility Expertise</li>
 							<li>Design System</li>
-							<li>AI</li>
+							<li>SI (formerly known as AI, lol)</li>
 							<li>Typography Expertise</li>
 							<li>Responsive Typography</li>
 							<li>Color Systems</li>
@@ -416,8 +425,8 @@ export default function Home() {
 							</div>
 							<p>I’ve been using Figma since it was launched back in September 2016. Figma was a game-changer due to its OS-agnostic nature.</p>
 							<p>This was a blessing for me since I no longer had to deal with Mac-lovers and their dumbfounded belief that Macs were better than PCs, haha 🤣.</p>
-							<p>They ARE NOT, you dink.</p>
-							<p>In fact, Windows &gt; macOS 😂.</p>
+							<p>They ARE NOT.</p>
+							<p>In fact, 🪟 &gt; 🍏… 😂</p>
 						</div>
 
 						{/* Skill Card */}
@@ -428,7 +437,7 @@ export default function Home() {
 								</div>
 								<h3>Accessibility</h3>
 							</div>
-							<p><span className="highlighted-text">The 1st of the three things a designer must dominate.</span> Making designs accessible are part of how I operate by default. Just like everything has to be responsive, everything also has to be accessible.</p>
+							<p><span className="highlighted-text">The 1st of the three things a designer must dominate.</span> Making designs accessible are part of how I operate. Just like everything has to be responsive, everything has to be accessible.</p>
 							<p>The pinnacle of my accessibility skills is <ExternalLink href="https://color-ramp.com/">Color-Ramp.com</ExternalLink> "Create 100% accessible color ramps in less than 5 seconds, no BS".</p>
 							<ul className="skill-tag-container">
 								<li>Figma plugins</li>

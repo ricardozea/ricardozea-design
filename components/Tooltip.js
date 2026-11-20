@@ -8,6 +8,7 @@ export const Tooltip = React.forwardRef(({
   children,
   className = "",
   position = "top",
+  disabled = false,
   onClick, // Destructure onClick to intercept it
   ...props
 }, ref) => {
@@ -80,6 +81,7 @@ export const Tooltip = React.forwardRef(({
   };
 
   const handleMouseEnter = () => {
+    if (disabled) return;
     setIsVisible(true);
   };
 
@@ -88,6 +90,7 @@ export const Tooltip = React.forwardRef(({
   };
 
   const handleFocus = () => {
+    if (disabled) return;
     setIsVisible(true);
   };
 

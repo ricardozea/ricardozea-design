@@ -727,7 +727,7 @@ export default function ProjectDetail() {
 										<iframe
 											style={{ width: "100%" }}
 											height="800"
-											src="https://embed.figma.com/proto/xqrpLAFRFBvnwGzFhej3yN/NodeSource-Website-2024--Copy-?page-id=3148%3A3396&node-id=6033%3A4597&node-id=6033-4598&viewport=510%2C40%2C1.43&scaling=scale-down&content-scaling=fixed&hide-ui=1&embed-host=share"
+											src="https://embed.figma.com/proto/xLC6O0HyJXW5YxxB5oq3rO/NodeSource-Website-2024--Copy-?node-id=3373-7437&viewport=510%2C40%2C1.43&scaling=scale-down&content-scaling=fixed&hide-ui=1&embed-host=share"
 											allowFullScreen
 											loading="lazy"
 										></iframe>

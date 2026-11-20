@@ -597,7 +597,6 @@ a.new-tab.hide-new-tab-icon::after {
 	/* Primary Button */
 	&.button-primary {
 		color: var(--text-persistent-light) !important;
-		background-color: rgba(120, 2, 2, 0.5);
 		background-color: color-mix(in srgb, var(--bg-accent-red-strong-persistent) 90%, transparent);
 	}
 
@@ -607,21 +606,16 @@ a.new-tab.hide-new-tab-icon::after {
 
 	/* Secondary Button */
 	&.button-secondary {
-		color: var(--text-accent-blue-subtle);
+		color: var(--text-persistent-light);
 		background-color: color-mix(in srgb, var(--bg-persistent-dark) 98%, transparent);
 	}
 
 	&.button-secondary svg {
-		color: var(--icon-accent-blue-subtle);
+		color: var(--icon-persistent-light);
 	}
 
 	&.button-secondary:hover {
-		color: var(--text-accent-blue-subtle-hover);
 		text-decoration: none;
-	}
-
-	&.button-secondary:hover svg {
-		color: var(--icon-accent-blue-subtle-hover);
 	}
 
 	&.button-secondary:active {
@@ -975,7 +969,7 @@ h3 {
 
 h4 {
 	font-size: var(--heading-s);
-	margin: 0 0 -.7rem;
+	/* margin: 0 0 -.7rem; */
 }
 
 p {
@@ -1671,6 +1665,9 @@ p.text-description:first-of-type {
 /* CTA Button */
 .hero-cta {
 	margin-top: auto;
+	display: flex;
+	gap: 1rem;
+	align-items: center;
 }
 
 /* Strikethrough */

@@ -117,7 +117,7 @@ export default function BackToTop() {
 
   return (
     <div className="backtotop-tooltip">
-      <Tooltip position="top">
+      <Tooltip position="top" disabled={!isActive}>
         <span>Back to top yo!</span>
         <a
           href="#"
