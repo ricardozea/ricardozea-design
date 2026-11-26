@@ -21,6 +21,7 @@ const ALWAYS_ALLOW_PREFIXES = [
 // Exact paths (non-project pages) that should be accessible directly.
 const ALWAYS_ALLOW_PATHS = new Set([
   "/flag-demo",
+  "/rula",
 ]);
 
 function normalize(pathname: string) {
