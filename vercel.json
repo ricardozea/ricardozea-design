@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/rula",
+      "destination": "https://rula.figma.site/"
+    },
+    {
+      "source": "/rula/:path*",
+      "destination": "https://rula.figma.site/:path*"
+    }
+  ]
+}
