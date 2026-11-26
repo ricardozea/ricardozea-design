@@ -1,12 +1,12 @@
 {
   "redirects": [
     {
-      "source": "/rula",
-      "destination": "https://rula.figma.site/"
+      "source": "/rula-appraisal",
+      "destination": "https://rula-appraisal.figma.site/"
     },
     {
-      "source": "/rula/:path*",
-      "destination": "https://rula.figma.site/:path*"
+      "source": "/rula-appraisal/:path*",
+      "destination": "https://rula-appraisal.figma.site/:path*"
     }
   ]
 }
