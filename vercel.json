@@ -1,5 +1,5 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/rula",
       "destination": "https://rula.figma.site/"
