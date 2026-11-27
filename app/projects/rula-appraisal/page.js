@@ -345,7 +345,7 @@ export default function RulaAppraisalPage() {
       {/* Main Narrative Content */}
       <main id="rationale" className="mx-auto max-w-4xl space-y-16 px-6 pb-28 pt-12">
         {/* Section 1: Autonomous Execution & Brief Requirements */}
-        <section className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-8 sm:p-10">
+        <section className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-8 sm:p-10 shadow-md">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#18201E] leading-[1.2]">
             Execution &amp; Creative Approach
           </h2>
@@ -354,7 +354,7 @@ export default function RulaAppraisalPage() {
             This entire product was designed and built from a concise four-bullet brief with minimal direction - demonstrating autonomous ownership, clear decision-making, and end-to-end execution without hand-holding:
           </p>
 
-          <ul className="mt-5 space-y-2.5 rounded-xl border border-[#E3E3D4] bg-[#F8F8F8] py-5 pr-5 !pl-[1.5rem] text-base font-normal text-[#18201E] leading-[1.5]">
+          <ul className="mt-5 space-y-2.5 rounded-xl border border-[#E3E3D4] bg-[#F8F8F8] py-5 pr-5 !pl-[1.5rem] text-base font-normal text-[#18201E] leading-[1.5] shadow-sm">
             {BRIEF_REQUIREMENTS.map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#184E47]" />
@@ -371,7 +371,7 @@ export default function RulaAppraisalPage() {
             {STEPS.map((step) => (
               <div
                 key={step.label}
-                className="rounded-xl border border-[#E3E3D4] bg-[#F8F8F8] p-6"
+                className="rounded-xl border border-[#E3E3D4] bg-[#F8F8F8] p-6 shadow-sm"
               >
                 <span className="inline-block rounded-md bg-[#184E47] px-3 py-1 mb-4 leading-4 text-xs font-bold uppercase tracking-wider text-white">
                   {step.label}
@@ -407,8 +407,8 @@ export default function RulaAppraisalPage() {
 
           <div className="grid gap-6">
             {/* Typography Card */}
-            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6">
-              <span className="inline-block rounded-md bg-[#184E47] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6 shadow-md">
+              <span className="inline-block rounded-md bg-[#184E47] px-3 py-1 mb-3 text-xs font-bold uppercase tracking-wider text-white">
                 Pillar 1
               </span>
               <h3 className="mt-3 font-serif text-xl font-bold text-[#18201E] leading-[1.2]">
@@ -431,8 +431,8 @@ export default function RulaAppraisalPage() {
             </div>
 
             {/* Color Card */}
-            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6">
-              <span className="inline-block rounded-md bg-[#184E47] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6 shadow-md">
+              <span className="inline-block rounded-md bg-[#184E47] px-3 py-1 mb-3 text-xs font-bold uppercase tracking-wider text-white">
                 Pillar 2
               </span>
               <h3 className="mt-3 font-serif text-xl font-bold text-[#18201E] leading-[1.2]">
@@ -464,8 +464,8 @@ export default function RulaAppraisalPage() {
             </div>
 
             {/* Accessibility Card */}
-            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6">
-              <span className="inline-block rounded-md bg-[#184E47] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6 shadow-md">
+              <span className="inline-block rounded-md bg-[#184E47] px-3 py-1 mb-3 text-xs font-bold uppercase tracking-wider text-white">
                 Pillar 3
               </span>
               <h3 className="mt-3 font-serif text-xl font-bold text-[#18201E] leading-[1.2]">
@@ -518,7 +518,7 @@ export default function RulaAppraisalPage() {
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0]">
+          <div className="overflow-x-auto rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] shadow-md">
             <table className="w-full border-collapse text-left text-sm leading-[1.5]">
               <thead>
                 <tr className="border-b border-[#E3E3D4] bg-[#F8F8F8] text-[#18201E]">
@@ -553,7 +553,7 @@ export default function RulaAppraisalPage() {
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0]">
+          <div className="overflow-x-auto rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] shadow-md">
             <table className="w-full border-collapse text-left text-sm leading-[1.5]">
               <thead>
                 <tr className="border-b border-[#E3E3D4] bg-[#F8F8F8] text-[#18201E]">
@@ -582,7 +582,7 @@ export default function RulaAppraisalPage() {
         </section>
 
         {/* Section 5: Look Under the Hood (Figma Make Source & Prompts) */}
-        <section className="rounded-2xl border border-[#184E47]/25 bg-[#E6F4EE]/60 p-8 sm:p-10">
+        <section className="rounded-2xl border border-[#184E47]/25 bg-[#E6F4EE]/60 p-8 sm:p-10 shadow-md">
           <h2 className="font-serif text-2xl font-bold text-[#18201E] leading-[1.2]">
             Look Under the Hood (Prompts &amp; Code)
           </h2>
@@ -661,7 +661,7 @@ export default function RulaAppraisalPage() {
 
           <div className="grid gap-6 sm:grid-cols-3">
             {/* Gemini */}
-            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6">
+            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6 shadow-md">
               <div className="flex flex-row items-center gap-3 sm:flex-col sm:items-start">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E6F4EE] text-[#184E47]">
                   <svg
@@ -694,7 +694,7 @@ export default function RulaAppraisalPage() {
             </div>
 
             {/* Figma Make */}
-            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6">
+            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6 shadow-md">
               <div className="flex flex-row items-center gap-3 sm:flex-col sm:items-start">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E6F4EE] text-[#184E47]">
                   <svg
@@ -735,7 +735,7 @@ export default function RulaAppraisalPage() {
             </div>
 
             {/* Devin */}
-            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6">
+            <div className="rounded-2xl border border-[#E3E3D4] bg-[#FFFFF0] p-6 shadow-md">
               <div className="flex flex-row items-center gap-3 sm:flex-col sm:items-start">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E6F4EE] text-[#184E47]">
                   <svg
