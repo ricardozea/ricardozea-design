@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Whitelisted project slugs: add future projects here to allow them.
-const PROJECT_WHITELIST = new Set(["nodesource", "nestlepurina", "aspiremap"]);
+const PROJECT_WHITELIST = new Set(["nodesource", "nestlepurina", "rula-appraisal"]);
 
 // Paths that should always bypass redirects.
 const ALWAYS_ALLOW_PREFIXES = [
@@ -20,8 +20,7 @@ const ALWAYS_ALLOW_PREFIXES = [
 
 // Exact paths (non-project pages) that should be accessible directly.
 const ALWAYS_ALLOW_PATHS = new Set([
-  "/flag-demo",
-  "/rula-appraisal",
+  "/flag-demo"
 ]);
 
 function normalize(pathname: string) {
